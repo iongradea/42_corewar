@@ -1,0 +1,133 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vm.h                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
+/*   Updated: 2013/11/06 14:21:46 by igradea              ###   ########.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/vm.h"
+
+// Différents cases for using the function (AND, OR, XOR)
+// AND, OR and XOR all set the carry to one
+// NB : HERE CONSIDERED OPCODE VALID, TO BE TESTED BEFORE !
+int ft_bin(t_vm_mem *vm, t_ps *ps, int opcode)
+{
+  unsigned int   arg0;
+  unsigned int   arg1;
+  unsigned int   arg2;
+
+  DEBUG ? ft_printf("launching ft_bin ...\n") : DEBUG;
+  if (!check_ocp_fmt(vm, ps, 3) && ((++ps->op_size) || true))
+    return (ft_next_op(ps, CARRY_FALSE));
+  arg0 = ft_get_arg(vm, ps, 0);
+  arg1 = ft_get_arg(vm, ps, 1);
+  arg2 = ft_get_arg(vm, ps, 2);
+  ps->op_size = ft_op_size(vm, ps, 3);
+  // USED FOR DEBUGGING
+  //ps->reg[1] = 0x01;
+  if (IS_INVALID_REG(vm, ps, 2, arg2) || IS_INVALID_REG(vm, ps, 0, arg0)
+  || IS_INVALID_REG(vm, ps, 1, arg1))
+    return (ft_next_op(ps, CARRY_FALSE));
+  if (opcode == AND)
+    ps->reg[arg2] = ft_get_val(ps, vm, arg0, 0) & ft_get_val(ps, vm, arg1, 1);
+  else if (opcode == OR)
+    ps->reg[arg2] = ft_get_val(ps, vm, arg0, 0) | ft_get_val(ps, vm, arg1, 1);
+  else if (opcode == XOR)
+    ps->reg[arg2] = ft_get_val(ps, vm, arg0, 0) ^ ft_get_val(ps, vm, arg1, 1);
+  else
+    exit(ERROR_MSG("ft_bin : error wrong opcode"));
+  return (ft_next_op(ps, CARRY_TRUE));
+}
+
+
+int  ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode)
+{
+  unsigned int   arg0;
+  unsigned int   arg1;
+  unsigned int   arg2;
+
+  DEBUG ? ft_printf("launching ft_add_sub ...\n") : DEBUG;
+  if (!check_ocp_fmt(vm, ps, 3) && ((++ps->op_size) || true))
+    return (ft_next_op(ps, CARRY_FALSE));
+  arg0 = ft_get_arg(vm, ps, 0);
+  arg1 = ft_get_arg(vm, ps, 1);
+  arg2 = ft_get_arg(vm, ps, 2);
+  ps->op_size = ft_op_size(vm, ps, 3);
+  // USED FOR DEBUGGING
+  //ps->reg[arg0] = 2;
+  //ps->reg[arg1] = 14;
+  //print_memory(ps->reg + arg1, 4);
+  if (IS_INVALID_REG(vm, ps, 0, arg0) || IS_INVALID_REG(vm, ps, 1, arg1)
+  || IS_INVALID_REG(vm, ps, 2, arg2))
+    return (ft_next_op(ps, CARRY_FALSE));
+  if (opcode == ADD)
+    ps->reg[arg2] = ps->reg[arg0] + ps->reg[arg1];
+  else if (opcode == SUB)
+    ps->reg[arg2] = ps->reg[arg0] - ps->reg[arg1];
+  else
+    exit(ERROR_MSG("ft_add_sub : error wrong opcode"));
+  return (ft_next_op(ps, CARRY_TRUE));
+}
+
+
+int   ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
+{
+  unsigned int arg0;
+  unsigned int arg1;
+  unsigned int arg_ind;
+  int          i;
+
+  DEBUG ? ft_printf("launching ft_ld ...\n") : DEBUG;
+  i = -1;
+  if (!check_ocp_fmt(vm, ps, 2) && ((++ps->op_size) || true))
+    return (ft_next_op(ps, CARRY_FALSE));
+  arg0 = ft_get_arg(vm, ps, 0);
+  arg1 = ft_get_arg(vm, ps, 1);
+  arg_ind = opcode == LD ? (arg0 % IDX_MOD) : arg0;
+  ps->op_size = ft_op_size(vm, ps, 2);
+  //ft_printf("arg0 : %d\narg1 : %d\n", arg0, arg1);
+  if (IS_INVALID_REG(vm, ps, 1, arg1))
+    return (ft_next_op(ps, CARRY_FALSE));
+  if (ft_is_type(vm, ps, 0, T_DIR))
+    ps->reg[arg1] = arg0;
+  else if (ft_is_type(vm, ps, 0, T_IND))
+    while (++i < (int)sizeof(unsigned int) && ((*(ps->reg + arg1) <<= 8) || true))
+      ps->reg[arg1] += *(vm->mem + MEM_CIR_POS(ps->pc + arg_ind + i));
+  return (ft_next_op(ps, CARRY_TRUE));
+}
+
+int   ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
+{
+  unsigned int arg0;
+  unsigned int arg1;
+  int          i;
+
+  (void)opcode;
+  DEBUG ? ft_printf("launching ft_st ...\n") : DEBUG;
+  i = -1;
+  if (!check_ocp_fmt(vm, ps, 2) && ((++ps->op_size) || true))
+    return (ft_next_op(ps, NO_CARRY));
+  arg0 = ft_get_arg(vm, ps, 0);
+  arg1 = ft_get_arg(vm, ps, 1);
+  ps->op_size = ft_op_size(vm, ps, 2);
+  if (IS_INVALID_REG(vm, ps, 0, arg0) || IS_INVALID_REG(vm, ps, 1, arg1))
+    return (ft_next_op(ps, NO_CARRY));
+  // DEBUGGING
+  //ps->reg[1] = 0xff01;
+  //ps->reg[2] = 0;
+  if (ft_is_type(vm, ps, 1, T_REG))
+    ps->reg[arg1] = ps->reg[arg0];
+  else if (ft_is_type(vm, ps, 1, T_IND))
+  {
+    while (++i < (int)sizeof(unsigned int))
+      *(vm->mem + MEM_CIR_POS(ps->pc + (arg1 % IDX_MOD) + i)) =
+      (char)(ps->reg[arg0] >> ((3 - i) * 8));
+    ft_chg_mem_uid(vm, ps, arg1 % IDX_MOD, sizeof(unsigned int));
+  }
+  return (ft_next_op(ps, NO_CARRY));
+}
