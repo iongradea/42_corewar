@@ -1,2 +1,3 @@
 libft/bin/*
-VM/obj/*
+VM/bin/*
+VM/src/.*
