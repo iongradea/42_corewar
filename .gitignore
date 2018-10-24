@@ -1,3 +1,4 @@
 libft/bin/*.o
 VM/bin/*.o
 VM/src/.*
+VM/corewar

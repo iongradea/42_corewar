@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2013/11/06 14:21:46 by igradea              ###   ########.fr   */
+/*   Updated: 2018/10/17 18:22:15 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,64 +78,64 @@
 
 // CPU operations
 # define MEM_CIR_POS(pos) (((pos) % MEM_SIZE) < 0 ? \
-                          (((pos) % MEM_SIZE) + MEM_SIZE) : ((pos) % MEM_SIZE))
+		(((pos) % MEM_SIZE) + MEM_SIZE) : ((pos) % MEM_SIZE))
 # define IS_OP_CODE(i) (i <= 0x10 && i >= 0x01)
 # define OP_TAB_INDEX(opcode) (opcode - 1)
 # define IS_REG(nb) (nb < 16 && nb >= 0)
 # define IS_INVALID_REG(vm, ps, arg_i, arg) \
-          (ft_is_type(vm, ps, arg_i, T_REG) && !IS_REG(arg))
+												(ft_is_type(vm, ps, arg_i, T_REG) && !IS_REG(arg))
 # define PARAM_OCP_CODE(op, arg_i) \
-                    (((op) >> ((3 - arg_i) * 2)) & 0b11)
+												(((op) >> ((3 - arg_i) * 2)) & 0b11)
 # define VALID_OCP_PART(ocp) (ocp == 0b01 || ocp == 0b10 || ocp == 0b11)
 # define CHECK_OCP_END_00(ocp) (ocp & 0b11)
 
 // Process structure
 typedef struct    s_ps
 {
-  char  *playr;
-  int   uid;
-  unsigned char  *code;
-  int   code_size;
-  unsigned int   reg[REG_NUMBER];
-  int    pc;
-  int   carry;
-  struct s_ps *next;
-  int   op_size;
-  int   live;
-  int   color;
+	char  *playr;
+	int   uid;
+	unsigned char  *code;
+	int   code_size;
+	unsigned int   reg[REG_NUMBER];
+	int    pc;
+	int   carry;
+	struct s_ps *next;
+	int   op_size;
+	int   live;
+	int   color;
 } t_ps;
 
 // Virtual machine memory
 typedef struct    s_vm_mem
 {
-  unsigned char  mem[MEM_SIZE];
-  int           cycle;
-  int           cycle_to_die;
-  int           ch_decr;
-  int           check;
-  int           opt;
-  int            dump;
-  int           display;
-  int            mem_uid[MEM_SIZE];
-  unsigned char  mem_color[MEM_SIZE * 1000];
-  int            mem_color_size;
-  int            mem_color_ind;
-  int           last_live;
+	unsigned char  mem[MEM_SIZE];
+	int           cycle;
+	int           cycle_to_die;
+	int           ch_decr;
+	int           check;
+	int           opt;
+	int            dump;
+	int           display;
+	int            mem_uid[MEM_SIZE];
+	unsigned char  mem_color[MEM_SIZE * 1000];
+	int            mem_color_size;
+	int            mem_color_ind;
+	int           last_live;
 } t_vm_mem;
 
 // Operations structure
 typedef struct    s_op
 {
-  int   opcode;
-  char  *mmemo;
-  int   nb_param;
-  int   param[3];
-  int   cycle;
-  char  *desc;
-  int   set_carry;
-  int   ocp_param;
-  int   dir_size;
-  int   (*fun)(t_vm_mem *, t_ps *, int);
+	int   opcode;
+	char  *mmemo;
+	int   nb_param;
+	int   param[3];
+	int   cycle;
+	char  *desc;
+	int   set_carry;
+	int   ocp_param;
+	int   dir_size;
+	int   (*fun)(t_vm_mem *, t_ps *, int);
 } t_op;
 
 // Parsing functions & initialization functions
@@ -175,7 +175,7 @@ int  ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i);
 int  ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
 unsigned int  ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
 unsigned int ft_get_val(t_ps *ps, t_vm_mem *vm, unsigned int arg,
-  int arg_i);
+		int arg_i);
 unsigned char ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
 int   check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
 t_ps *ft_cpy_playr(t_ps *ps);
@@ -196,17 +196,17 @@ int  ft_get_code_size(int fd);
 int   ft_prt_winner(t_vm_mem *vm, t_ps *ps);
 
 // Debug functions
-void  prt_op(void);
-void  prt_ps(t_ps *ps);
-void  prt_vm(t_vm_mem *vm);
-void prt_mem_uid(t_vm_mem *vm);
-int ft_main_debug(t_vm_mem *vm, t_ps *ps);
+void		prt_op(void);
+void		prt_ps(t_ps *ps);
+void		prt_vm(t_vm_mem *vm);
+void		prt_mem_uid(t_vm_mem *vm);
+int			ft_main_debug(t_vm_mem *vm, t_ps *ps);
 
 // Global variable
 // extern means it is available throughout the program
 // static means it can only be used inside the .c file where it is defined
-extern const t_op    op_tab[17];
-extern const unsigned char    g_color[6][10];
-extern const unsigned char    g_colorpc[6][10];
+extern const t_op			op_tab[17];
+extern const unsigned char	g_color[6][10];
+extern const unsigned char	g_colorpc[6][10];
 
 #endif
