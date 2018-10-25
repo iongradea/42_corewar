@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 15:08:01 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/24 17:19:35 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ int main(int ac, char **av)
 	ps = NULL;
 	if (ac < 3)
 		exit(ft_usage());
+	// Instantiate VM
 	vm = ft_new_mem();
+	// Parse cli arguments
 	ft_parse_opt(ac, av, vm);
+	// check argument player and add as much process there is players
 	get_playr(fd, &ps, ac, av);
+	
 	add_data_vm(vm, ps);
 	cpu(vm, ps);
 	// DEBUGGING

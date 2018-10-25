@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 15:07:17 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/24 18:17:49 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ int   exec_op(t_vm_mem *vm, t_ps *ps)
 	DEBUG ? ft_printf("launching exec_op ...\n") : DEBUG;
 	opcode = *(vm->mem + MEM_CIR_POS(ps->pc));
 	cyc_len = ft_cycle_len(opcode);
-	DEBUG ? (ft_valid_opcode(opcode) ? ft_printf("opcode : %d - op : %s\n", opcode, op_tab[OP_TAB_INDEX(opcode)].mmemo) :
-			ft_printf("opcode : %d\n", opcode)) : DEBUG;
+	DEBUG ? (ft_valid_opcode(opcode) ? ft_printf("opcode : %d - op : %s\n", opcode, op_tab[OP_TAB_INDEX(opcode)].mmemo) : ft_printf("opcode : %d\n", opcode)) : DEBUG;
 	while (cyc_len >= 0)
 	{
 		if (cyc_len == 0)
@@ -60,5 +59,5 @@ int   exec_op(t_vm_mem *vm, t_ps *ps)
 		}
 		cyc_len--;
 	}
-	return (EXIT_SUCCESS);
+	return (EXIT_SUCCES);
 }

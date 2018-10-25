@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 14:07:37 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/24 18:23:46 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void   ft_cpy_code(t_vm_mem *vm, t_ps *ps, int *j)
 	while (++i < ps->code_size)
 	{
 		vm->mem_uid[(*j)] = ps->uid;
+		DEBUG > 1 ? ft_printf("vm->\n") : DEBUG;
 		vm->mem[(*j)++] = ps->code[i];
 	}
 }

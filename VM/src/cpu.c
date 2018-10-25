@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/23 23:16:52 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/24 18:03:29 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void   display_opt(t_vm_mem *vm, t_ps *ps)
 	lst = ps;
 	while (lst && ((i++) || true))
 		lst = lst->next;
-	DEBUG ? ft_printf("launching display_opt ...\n") : DEBUG;
+	DEBUG > 0 ? ft_printf("launching display_opt ...\n") : DEBUG;
 	if (vm->opt & DUMP && vm->cycle == vm->dump)
 	{
 		ft_prt_mem(vm, ps);
@@ -42,20 +42,20 @@ static void   cpu_checks(t_vm_mem *vm, t_ps *ps)
 	DEBUG ? ft_printf("launching cpu_checks ...\n") : DEBUG;
 	if (vm->check > vm->cycle_to_die)
 	{
-		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", vm->check, vm->cycle_to_die) : DEBUG;
+		DEBUG > 2 ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", vm->check, vm->cycle_to_die) : DEBUG;
 		ft_kill_reset_ps(ps);
 		vm->check = 0;
 	}
 	if (ft_nb_live(ps) > NBR_LIVE)
 	{
 		ft_reset_ps(ps);
-		DEBUG ? ft_printf("NB_LIVE - ft_nb_live(ps) : %d - NBR_LIVE : %d\n", ft_nb_live(ps), NBR_LIVE) : DEBUG;
+		DEBUG > 2 ? ft_printf("NB_LIVE - ft_nb_live(ps) : %d - NBR_LIVE : %d\n", ft_nb_live(ps), NBR_LIVE) : DEBUG;
 		vm->cycle_to_die -= CYCLE_DELTA;
 		vm->ch_decr = 0;
 	}
 	if (vm->ch_decr > MAX_CHECKS)
 	{
-		DEBUG ? ft_printf("MAX_CHECKS - vm->ch_decr : %d - MAX_CHECKS : %d\n", vm->ch_decr, MAX_CHECKS) : DEBUG;
+		DEBUG > 2 ? ft_printf("MAX_CHECKS - vm->ch_decr : %d - MAX_CHECKS : %d\n", vm->ch_decr, MAX_CHECKS) : DEBUG;
 		vm->cycle_to_die -= CYCLE_DELTA;
 		vm->ch_decr = 0;
 	}
@@ -76,7 +76,7 @@ int   cpu(t_vm_mem *vm, t_ps *ps)
 		//ft_printf("cycles : %d - cycle_to_die : %d\n\n", vm->cycle, vm->cycle_to_die);
 		if (!lst)
 			lst = ps;
-		DEBUG ? ft_printf("\nCPU => lst->playr : %s\ncycle : %d\ncycle_to_die : %d\n", lst->playr, vm->cycle, vm->cycle_to_die) : DEBUG;
+		DEBUG > 1 ? ft_printf("\nCPU => lst->playr : %s\ncycle : %d\ncycle_to_die : %d\n", lst->playr, vm->cycle, vm->cycle_to_die) : DEBUG;
 		cpu_checks(vm, ps);
 		exec_op(vm, lst);
 		display_opt(vm, ps);
