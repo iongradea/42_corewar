@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 17:19:35 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/26 19:41:40 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(int ac, char **av)
 
 	fd = 0;
 	ps = NULL;
-	if (ac < 3)
+	if (ac < 2)
 		exit(ft_usage());
 	// Instantiate VM
 	vm = ft_new_mem();
