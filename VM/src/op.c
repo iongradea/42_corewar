@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2013/11/06 14:44:35 by zaz              ###   ########.fr       */
+/*   Updated: 2018/10/25 16:16:54 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,5 @@ const unsigned char	g_color[6][10] = {RED, GREEN, YELLOW, BLUE, PURPLE, CYAN};
 
 const unsigned char	g_colorpc[6][10] = {RED_BKG, GREEN_BKG, YELLOW_BKG, BLUE_BKG,
 	PURPLE_BKG, CYAN_BKG};
+
+unsigned int g_verbose = 0;
