@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/17 18:22:15 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/25 16:04:11 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct    s_vm_mem
 	int           opt;
 	int            dump;
 	int           display;
+	int           verbose;
 	int            mem_uid[MEM_SIZE];
 	unsigned char  mem_color[MEM_SIZE * 1000];
 	int            mem_color_size;
@@ -208,5 +209,6 @@ int			ft_main_debug(t_vm_mem *vm, t_ps *ps);
 extern const t_op			op_tab[17];
 extern const unsigned char	g_color[6][10];
 extern const unsigned char	g_colorpc[6][10];
+extern unsigned int			g_verbose;
 
 #endif

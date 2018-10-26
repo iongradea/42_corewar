@@ -6,11 +6,17 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2018/04/23 14:10:39 by igradea          ###   ########.fr        #
+#    Updated: 2018/10/26 20:04:05 by bbichero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
+
+# colors
+Y = \033[0;33m
+R = \033[0;31m
+G = \033[0;32m
+E = \033[39m
 
 # Compiler
 CC = gcc
@@ -67,8 +73,10 @@ all: $(NAME)
 
 # compiling run binary
 $(NAME): $(OBJS)
+	@echo "$(Y)[COMPILING LIBFT] $(G) $(MAKE) -C $(LBFT_DIR) MODE=$(MODE) $(E)"
 	$(MAKE) -C $(LBFT_DIR) MODE=$(MODE)
 	$(CC) $(CFLAGS) $^ -L$(LBFT_DIR) $(LIBFT_LIB) -o $@
+	@echo "$(Y)[COMPILING LIBFT DONE]$(E)"
 
 # compiling binaries
 ./$(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c $(INCS_H)
@@ -76,9 +84,11 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
+	@echo "$(R)[CLEANING VM FILES]$(E)"
 	$(MAKE) -C $(LBFT_DIR) clean
 	$(RM) -rfv $(NAME)
 	$(RM) -rfv $(OBJ_DIR) 2> /dev/null || true
+	@echo "$(R)[CLEANING VM FILES DONE]$(E)"
 
 fclean: clean
 	$(MAKE) -C $(LBFT_DIR) fclean
