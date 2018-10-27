@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 16:14:31 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/26 19:32:12 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int   ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 	i = 0;
 	while (av[++i])
 	{
+		ft_printf("av[%d] = %s\n", i, av[i]);
 		if (av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 		{
 			if (!ft_strcmp(av[i], "-dump") && i + 1 < ac)
@@ -36,8 +37,14 @@ int   ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 					exit(ft_usage());
 				vm->opt += GRAPHIC;
 			}
-			else if (!ft_strcmp(av[i], "-v"))
+			else if (!ft_strcmp(av[i], "-v") && i + 1 < ac)
+			{
+				vm->verbose = ft_atoi(av[++i]);
+				g_verbose = ft_atoi(av[i]);
+				if (vm->verbose == 0)
+					exit(ft_usage());
 				vm->opt += VERBOSE;
+			}
 		}
 	}
 	return (EXIT_SUCCESS);
@@ -55,9 +62,9 @@ int   ft_usage(void)
 {
 	DEBUG ? ft_printf("launching ft_usage ...\n") : DEBUG;
 	ft_printf("\nusage: ./coreware [options] [[-n nbr] champion.cor] ...\n\
-			-v                : verbose mode for basic information\n\
-			-g nbr_cycles     : graphic mode, displays memory on console\n\
-			-dump nb_cycles   : dumps the memory after nb_cycles\n\
-			-n nbr            : set \"nbr\" as number for the player\n");
+			-v information_lvl : verbose mode with different type inforamtions \n\
+			-g nbr_cycles      : graphic mode, displays memory on console\n\
+			-dump nb_cycles    : dumps the memory after nb_cycles\n\
+			-n nbr             : set \"nbr\" as number for the player\n");
 	return (EXIT_SUCCESS);
 }
