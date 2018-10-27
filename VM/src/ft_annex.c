@@ -1,21 +1,24 @@
-
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.h                                               :+:      :+:    :+:   */
+/*   ft_annex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 17:54:34 by bbichero         ###   ########.fr       */
+/*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
+/*   Updated: 2018/10/27 13:06:46 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
 
-// add process at the end of process list
-void ft_add_ps(t_ps *ps, t_ps *new)
+/*
+**  add process at the end of process listi
+*/
+
+void			ft_add_ps(t_ps *ps, t_ps *new)
 {
-	static int   color = 1;
+	static int	color = 1;
 
 	DEBUG > 0 ? ft_printf("launching ft_add_ps ...\n") : DEBUG;
 	new->color = color;
@@ -25,9 +28,12 @@ void ft_add_ps(t_ps *ps, t_ps *new)
 	color++;
 }
 
-// ps->pc should always be positive
-// int are casted to unsigned int during C operations
-int ft_next_op(t_ps *ps, int carry_mod)
+/*
+** ps->pc should always be positive
+** int are casted to unsigned int during C operations
+*/
+
+int				ft_next_op(t_ps *ps, int carry_mod)
 {
 	DEBUG > 0 ? ft_printf("launching ft_next_op ...\n") : DEBUG;
 	ps->pc = MEM_CIR_POS(ps->pc + ps->op_size);
@@ -41,10 +47,10 @@ int ft_next_op(t_ps *ps, int carry_mod)
 	return (EXIT_SUCCESS);
 }
 
-int  ft_get_code_size(int fd)
+int				ft_get_code_size(int fd)
 {
-	int size;
-	char c;
+	int			size;
+	char		c;
 
 	size = 0;
 	DEBUG > 0 ? ft_printf("launching ft_get_code_size ...\n") : DEBUG;
@@ -55,11 +61,11 @@ int  ft_get_code_size(int fd)
 	return (size);
 }
 
-int   ft_prt_winner(t_vm_mem *vm, t_ps *ps)
+int				ft_prt_winner(t_vm_mem *vm, t_ps *ps)
 {
 	DEBUG > 0 ? ft_printf("launching ft_prt_winner ...\n") : DEBUG;
 	DEBUG > 0 ? prt_vm(vm) : DEBUG;
-	//prt_ps(ps);
+	/* prt_ps(ps); */
 	while (ps)
 	{
 		if (ps->uid == vm->last_live)

@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.h                                               :+:      :+:    :+:   */
+/*   vm_mem.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 18:23:46 by bbichero         ###   ########.fr       */
+/*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
+/*   Updated: 2018/10/27 12:58:44 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
 
-static int   ft_get_dist(t_ps *ps)
+static int		ft_get_dist(t_ps *ps)
 {
-	int   code_size;
-	int   nb_ps;
+	int			code_size;
+	int			nb_ps;
 
 	code_size = 0;
 	nb_ps = 0;
@@ -28,9 +28,9 @@ static int   ft_get_dist(t_ps *ps)
 	return ((MEM_SIZE - code_size) / nb_ps);
 }
 
-static void   ft_cpy_code(t_vm_mem *vm, t_ps *ps, int *j)
+static void		ft_cpy_code(t_vm_mem *vm, t_ps *ps, int *j)
 {
-	int i;
+	int			i;
 
 	i = -1;
 	// code starts at beginning of line (visual display)
@@ -45,9 +45,9 @@ static void   ft_cpy_code(t_vm_mem *vm, t_ps *ps, int *j)
 	}
 }
 
-t_vm_mem  *ft_new_mem(void)
+t_vm_mem		*ft_new_mem(void)
 {
-	t_vm_mem *vm;
+	t_vm_mem	*vm;
 
 	if (!(vm = (t_vm_mem*)ft_memalloc(sizeof(t_vm_mem))))
 		exit(ERROR_MSG("ft_new_mem : error heap allocation"));
@@ -67,10 +67,10 @@ t_vm_mem  *ft_new_mem(void)
 	return (vm);
 }
 
-void      add_data_vm(t_vm_mem *vm, t_ps *ps)
+void			add_data_vm(t_vm_mem *vm, t_ps *ps)
 {
-	int      j;
-	int     dist;
+	int			j;
+	int			dist;
 
 	j = 0;
 	dist = ft_get_dist(ps);
