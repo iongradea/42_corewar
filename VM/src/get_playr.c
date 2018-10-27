@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 16:17:25 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/26 19:33:42 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@ static t_ps  *ft_new_ps(int fd, int uid)
 	return (ps);
 }
 
-static void   ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
+static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 {
-	static int nb_playr = 0;
+	static int	nb_playr = 0;
 
 	DEBUG ? ft_printf("launching ft_get_ps_data ...\n") : DEBUG;
+	ft_printf("av = %s\n", av);
 	if ((fd = open(av, O_RDONLY)) >= 0)
 	{
 		*ps = ft_new_ps(fd, uid);
@@ -72,9 +73,9 @@ static void   ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 		exit(ERROR_MSG("too many players"));
 }
 
-t_ps *ft_cpy_playr(t_ps *ps)
+t_ps		*ft_cpy_playr(t_ps *ps)
 {
-	t_ps *new;
+	t_ps	*new;
 
 	DEBUG ? ft_printf("launching ft_new_ps ...\n") : DEBUG;
 	if (!(new = (t_ps*)ft_memalloc(sizeof(t_ps))))
@@ -99,11 +100,11 @@ t_ps *ft_cpy_playr(t_ps *ps)
 	return (new);
 }
 
-int  get_playr(int fd, t_ps **ps, int ac, char **av)
+int			get_playr(int fd, t_ps **ps, int ac, char **av)
 {
-	int i;
-	t_ps *new;
-	int   uid;
+	int		i;
+	t_ps	*new;
+	int		uid;
 
 	i = 1;
 	new = NULL;
@@ -111,6 +112,8 @@ int  get_playr(int fd, t_ps **ps, int ac, char **av)
 	while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 		ft_jmp_opt(ac, av, &i);
 	i < ac ? uid = ft_get_playr_index(ac, av + i, &i) : exit(ft_usage());
+	ft_printf("uid = %d\n", uid);
+	ft_printf("ac = %d\n", ac);
 	i < ac ? ft_get_ps_data(fd, ps, uid, *(av + i)) : exit(ft_usage());
 	(*ps)->color = 0;
 	while (++i < ac)
@@ -118,6 +121,7 @@ int  get_playr(int fd, t_ps **ps, int ac, char **av)
 		while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 			ft_jmp_opt(ac, av, &i);
 		i < ac ? uid = ft_get_playr_index(ac, av + i, &i) : exit(ft_usage());
+		ft_printf("uid = %d\n", uid);
 		i < ac ? ft_get_ps_data(fd, &new, uid, *(av + i)) : exit (ft_usage());
 		ft_add_ps(*ps, new);
 	}
