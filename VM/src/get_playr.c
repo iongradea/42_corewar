@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/27 13:09:18 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/27 15:27:46 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 	ft_printf("av = %s\n", av);
 	if ((fd = open(av, O_RDONLY)) >= 0)
 	{
-		if (!ft_check_ps_uid(*ps, uid))
+		printf("check player\n");
+		if (*ps && !ft_check_ps_uid(ps, uid))
 			exit(ERROR_MSG(ft_strjoin("UID ", ft_strjoin(ft_itoa(uid), \
 									" already exist for another process."))));
 		*ps = ft_new_ps(fd, uid);

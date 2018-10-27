@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/27 13:14:11 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/27 15:27:11 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,18 @@
 
 int				ft_check_ps_uid(t_ps **ps, int uid)
 {
-	return (0);
+	t_ps		*ps_back;
+	
+	ps_back = *ps;
+	ft_printf("1231");
+	while (ps_back)
+	{
+		ft_printf("ps_back->uid: %d\n", ps_back->uid);
+		if (uid == ps_back->uid)
+			return (0);
+		ps_back = ps_back->next;
+	}
+	return (1);
 }
 
 int   ft_parse_opt(int ac, char **av, t_vm_mem *vm)
