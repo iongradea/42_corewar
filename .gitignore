@@ -1,4 +1,5 @@
 libft/bin/*.o
+libft/libftprintf.a
 VM/bin/*.o
 VM/src/.*
 VM/corewar
