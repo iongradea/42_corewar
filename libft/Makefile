@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2018/03/08 15:16:19 by igradea          ###   ########.fr        #
+#    Updated: 2018/10/27 11:24:11 by bbichero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,25 +75,25 @@ all: $(NAME)
 # .o files are in a subdirectory
 ./$(OBJ_DIR)/%.o: ./$(LBFT_SRC_DIR)/%.c ./$(INC_DIR)/libft.h
 	@mkdir ./$(OBJ_DIR) 2> /dev/null || true
-	gcc $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@
 
 ./$(OBJ_DIR)/%.o: ./$(GNL_SRC_DIR)/%.c ./$(INC_DIR)/get_next_line.h
-	gcc $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@
 
 ./$(OBJ_DIR)/%.o: ./$(PRT_SRC_DIR)/%.c ./$(INC_DIR)/ft_printf.h
-	gcc $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@
 
 # Creates library and index
 $(NAME): $(addprefix ./$(OBJ_DIR)/, $(OBJ))
-	ar rc $(NAME) $(addprefix ./$(OBJ_DIR)/, $(OBJ))
-	ranlib $(NAME)
+	@ar rc $(NAME) $(addprefix ./$(OBJ_DIR)/, $(OBJ))
+	@ranlib $(NAME)
 
 clean:
-	/bin/rm -f $(addprefix ./$(OBJ_DIR)/, $(OBJ))
+	@/bin/rm -f $(addprefix ./$(OBJ_DIR)/, $(OBJ))
 	@rmdir ./$(OBJ_DIR) 2> /dev/null || true
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 
 re: fclean all
 
