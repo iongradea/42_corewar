@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/27 15:15:26 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/27 15:45:21 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ t_vm_mem  *ft_new_mem(void);
 int   ft_parse_opt(int ac, char **av, t_vm_mem *vm);
 int   ft_usage(void);
 void ft_jmp_opt(int ac, char **av, int *i);
-int					ft_check_ps_uid(t_ps **ps, int uid);
+int					ft_check_ps_uid(t_ps *ps, int uid);
 
 // CPU architecture
 int   cpu(t_vm_mem *vm, t_ps *ps);
