@@ -6,11 +6,16 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/26 19:32:12 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/27 13:14:11 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/vm.h"
+
+int				ft_check_ps_uid(t_ps **ps, int uid)
+{
+	return (0);
+}
 
 int   ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 {
