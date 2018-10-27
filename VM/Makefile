@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2018/10/26 20:04:05 by bbichero         ###   ########.fr        #
+#    Updated: 2018/10/27 12:52:12 by bbichero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,30 +69,36 @@ else
 	CFLAGS = -Wall -Wextra -Werror
 endif
 
-all: $(NAME)
+all: libft $(NAME)
 
 # compiling run binary
 $(NAME): $(OBJS)
-	@echo "$(Y)[COMPILING LIBFT] $(G) $(MAKE) -C $(LBFT_DIR) MODE=$(MODE) $(E)"
-	$(MAKE) -C $(LBFT_DIR) MODE=$(MODE)
-	$(CC) $(CFLAGS) $^ -L$(LBFT_DIR) $(LIBFT_LIB) -o $@
-	@echo "$(Y)[COMPILING LIBFT DONE]$(E)"
+	@echo "$(Y)[COMPILING VM FILES]$(E)"
+	@echo "$(G)$(CC) $(CFLAGS) $^ -L$(LBFT_DIR) $(LIBFT_LIB) -o $@$(E)"
+	@$(CC) $(CFLAGS) $^ -L$(LBFT_DIR) $(LIBFT_LIB) -o $@
+	@echo "$(Y)[COMPILLING DONE]"
 
 # compiling binaries
 ./$(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c $(INCS_H)
 	@mkdir ./$(OBJ_DIR) 2> /dev/null || true
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@echo "$(R)[CLEANING VM FILES]$(E)"
-	$(MAKE) -C $(LBFT_DIR) clean
-	$(RM) -rfv $(NAME)
-	$(RM) -rfv $(OBJ_DIR) 2> /dev/null || true
-	@echo "$(R)[CLEANING VM FILES DONE]$(E)"
+	@$(MAKE) -C $(LBFT_DIR) clean
+	@$(RM) -rfv $(NAME)
+	@$(RM) -rfv $(OBJ_DIR) 2> /dev/null || true
+	@echo "$(R)[CLEANING DONE]$(E)"
 
 fclean: clean
-	$(MAKE) -C $(LBFT_DIR) fclean
-	$(RM) -rfv $(NAME)
+	@$(RM) -rfv $(NAME)
+	@$(MAKE) -C $(LBFT_DIR) fclean
+
+libft:
+	@echo "$(Y)[COMPILING LIBFT]$(E)"
+	@echo "$(G)$(MAKE) -C $(LBFT_DIR) MODE=$(MODE)$(E)"
+	@$(MAKE) -C $(LBFT_DIR) MODE=$(MODE)
+	@echo "$(Y)[COMPILATION DONE]$(E)"
 
 re: fclean all
 
