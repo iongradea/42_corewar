@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/27 15:27:46 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:27:47 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,8 @@ static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 	static int	nb_playr = 0;
 
 	DEBUG ? ft_printf("launching ft_get_ps_data ...\n") : DEBUG;
-	ft_printf("av = %s\n", av);
 	if ((fd = open(av, O_RDONLY)) >= 0)
 	{
-		printf("check player\n");
-		if (*ps && !ft_check_ps_uid(ps, uid))
-			exit(ERROR_MSG(ft_strjoin("UID ", ft_strjoin(ft_itoa(uid), \
-									" already exist for another process."))));
 		*ps = ft_new_ps(fd, uid);
 		lseek(fd, 4, SEEK_SET);
 		read(fd, (*ps)->playr, PROG_NAME_LENGTH);
@@ -116,8 +111,6 @@ int			get_playr(int fd, t_ps **ps, int ac, char **av)
 	while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 		ft_jmp_opt(ac, av, &i);
 	i < ac ? uid = ft_get_playr_index(ac, av + i, &i) : exit(ft_usage());
-	ft_printf("uid = %d\n", uid);
-	ft_printf("ac = %d\n", ac);
 	i < ac ? ft_get_ps_data(fd, ps, uid, *(av + i)) : exit(ft_usage());
 	(*ps)->color = 0;
 	while (++i < ac)
@@ -125,8 +118,10 @@ int			get_playr(int fd, t_ps **ps, int ac, char **av)
 		while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 			ft_jmp_opt(ac, av, &i);
 		i < ac ? uid = ft_get_playr_index(ac, av + i, &i) : exit(ft_usage());
-		ft_printf("uid = %d\n", uid);
-		i < ac ? ft_get_ps_data(fd, &new, uid, *(av + i)) : exit (ft_usage());
+		i < ac ? ft_get_ps_data(fd, &new, uid, *(av + i)) : exit(ft_usage());
+		if (!ft_check_ps_uid(*ps, uid))
+			exit(ERROR_MSG(ft_strjoin("UID ", ft_strjoin(ft_itoa(uid), \
+									" already exist for another process."))));
 		ft_add_ps(*ps, new);
 	}
 	return (EXIT_SUCCESS);
