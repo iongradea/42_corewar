@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/25 16:04:11 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/27 13:13:11 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,54 +90,54 @@
 # define CHECK_OCP_END_00(ocp) (ocp & 0b11)
 
 // Process structure
-typedef struct    s_ps
+typedef struct		s_ps
 {
-	char  *playr;
-	int   uid;
-	unsigned char  *code;
-	int   code_size;
-	unsigned int   reg[REG_NUMBER];
-	int    pc;
-	int   carry;
-	struct s_ps *next;
-	int   op_size;
-	int   live;
-	int   color;
-} t_ps;
+	char			*playr;
+	int				uid;
+	unsigned char	*code;
+	int				code_size;
+	unsigned int	reg[REG_NUMBER];
+	int				pc;
+	int				op_size;
+	int				live;
+	int				color;
+	int				carry;
+	struct s_ps		*next;
+}					t_ps;
 
 // Virtual machine memory
-typedef struct    s_vm_mem
+typedef struct		s_vm_mem
 {
-	unsigned char  mem[MEM_SIZE];
-	int           cycle;
-	int           cycle_to_die;
-	int           ch_decr;
-	int           check;
-	int           opt;
-	int            dump;
-	int           display;
-	int           verbose;
-	int            mem_uid[MEM_SIZE];
-	unsigned char  mem_color[MEM_SIZE * 1000];
-	int            mem_color_size;
-	int            mem_color_ind;
-	int           last_live;
-} t_vm_mem;
+	unsigned char	mem[MEM_SIZE];
+	int				cycle;
+	int				cycle_to_die;
+	int				ch_decr;
+	int				check;
+	int				opt;
+	int				dump;
+	int				display;
+	int				verbose;
+	int				mem_uid[MEM_SIZE];
+	unsigned char	mem_color[MEM_SIZE * 1000];
+	int				mem_color_size;
+	int				mem_color_ind;
+	int				last_live;
+}					t_vm_mem;
 
 // Operations structure
-typedef struct    s_op
+typedef struct		s_op
 {
-	int   opcode;
-	char  *mmemo;
-	int   nb_param;
-	int   param[3];
-	int   cycle;
-	char  *desc;
-	int   set_carry;
-	int   ocp_param;
-	int   dir_size;
-	int   (*fun)(t_vm_mem *, t_ps *, int);
-} t_op;
+	int				opcode;
+	char			*mmemo;
+	int				nb_param;
+	int				param[3];
+	int				cycle;
+	char			*desc;
+	int				set_carry;
+	int				ocp_param;
+	int				dir_size;
+	int				(*fun)(t_vm_mem *, t_ps *, int);
+}					t_op;
 
 // Parsing functions & initialization functions
 int  get_playr(int fd, t_ps **ps, int ac, char **av);
@@ -146,6 +146,7 @@ t_vm_mem  *ft_new_mem(void);
 int   ft_parse_opt(int ac, char **av, t_vm_mem *vm);
 int   ft_usage(void);
 void ft_jmp_opt(int ac, char **av, int *i);
+int					ft_check_ps_uid(t_ps **ps, int uid);
 
 // CPU architecture
 int   cpu(t_vm_mem *vm, t_ps *ps);
