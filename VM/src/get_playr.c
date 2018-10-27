@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/26 19:33:42 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/27 13:09:18 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static t_ps  *ft_new_ps(int fd, int uid)
 		exit(ERROR_MSG("ft_new_ps : error heap allocation"));
 	ps->uid = uid;
 	ps->code_size = ft_get_code_size(fd);
-	if (!(ps->code =
-				(unsigned char*)ft_memalloc(sizeof(unsigned char) * ps->code_size)))
+	if (!(ps->code
+				= (unsigned char*)ft_memalloc(sizeof(unsigned char) * ps->code_size)))
 		exit(ERROR_MSG("ft_new_ps : error heap allocation"));
 	ft_bzero(ps->reg, sizeof(ps->reg));
 	ps->reg[0] = uid;
@@ -59,6 +59,9 @@ static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 	ft_printf("av = %s\n", av);
 	if ((fd = open(av, O_RDONLY)) >= 0)
 	{
+		if (!ft_check_ps_uid(*ps, uid))
+			exit(ERROR_MSG(ft_strjoin("UID ", ft_strjoin(ft_itoa(uid), \
+									" already exist for another process."))));
 		*ps = ft_new_ps(fd, uid);
 		lseek(fd, 4, SEEK_SET);
 		read(fd, (*ps)->playr, PROG_NAME_LENGTH);
@@ -68,7 +71,7 @@ static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 		nb_playr++;
 	}
 	else
-		exit(ERROR_MSG("ft_get_ps_data : error opening file"));
+		exit(ERROR_MSG(ft_strjoin("Can't read given file : ", av)));
 	if (nb_playr > 4)
 		exit(ERROR_MSG("too many players"));
 }
