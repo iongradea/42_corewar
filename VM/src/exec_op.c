@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 18:17:49 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/25 16:15:54 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ int   exec_op(t_vm_mem *vm, t_ps *ps)
 		}
 		cyc_len--;
 	}
-	return (EXIT_SUCCES);
+	return (EXIT_SUCCESS);
 }
