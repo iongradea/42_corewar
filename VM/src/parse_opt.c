@@ -6,21 +6,19 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/27 15:27:11 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:30:09 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/vm.h"
 
-int				ft_check_ps_uid(t_ps **ps, int uid)
+int				ft_check_ps_uid(t_ps *ps, int uid)
 {
 	t_ps		*ps_back;
 	
-	ps_back = *ps;
-	ft_printf("1231");
+	ps_back = ps;
 	while (ps_back)
 	{
-		ft_printf("ps_back->uid: %d\n", ps_back->uid);
 		if (uid == ps_back->uid)
 			return (0);
 		ps_back = ps_back->next;
@@ -28,15 +26,14 @@ int				ft_check_ps_uid(t_ps **ps, int uid)
 	return (1);
 }
 
-int   ft_parse_opt(int ac, char **av, t_vm_mem *vm)
+int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 {
-	int   i;
+	int			i;
 
 	DEBUG ? ft_printf("launching ft_parse_opt ...\n") : DEBUG;
 	i = 0;
 	while (av[++i])
 	{
-		ft_printf("av[%d] = %s\n", i, av[i]);
 		if (av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 		{
 			if (!ft_strcmp(av[i], "-dump") && i + 1 < ac)
@@ -66,7 +63,7 @@ int   ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 	return (EXIT_SUCCESS);
 }
 
-void ft_jmp_opt(int ac, char **av, int *i)
+void			ft_jmp_opt(int ac, char **av, int *i)
 {
 	if (*i < ac && (!ft_strcmp(av[*i], "-dump") || !ft_strcmp(av[*i], "-g")))
 		(*i) += 2;
@@ -74,7 +71,7 @@ void ft_jmp_opt(int ac, char **av, int *i)
 		(*i)++;
 }
 
-int   ft_usage(void)
+int				ft_usage(void)
 {
 	DEBUG ? ft_printf("launching ft_usage ...\n") : DEBUG;
 	ft_printf("\nusage: ./coreware [options] [[-n nbr] champion.cor] ...\n\
