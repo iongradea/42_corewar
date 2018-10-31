@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/27 19:27:47 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/31 19:11:29 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int			get_playr(int fd, t_ps **ps, int ac, char **av)
 	while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 		ft_jmp_opt(ac, av, &i);
 	i < ac ? uid = ft_get_playr_index(ac, av + i, &i) : exit(ft_usage());
+		ft_printf("player uid = %d\n", uid);
 	i < ac ? ft_get_ps_data(fd, ps, uid, *(av + i)) : exit(ft_usage());
 	(*ps)->color = 0;
 	while (++i < ac)
@@ -118,12 +119,13 @@ int			get_playr(int fd, t_ps **ps, int ac, char **av)
 		while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 			ft_jmp_opt(ac, av, &i);
 		i < ac ? uid = ft_get_playr_index(ac, av + i, &i) : exit(ft_usage());
+		ft_printf("player uid = %d\n", uid);
 		i < ac ? ft_get_ps_data(fd, &new, uid, *(av + i)) : exit(ft_usage());
 		if (!ft_check_ps_uid(*ps, uid))
 			exit(ERROR_MSG(ft_strjoin("UID ", ft_strjoin(ft_itoa(uid), \
 									" already exist for another process."))));
 		ft_add_ps(*ps, new);
 	}
+//	prt_ps(*ps);
 	return (EXIT_SUCCESS);
-	//prt_ps(*ps);
 }
