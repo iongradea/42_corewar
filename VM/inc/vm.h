@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/27 15:45:21 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/10/31 19:11:19 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int					ft_check_ps_uid(t_ps *ps, int uid);
 
 // CPU architecture
 int   cpu(t_vm_mem *vm, t_ps *ps);
-int   exec_op(t_vm_mem *vm, t_ps *ps);
+int   exec_op(t_vm_mem *vm, t_ps *ps, t_ps *lst, int opcode, int *flag);
 int  ft_nb_live(t_ps *ps);
 void  ft_kill_reset_ps(t_ps *ps);
 void   ft_reset_ps(t_ps *ps);
