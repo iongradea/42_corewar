@@ -1,93 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.h                                               :+:      :+:    :+:   */
+/*   cpu.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 18:03:29 by bbichero         ###   ########.fr       */
+/*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
+/*   Updated: 2018/10/31 19:55:47 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/vm.h"
 
-static void   display_opt(t_vm_mem *vm, t_ps *ps)
+static int  ft_cycle_len(int opcode)
 {
 	int i;
-	t_ps *lst;
 
-	i = 0;
-	lst = ps;
-	while (lst && ((i++) || true))
-		lst = lst->next;
-	DEBUG > 0 ? ft_printf("launching display_opt ...\n") : DEBUG;
-	if (vm->opt & DUMP && vm->cycle == vm->dump)
+	i = -1;
+	while (++i < NB_OP)
 	{
-		ft_prt_mem(vm, ps);
-		exit(ft_prt_winner(vm, ps));
+		if (opcode == op_tab[i].opcode)
+			return (op_tab[i].cycle);
 	}
-	if (vm->opt & GRAPHIC && !(vm->cycle % vm->display))
-	{
-
-		ft_prt_mem(vm, ps);
-		ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", vm->cycle, vm->cycle_to_die, i);
-	}
-	if (vm->opt & VERBOSE && !(vm->cycle % VERBOSE_DISPLAY))
-		ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", vm->cycle, vm->cycle_to_die, i);
-}
-
-static void   cpu_checks(t_vm_mem *vm, t_ps *ps)
-{
-	DEBUG ? ft_printf("launching cpu_checks ...\n") : DEBUG;
-	if (vm->check > vm->cycle_to_die)
-	{
-		DEBUG > 2 ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", vm->check, vm->cycle_to_die) : DEBUG;
-		ft_kill_reset_ps(ps);
-		vm->check = 0;
-	}
-	if (ft_nb_live(ps) > NBR_LIVE)
-	{
-		ft_reset_ps(ps);
-		DEBUG > 2 ? ft_printf("NB_LIVE - ft_nb_live(ps) : %d - NBR_LIVE : %d\n", ft_nb_live(ps), NBR_LIVE) : DEBUG;
-		vm->cycle_to_die -= CYCLE_DELTA;
-		vm->ch_decr = 0;
-	}
-	if (vm->ch_decr > MAX_CHECKS)
-	{
-		DEBUG > 2 ? ft_printf("MAX_CHECKS - vm->ch_decr : %d - MAX_CHECKS : %d\n", vm->ch_decr, MAX_CHECKS) : DEBUG;
-		vm->cycle_to_die -= CYCLE_DELTA;
-		vm->ch_decr = 0;
-	}
+	return (1);
 }
 
 int   cpu(t_vm_mem *vm, t_ps *ps)
 {
-	t_ps *lst;
-	int flag;
+	t_ps	*lst;
+	int		flag;
+	int		opcode;
+	int		cyc_len;
 
-	DEBUG ? ft_printf("launching cpu ...\n") : DEBUG;
 	flag = false;
 	lst = NULL;
+	opcode = 0;
+	cyc_len = 0;
+	DEBUG ? ft_printf("launching cpu ...\n") : DEBUG;
 	//prt_ps(ps the flag is used here to identify if the program has already passed
 	// the first cycle_to_die cycle  
-	while ((flag == false ? true : ft_one_live_ps(ps)) && vm->cycle_to_die > 0)
+	while (flag == false && vm->cycle_to_die > 0 && cyc_len >= 0)
 	{
-		//ft_printf("cycles : %d - cycle_to_die : %d\n\n", vm->cycle, vm->cycle_to_die);
-		if (!lst)
-			lst = ps;
-		DEBUG > 1 ? ft_printf("\nCPU => lst->playr : %s\ncycle : %d\ncycle_to_die : %d\n", lst->playr, vm->cycle, vm->cycle_to_die) : DEBUG;
-		cpu_checks(vm, ps);
-		exec_op(vm, lst);
-		display_opt(vm, ps);
-		flag = vm->cycle >= vm->cycle_to_die ? true : false;
-		lst = lst->next;
-		vm->check++;
-		vm->ch_decr++;
+		ft_printf("cyc_len = %d\nopcode = %d\nflag = %d\n", cyc_len, opcode, flag);
+		if (cyc_len == 0)
+		{
+			opcode = *(vm->mem + MEM_CIR_POS(ps->pc));
+			cyc_len = ft_cycle_len(opcode);
+			if (!ft_one_live_ps(ps) || cyc_len == 1)
+				break ;
+			exec_op(vm, ps, lst, opcode, &flag);
+		}
+		cyc_len--;
 		vm->cycle++;
 	}
-	//prt_ps(ps);
+	prt_ps(ps);
 	//prt_vm(vm);
-	//ft_printf("CPU : %d\n", ft_one_live_ps(ps));
 	return (ft_prt_winner(vm, ps));
 }
