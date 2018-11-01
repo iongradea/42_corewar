@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/31 19:11:19 by bbichero         ###   ########.fr       */
+/*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
+/*   Updated: 2018/11/01 16:26:39 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@
 # include "../../libft/inc/ft_printf.h"
 # include "op.h"
 
-// Some var
+/*			Some var		*/
 # define UNDEFINED -1
 # define PS_DEAD -1
 # define MAX_NB_PLAYR 1000
 
-// Debugging and errors
+/*			Debugging and errors		*/
 # define DEBUG 0
 # define ERROR_MSG(str) (ft_printf("%s\n", str))
 
-// Operation codes
+/*			Operation codes				*/
 # define LIVE 0x01
 # define LD 0x02
 # define ST 0x03
@@ -53,30 +53,30 @@
 
 # define NB_OP 16
 
-// Options
+/*			Options			*/
 # define VERBOSE 0x01
 # define GRAPHIC 0x02
 # define DUMP 0x04
 
 # define VERBOSE_DISPLAY 400
 
-// Parameters size
+/*			Parameters size			*/
 # define OPCODE_SIZE 1
 # define OCP_SIZE 1
 # define REG_SIZE 1
 # define IND_SIZE 2
 # define DIR_SIZE(op) (op_tab[op].dir_size)
 
-// carry
+/*			carry			*/
 # define CARRY_TRUE 1
 # define CARRY_FALSE 0
 # define NO_CARRY -1
 
-// VM
+/*			VM			*/
 # define MEM_LINE_LENGTH 64 // memory length for graphic visual
 # define NO_PLAYR -1
 
-// CPU operations
+/*			CPU operations			*/
 # define MEM_CIR_POS(pos) (((pos) % MEM_SIZE) < 0 ? \
 		(((pos) % MEM_SIZE) + MEM_SIZE) : ((pos) % MEM_SIZE))
 # define IS_OP_CODE(i) (i <= 0x10 && i >= 0x01)
@@ -89,7 +89,7 @@
 # define VALID_OCP_PART(ocp) (ocp == 0b01 || ocp == 0b10 || ocp == 0b11)
 # define CHECK_OCP_END_00(ocp) (ocp & 0b11)
 
-// Process structure
+/*			Process structure			*/
 typedef struct		s_ps
 {
 	char			*playr;
@@ -98,10 +98,12 @@ typedef struct		s_ps
 	int				code_size;
 	unsigned int	reg[REG_NUMBER];
 	int				pc;
-	int				op_size;
 	int				live;
+	int				op_size;
+	int				opcode;
 	int				color;
 	int				carry;
+	int				cyc_len;
 	struct s_ps		*next;
 }					t_ps;
 
@@ -148,9 +150,11 @@ int   ft_usage(void);
 void ft_jmp_opt(int ac, char **av, int *i);
 int					ft_check_ps_uid(t_ps *ps, int uid);
 
+void		cpu_checks(t_vm_mem *vm, t_ps *ps);
+
 // CPU architecture
 int   cpu(t_vm_mem *vm, t_ps *ps);
-int   exec_op(t_vm_mem *vm, t_ps *ps, t_ps *lst, int opcode, int *flag);
+int   exec_op(t_vm_mem *vm, t_ps *lst);
 int  ft_nb_live(t_ps *ps);
 void  ft_kill_reset_ps(t_ps *ps);
 void   ft_reset_ps(t_ps *ps);
