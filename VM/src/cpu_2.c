@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/31 15:35:51 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/01 16:19:33 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int   ft_one_live_ps(t_ps *ps)
 	DEBUG ? ft_printf("launching ft_one_live_ps ...\n") : DEBUG;
 	while (ps)
 	{
-		ft_printf("ps->live: %d\n", ps->live);
 		if (ps->live != PS_DEAD)
 			return (true);
 		ps = ps->next;
