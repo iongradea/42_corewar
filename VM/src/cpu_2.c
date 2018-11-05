@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/11/01 16:19:33 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/05 21:45:01 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void  ft_kill_reset_ps(t_ps *ps)
 	while (ps)
 	{
 		if (ps->live <= 0)
+		{
+			g_verbose == 5 ? ft_printf("Le joueur %d(%s) viens de mourrir ...\n", ps->uid, ps->playr) : g_verbose;
 			ps->live = PS_DEAD;
+		}
 		else
 			ps->live = 0;
 		ps = ps->next;
@@ -57,7 +60,10 @@ int   ft_one_live_ps(t_ps *ps)
 	while (ps)
 	{
 		if (ps->live != PS_DEAD)
+		{
+			g_verbose == 2 ? ft_printf("Le joueur %d(%s) est en vie ...\n", ps->uid, ps->playr) : g_verbose;
 			return (true);
+		}
 		ps = ps->next;
 	}
 	return (false);
