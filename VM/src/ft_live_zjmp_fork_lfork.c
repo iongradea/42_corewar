@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/27 12:30:20 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/05 21:27:52 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int   ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	lst->live++;
 	vm->last_live = lst->uid;
 	ps->op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(LIVE));
-	ft_printf("un processus dit que le joueur %d(%s) est en vie\n", ps->uid, ps->playr);
+	DEBUG ? ft_printf("un processus dit que le joueur %d(%s) est en vie\n", ps->uid, ps->playr) : DEBUG;
 	return (ft_next_op(ps, NO_CARRY));
 }
 
