@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:36 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/01 16:22:38 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/05 21:45:12 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 
 void			ft_jmp_opt(int ac, char **av, int *i)
 {
-	if (*i < ac && (!ft_strcmp(av[*i], "-dump") || !ft_strcmp(av[*i], "-g")))
+	if (*i < ac && (!ft_strcmp(av[*i], "-dump") || !ft_strcmp(av[*i], "-g") || !ft_strcmp(av[*i], "-v")))
 		(*i) += 2;
 	else if (*i < ac && av[*i][0] == '-')
 		(*i)++;
@@ -74,10 +74,15 @@ void			ft_jmp_opt(int ac, char **av, int *i)
 int				ft_usage(void)
 {
 	DEBUG ? ft_printf("launching ft_usage ...\n") : DEBUG;
-	ft_printf("\nusage: ./coreware [options] [[-n nbr] champion.cor] ...\n\
-			-v information_lvl : verbose mode with different type inforamtions \n\
-			-g nbr_cycles      : graphic mode, displays memory on console\n\
-			-dump nb_cycles    : dumps the memory after nb_cycles\n\
-			-n nbr             : set \"nbr\" as number for the player\n");
+	ft_printf("usage: ./coreware [options] [[-n nbr] champion.cor] ...\n\
+			-v N			: Verbosity level\n\
+						- 1		: show essentials\n\
+						- 2		: show lives\n\
+						- 3		: show cyles\n\
+						- 4		: show operations\n\
+						- 5		: show deaths\n\
+			-g nbr_cycles	: graphic mode, displays memory on console\n\
+			-dump N			: dumps the memory after N cycles\n\
+			-n nbr			: set \"nbr\" as number for the player\n");
 	return (EXIT_SUCCESS);
 }
