@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/05 19:47:50 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/06 19:42:20 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 # define VERBOSE 0x01
 # define GRAPHIC 0x02
 # define DUMP 0x04
+# define NCURSE 0x08
 
 # define VERBOSE_DISPLAY 400
 
@@ -89,6 +90,8 @@
 # define VALID_OCP_PART(ocp) (ocp == 0b01 || ocp == 0b10 || ocp == 0b11)
 # define CHECK_OCP_END_00(ocp) (ocp & 0b11)
 
+
+
 /*			Process structure			*/
 typedef struct		s_ps
 {
@@ -107,6 +110,15 @@ typedef struct		s_ps
 	struct s_ps		*next;
 }					t_ps;
 
+typedef struct		s_arena
+{
+	char			hex;
+	int				color;
+	int				prevcolor;
+	int				occupied;
+	int				new_color_count;
+}					t_arena;
+
 // Virtual machine memory
 typedef struct		s_vm_mem
 {
@@ -118,12 +130,14 @@ typedef struct		s_vm_mem
 	int				opt;
 	int				dump;
 	int				display;
+	int				ncurse;
 	int				verbose;
 	int				mem_uid[MEM_SIZE];
 	unsigned char	mem_color[MEM_SIZE * 1000];
 	int				mem_color_size;
 	int				mem_color_ind;
 	int				last_live;
+	t_arena			a[MEM_SIZE];
 }					t_vm_mem;
 
 // Operations structure
@@ -206,6 +220,10 @@ void				prt_ps(t_ps *ps);
 void				prt_vm(t_vm_mem *vm);
 void				prt_mem_uid(t_vm_mem *vm);
 int					ft_main_debug(t_vm_mem *vm, t_ps *ps);
+
+// Ncurse functions
+void		ft_ncurse(t_vm_mem *vm, t_ps *ps);
+
 
 // Global variable
 // extern means it is available throughout the program

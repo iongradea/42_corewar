@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/05 21:26:48 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/06 19:41:31 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ static void			display_opt(t_vm_mem *vm, t_ps *ps)
 		ft_prt_mem(vm, ps);
 		DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", \
 											vm->cycle, vm->cycle_to_die, i) : DEBUG;
+	}
+	if (vm->opt & NCURSE && !(vm->cycle % vm->ncurse))
+	{
+		ft_ncurse(vm, ps);
+		ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", vm->cycle, vm->cycle_to_die, i);
 	}
 	if (vm->opt & VERBOSE && !(vm->cycle % VERBOSE_DISPLAY))
 		DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", \

@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:36 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/06 19:36:58 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/06 19:49:39 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int				ft_check_ps_uid(t_ps *ps, int uid)
 {
 	t_ps		*ps_back;
-	
+
 	ps_back = ps;
 	while (ps_back)
 	{
@@ -57,6 +57,11 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 				if (vm->verbose == 0)
 					exit(ft_usage());
 				vm->opt += VERBOSE;
+			}
+			else if (!ft_strcmp(av[i], "-N"))
+			{
+				vm->ncurse = 1;
+				vm->opt += NCURSE;
 			}
 		}
 	}

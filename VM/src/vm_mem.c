@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/10/27 12:58:44 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/01 16:58:53 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,22 @@ static void		ft_cpy_code(t_vm_mem *vm, t_ps *ps, int *j)
 	}
 }
 
+void	ft_set_colors(t_vm_mem *vm)
+{
+	int i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		vm->a[i].hex = 0;
+		vm->a[i].color = 12;
+		vm->a[i].prevcolor = 12;
+		vm->a[i].occupied = 0;
+		vm->a[i].new_color_count = 0;
+		i++;
+	}
+}
+
 t_vm_mem		*ft_new_mem(void)
 {
 	t_vm_mem	*vm;
@@ -64,6 +80,7 @@ t_vm_mem		*ft_new_mem(void)
 	vm->mem_color_size = 0;
 	vm->mem_color_ind = 0;
 	vm->last_live = NO_PLAYR;
+	ft_set_colors(vm);
 	return (vm);
 }
 
