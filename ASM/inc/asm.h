@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2013/11/06 14:44:35 by iongradea        ###   ########.fr       */
+/*   Updated: 2018/11/06 21:41:13 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define ERROR_MSG(msg) (write(2, msg, ft_strlen(msg))) //(ft_printf("%s", msg))
 # define ERROR -1
 # define UNDEFINED -1
-# define DEBUG 0
+# define DEBUG 1
 
 # define NAME_LEN ft_strlen(NAME_CMD_STRING)
 # define COMMENT_LEN ft_strlen(COMMENT_CMD_STRING)
@@ -48,7 +48,7 @@
 # define IS_COMMENT_LINE \
 (!ft_is_empty_line(line) && flag != FL_END && \
 (flag == FL_COMMENT || ft_strnstr(line, COMMENT_CMD_STRING, \
-  ft_strlen(COMMENT_CMD_STRING))))
+  ft_strlen(COMMENT_CMD_STRING))) || (flag != FL_COMMENT && ft_strchr(line, ';')))
 # define IS_NAME_LINE \
 (!ft_is_empty_line(line) && flag != FL_END && \
 (flag == FL_NAME || ft_strnstr(line, NAME_CMD_STRING, \
