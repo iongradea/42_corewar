@@ -6,15 +6,15 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/01 16:21:46 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/05 21:35:20 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/vm.h"
+#include "../inc/vm.h"
 
-static int  ft_valid_opcode(int opcode)
+static int		ft_valid_opcode(int opcode)
 {
-	int i;
+	int			i;
 
 	i = -1;
 	while (++i < NB_OP)
@@ -23,9 +23,9 @@ static int  ft_valid_opcode(int opcode)
 	return (false);
 }
 
-static int  ft_cycle_len(int opcode)
+static int		ft_cycle_len(int opcode)
 {
-	int i;
+	int			i;
 
 	i = -1;
 	while (++i < NB_OP)
@@ -36,31 +36,35 @@ static int  ft_cycle_len(int opcode)
 	return (1);
 }
 
-void   cpu_checks(t_vm_mem *vm, t_ps *ps)
+void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 {
 	DEBUG ? ft_printf("launching cpu_checks ...\n") : DEBUG;
 	if (vm->check > vm->cycle_to_die)
 	{
-		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", vm->check, vm->cycle_to_die) : DEBUG;
+		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", \
+									vm->check, vm->cycle_to_die) : DEBUG;
 		ft_kill_reset_ps(ps);
 		vm->check = 0;
 	}
 	if (ft_nb_live(ps) > NBR_LIVE)
 	{
 		ft_reset_ps(ps);
-		DEBUG ? ft_printf("NB_LIVE - ft_nb_live(ps) : %d - NBR_LIVE : %d\n", ft_nb_live(ps), NBR_LIVE) : DEBUG;
+		DEBUG ? ft_printf("NB_LIVE - ft_nb_live(ps) : %d - NBR_LIVE : %d\n", \
+									ft_nb_live(ps), NBR_LIVE) : DEBUG;
 		vm->cycle_to_die -= CYCLE_DELTA;
 		vm->ch_decr = 0;
 	}
 	if (vm->ch_decr > MAX_CHECKS)
 	{
-		DEBUG ? ft_printf("MAX_CHECKS - vm->ch_decr : %d - MAX_CHECKS : %d\n", vm->ch_decr, MAX_CHECKS) : DEBUG;
+		DEBUG ? ft_printf("MAX_CHECKS - vm->ch_decr : %d - MAX_CHECKS : %d\n", \
+									vm->ch_decr, MAX_CHECKS) : DEBUG;
 		vm->cycle_to_die -= CYCLE_DELTA;
+		g_verbose == 3 ? ft_printf("Cycle to die is now at %d\n", vm->cycle_to_die) : g_verbose;
 		vm->ch_decr = 0;
 	}
 }
 
-int   exec_op(t_vm_mem *vm, t_ps *lst_ps)
+int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 {
 	while (lst_ps && lst_ps->cyc_len >= 0)
 	{
@@ -74,7 +78,11 @@ int   exec_op(t_vm_mem *vm, t_ps *lst_ps)
 				return (ft_next_op(lst_ps, NO_CARRY));
 			}
 			else
-				op_tab[OP_TAB_INDEX(lst_ps->opcode)].fun(vm, lst_ps, lst_ps->opcode);
+			{
+				g_verbose == 4 ? ft_printf("%s\n", op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
+				op_tab[OP_TAB_INDEX(lst_ps->opcode)].fun(vm, lst_ps, \
+														lst_ps->opcode);
+			}
 		}
 		lst_ps->cyc_len--;
 		lst_ps = lst_ps->next;

@@ -6,16 +6,16 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:40 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/01 16:22:42 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/05 21:27:12 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
 
-static int  ft_get_playr_index(int ac, char **av, int *index)
+static int		ft_get_playr_index(int ac, char **av, int *index)
 {
-	static int i = MAX_NB_PLAYR;
-	int       res;
+	static int	i = MAX_NB_PLAYR;
+	int			res;
 
 	res = -1;
 	DEBUG ? ft_printf("launching ft_get_playr_index ...\n") : DEBUG;
@@ -26,19 +26,20 @@ static int  ft_get_playr_index(int ac, char **av, int *index)
 	return (res);
 }
 
-static t_ps  *ft_new_ps(int fd, int uid)
+static t_ps		*ft_new_ps(int fd, int uid)
 {
-	t_ps *ps;
+	t_ps		*ps;
 
 	DEBUG ? ft_printf("launching ft_new_ps ...\n") : DEBUG;
 	if (!(ps = (t_ps*)ft_memalloc(sizeof(t_ps))))
 		exit(ERROR_MSG("ft_new_ps : error heap allocation"));
-	if (!(ps->playr = (char*)ft_memalloc(sizeof(char) * (PROG_NAME_LENGTH + 1))))
+	if (!(ps->playr = (char*)ft_memalloc(sizeof(char) \
+									* (PROG_NAME_LENGTH + 1))))
 		exit(ERROR_MSG("ft_new_ps : error heap allocation"));
 	ps->uid = uid;
 	ps->code_size = ft_get_code_size(fd);
-	if (!(ps->code
-				= (unsigned char*)ft_memalloc(sizeof(unsigned char) * ps->code_size)))
+	if (!(ps->code \
+			 = (unsigned char *)ft_memalloc(sizeof(unsigned char) * ps->code_size)))
 		exit(ERROR_MSG("ft_new_ps : error heap allocation"));
 	ft_bzero(ps->reg, sizeof(ps->reg));
 	ps->reg[0] = uid;
@@ -74,19 +75,21 @@ static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 		exit(ERROR_MSG("too many players"));
 }
 
-t_ps		*ft_cpy_playr(t_ps *ps)
+t_ps			*ft_cpy_playr(t_ps *ps)
 {
-	t_ps	*new;
+	t_ps		*new;
 
 	DEBUG ? ft_printf("launching ft_new_ps ...\n") : DEBUG;
 	if (!(new = (t_ps*)ft_memalloc(sizeof(t_ps))))
 		exit(ERROR_MSG("ft_cpy_playr : error heap allocation"));
-	if (!(new->playr = (char*)ft_memalloc(sizeof(char) * (PROG_NAME_LENGTH + 1))))
+	if (!(new->playr = (char *)ft_memalloc(sizeof(char) * (PROG_NAME_LENGTH \
+																	+ 1))))
 		exit(ERROR_MSG("ft_cpy_playr : error heap allocation"));
 	ft_memcpy(new->playr, ps->playr, PROG_NAME_LENGTH + 1);
 	new->uid = ps->uid;
 	new->code_size = ps->code_size;
-	if (!(new->code = (unsigned char*)ft_memalloc(sizeof(char) * new->code_size)))
+	if (!(new->code = (unsigned char*)ft_memalloc(sizeof(char) \
+														* new->code_size)))
 		exit(ERROR_MSG("ft_cpy_playr : error heap allocation"));
 	ft_memcpy(new->code, ps->code, new->code_size);
 	ft_bzero(new->reg, sizeof(new->reg));
@@ -101,15 +104,16 @@ t_ps		*ft_cpy_playr(t_ps *ps)
 	return (new);
 }
 
-int			get_playr(int fd, t_ps **ps, int ac, char **av)
+int				get_playr(int fd, t_ps **ps, int ac, char **av)
 {
-	int		i;
-	t_ps	*new;
-	int		uid;
+	int			i;
+	t_ps		*new;
+	int			uid;
 
 	i = 1;
 	new = NULL;
 	DEBUG ? ft_printf("launching get_playr ...\n") : DEBUG;
+	g_verbose == 1 ? ft_printf("Introducing players ...\n") : g_verbose;
 	while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 		ft_jmp_opt(ac, av, &i);
 	i < ac ? uid = ft_get_playr_index(ac, av + i, &i) : exit(ft_usage());

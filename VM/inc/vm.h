@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/01 18:22:38 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/06 19:42:20 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,71 +156,70 @@ typedef struct		s_op
 }					t_op;
 
 // Parsing functions & initialization functions
-int  get_playr(int fd, t_ps **ps, int ac, char **av);
-void      add_data_vm(t_vm_mem *vm, t_ps *ps);
-t_vm_mem  *ft_new_mem(void);
-int   ft_parse_opt(int ac, char **av, t_vm_mem *vm);
-int   ft_usage(void);
-void ft_jmp_opt(int ac, char **av, int *i);
+int					get_playr(int fd, t_ps **ps, int ac, char **av);
+void				add_data_vm(t_vm_mem *vm, t_ps *ps);
+t_vm_mem			*ft_new_mem(void);
+int					ft_parse_opt(int ac, char **av, t_vm_mem *vm);
+int					ft_usage(void);
+void				ft_jmp_opt(int ac, char **av, int *i);
 int					ft_check_ps_uid(t_ps *ps, int uid);
 
-void		cpu_checks(t_vm_mem *vm, t_ps *ps);
+void				cpu_checks(t_vm_mem *vm, t_ps *ps);
 
 // CPU architecture
-int   cpu(t_vm_mem *vm, t_ps *ps);
-int   exec_op(t_vm_mem *vm, t_ps *lst);
-int  ft_nb_live(t_ps *ps);
-void  ft_kill_reset_ps(t_ps *ps);
-void   ft_reset_ps(t_ps *ps);
-int   ft_one_live_ps(t_ps *ps);
+int					cpu(t_vm_mem *vm, t_ps *ps);
+int					exec_op(t_vm_mem *vm, t_ps *lst);
+int					ft_nb_live(t_ps *ps);
+void				ft_kill_reset_ps(t_ps *ps);
+void				ft_reset_ps(t_ps *ps);
+int					ft_one_live_ps(t_ps *ps);
 
 // CPU Operations
-int ft_bin(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
-int  ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
-int   ft_ld(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
-int   ft_st(t_vm_mem *vm, t_ps *ps, int opcode);
-int   ft_aff(t_vm_mem *vm, t_ps *ps, int opcode);
-int   ft_sti(t_vm_mem *vm, t_ps *ps, int opcode);
-int   ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode);
-int   ft_lldi(t_vm_mem *vm, t_ps *ps, int opcode);
+int					ft_bin(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
+int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
+int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
+int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode);
+int					ft_aff(t_vm_mem *vm, t_ps *ps, int opcode);
+int					ft_sti(t_vm_mem *vm, t_ps *ps, int opcode);
+int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode);
+int					ft_lldi(t_vm_mem *vm, t_ps *ps, int opcode);
 
 // CPU operations no ocp
-int   ft_live(t_vm_mem *vm, t_ps *ps, int opcode);
-int   ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode);
-int   ft_fork(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
+int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode);
+int					ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode);
+int					ft_fork(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
 
 // CPU Operations functions
-int  ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, unsigned int type);
-int  ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i);
-int  ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
-unsigned int  ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
-unsigned int ft_get_val(t_ps *ps, t_vm_mem *vm, unsigned int arg,
-		int arg_i);
-unsigned char ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
-int   check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
-t_ps *ft_cpy_playr(t_ps *ps);
-void ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, int size);
+int					ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, unsigned int type);
+int					ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i);
+int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
+unsigned int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
+unsigned int		ft_get_val(t_ps *ps, t_vm_mem *vm, unsigned int arg, int arg_i);
+unsigned char		ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
+int					check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
+t_ps				*ft_cpy_playr(t_ps *ps);
+void				ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, int size);
 
 // Print memory to console functions
-void ft_prt_mem(t_vm_mem *vm, t_ps *ps);
-void		ft_byte(t_vm_mem *vm, unsigned char c);
-void		ft_hex(t_vm_mem *vm, unsigned char c);
-void		add_bot_mem(t_vm_mem *vm);
-void	add_top_mem(t_vm_mem *vm);
-int  ft_add_c_mem(t_vm_mem *vm, char *str);
+void				ft_prt_mem(t_vm_mem *vm, t_ps *ps);
+void				ft_byte(t_vm_mem *vm, unsigned char c);
+void				ft_hex(t_vm_mem *vm, unsigned char c);
+void				add_bot_mem(t_vm_mem *vm);
+void				add_top_mem(t_vm_mem *vm);
+int					ft_add_c_mem(t_vm_mem *vm, char *str);
 
 // Annex functions
-void ft_add_ps(t_ps *ps, t_ps *tmp);
-int ft_next_op(t_ps *ps, int carry_mod);
-int  ft_get_code_size(int fd);
-int   ft_prt_winner(t_vm_mem *vm, t_ps *ps);
+void				ft_add_ps(t_ps *ps, t_ps *tmp);
+int					ft_next_op(t_ps *ps, int carry_mod);
+int					ft_get_code_size(int fd);
+int					ft_prt_winner(t_vm_mem *vm, t_ps *ps);
 
 // Debug functions
-void		prt_op(void);
-void		prt_ps(t_ps *ps);
-void		prt_vm(t_vm_mem *vm);
-void		prt_mem_uid(t_vm_mem *vm);
-int			ft_main_debug(t_vm_mem *vm, t_ps *ps);
+void				prt_op(void);
+void				prt_ps(t_ps *ps);
+void				prt_vm(t_vm_mem *vm);
+void				prt_mem_uid(t_vm_mem *vm);
+int					ft_main_debug(t_vm_mem *vm, t_ps *ps);
 
 // Ncurse functions
 void		ft_ncurse(t_vm_mem *vm, t_ps *ps);
