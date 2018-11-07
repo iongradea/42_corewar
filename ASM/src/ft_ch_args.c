@@ -6,17 +6,17 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/06 20:17:02 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/07 18:49:52 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-static int   ft_is_valid_reg(char *arg)
+static int			ft_is_valid_reg(char *arg)
 {
-	int  n;
-	int  i;
-	int len;
+	int				n;
+	int				i;
+	int				len;
 
 	n = 0;
 	i = 0;
@@ -35,10 +35,10 @@ static int   ft_is_valid_reg(char *arg)
 	return (false);
 }
 
-static int   ft_is_ind_arg(char *arg)
+static int			ft_is_ind_arg(char *arg)
 {
-	int len;
-	int i;
+	int				len;
+	int				i;
 
 	i = -1;
 	len = ft_strlen(arg);
@@ -49,10 +49,10 @@ static int   ft_is_ind_arg(char *arg)
 	return (true);
 }
 
-static int   ft_is_dir_arg(char *arg)
+static int			ft_is_dir_arg(char *arg)
 {
-	int len;
-	int i;
+	int				len;
+	int				i;
 
 	len = ft_strlen(arg);
 	i = 0;
@@ -71,9 +71,9 @@ static int   ft_is_dir_arg(char *arg)
 	return (false);
 }
 
-int   ft_is_valid_lab(char *arg, t_inst *inst)
+int					ft_is_valid_lab(char *arg, t_inst *inst)
 {
-	int len;
+	int				len;
 
 	len = ft_strlen(arg);
 	DEBUG ? ft_printf("launching ft_is_valid_lab ...\n") : DEBUG;
@@ -81,7 +81,6 @@ int   ft_is_valid_lab(char *arg, t_inst *inst)
 	{
 		while (inst)
 		{
-			//ft_printf("arg + 2 : %s\ninst->label : %s\n", arg+2, tmp->label);
 			if (inst->label && !ft_strcmp(arg + 2, inst->label))
 				return (true);
 			inst = inst->n;
@@ -90,9 +89,9 @@ int   ft_is_valid_lab(char *arg, t_inst *inst)
 	return (false);
 }
 
-int   ch_one_inst(t_inst *tmp, t_inst *inst)
+int					ch_one_inst(t_inst *tmp, t_inst *inst)
 {
-	int i;
+	int				i;
 
 	i = -1;
 	DEBUG ? ft_printf("launching ch_one_inst ...\n") : DEBUG;
@@ -104,16 +103,15 @@ int   ch_one_inst(t_inst *tmp, t_inst *inst)
 					|| ft_is_dir_arg(tmp->args[ARG_INDEX(i)])))
 			true;
 		else if ((op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_IND)
-				&& tmp->args[ARG_INDEX(i)] && ft_is_ind_arg(tmp->args[ARG_INDEX(i)]))
+				&& tmp->args[ARG_INDEX(i)] && \
+								ft_is_ind_arg(tmp->args[ARG_INDEX(i)]))
 			true;
 		else if ((op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_REG)
-				&& tmp->args[ARG_INDEX(i)] && ft_is_valid_reg(tmp->args[ARG_INDEX(i)]))
+				&& tmp->args[ARG_INDEX(i)] && \
+								ft_is_valid_reg(tmp->args[ARG_INDEX(i)]))
 			true;
 		else
-		{
-			DEBUG ? ft_printf("FALSE\n") : DEBUG;
 			return (false);
-		}
 	}
 	return (true);
 }
