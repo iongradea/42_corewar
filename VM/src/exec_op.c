@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/05 21:35:20 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/07 19:45:30 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 		DEBUG ? ft_printf("MAX_CHECKS - vm->ch_decr : %d - MAX_CHECKS : %d\n", \
 									vm->ch_decr, MAX_CHECKS) : DEBUG;
 		vm->cycle_to_die -= CYCLE_DELTA;
-		g_verbose == 3 ? ft_printf("Cycle to die is now at %d\n", vm->cycle_to_die) : g_verbose;
+		g_verbose == 3 ? ft_printf("Cycle to die is now at %d\n", \
+											vm->cycle_to_die) : g_verbose;
 		vm->ch_decr = 0;
 	}
 }
@@ -79,7 +80,8 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 			}
 			else
 			{
-				g_verbose == 4 ? ft_printf("%s\n", op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
+				g_verbose == 4 ? ft_printf("%s\n", \
+					op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
 				op_tab[OP_TAB_INDEX(lst_ps->opcode)].fun(vm, lst_ps, \
 														lst_ps->opcode);
 			}
