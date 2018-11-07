@@ -6,25 +6,25 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/06 21:41:13 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/07 21:49:38 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
-#include <stdbool.h>
-#include <limits.h>
-#include <sys/types.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "op.h"
-#include "../../libft/inc/libft.h"
-#include "../../libft/inc/ft_printf.h"
-#include "../../libft/inc/get_next_line.h"
+# include <stdbool.h>
+# include <limits.h>
+# include <sys/types.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include "op.h"
+# include "../../libft/inc/libft.h"
+# include "../../libft/inc/ft_printf.h"
+# include "../../libft/inc/get_next_line.h"
 
-# define ERROR_MSG(msg) (write(2, msg, ft_strlen(msg))) //(ft_printf("%s", msg))
+# define ERROR_MSG(msg) (write(2, msg, ft_strlen(msg)))
 # define ERROR -1
 # define UNDEFINED -1
 # define DEBUG 1
@@ -33,8 +33,18 @@
 # define COMMENT_LEN ft_strlen(COMMENT_CMD_STRING)
 
 # define NB_ARG_MAX 3
-# define OP_TAB_INDEX(opcode) (opcode - 1) // opcode starts at 1
-# define ARG_INDEX(i) (i + 1) // first argument is the name of the instruction
+
+/*
+** opcode starts at 1
+*/
+
+# define OP_TAB_INDEX(opcode) (opcode - 1)
+
+/*
+** first argument is the name of the instruction
+*/
+
+# define ARG_INDEX(i) (i + 1)
 
 # define REG_SIZE 1
 # define IND_SIZE 2
@@ -45,16 +55,13 @@
 # define FL_COMMENT 2
 # define FL_END 3
 
-# define IS_COMMENT_LINE \
-(!ft_is_empty_line(line) && flag != FL_END && \
-(flag == FL_COMMENT || ft_strnstr(line, COMMENT_CMD_STRING, \
-  ft_strlen(COMMENT_CMD_STRING))) || (flag != FL_COMMENT && ft_strchr(line, ';')))
-# define IS_NAME_LINE \
-(!ft_is_empty_line(line) && flag != FL_END && \
-(flag == FL_NAME || ft_strnstr(line, NAME_CMD_STRING, \
-  ft_strlen(NAME_CMD_STRING))))
+# define IS_COMMENT_LINE (!ft_is_empty_line(line) && flag != FL_END && (flag == FL_COMMENT || ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING))) || (flag != FL_COMMENT && ft_strchr(line, ';')))
+# define IS_NAME_LINE (!ft_is_empty_line(line) && flag != FL_END && (flag == FL_NAME || ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING))))
 
-// Operation codes
+/*
+** Operation codes
+*/
+
 # define LIVE 0x01
 # define LD 0x02
 # define ST 0x03
@@ -78,73 +85,97 @@
 # define OCP_IND 0b11
 # define OCP_REG 0b01
 
-typedef struct s_inst
+typedef struct		s_inst
 {
-  int opcode;
-  char *args[1 + NB_ARG_MAX + 1]; //opcode name + nb args + NULL
-  char *label;
-  struct s_inst *n;
-  struct s_inst *p;
-  int ocp;
-  int param[NB_ARG_MAX];
-  int size;
-}           t_inst;
+	int				opcode;
+	char			*args[1 + NB_ARG_MAX + 1];
+	char			*label;
+	struct s_inst	*n;
+	struct s_inst	*p;
+	int				ocp;
+	int				param[NB_ARG_MAX];
+	int				size;
+}					t_inst;
 
-// Operations structure
-typedef struct    s_op
+/*
+** Operations structure
+*/
+
+typedef struct		s_op
 {
-  int   opcode;
-  char  *mmemo;
-  int   nb_param;
-  int   param[4];
-  int   cycle;
-  char  *desc;
-  int   set_carry;
-  int   ocp_param;
-  int   dir_size;
-} t_op;
+	int				opcode;
+	char			*mmemo;
+	int				nb_param;
+	int				param[4];
+	int				cycle;
+	char			*desc;
+	int				set_carry;
+	int				ocp_param;
+	int				dir_size;
+}					t_op;
 
-// parsing instructions
-int 	get_inst(char *line, t_inst **inst, t_header *head);
-int 	ft_ch_opcode(char *str);
-int		ft_ret_opcode(char *str);
-int		ft_ch_err_lab(char *str);
-int 		ft_ch_rm_lab_c(char **str);
+/*
+** parsing instructions
+*/
 
-// check instructions
-int   ch_all_inst(t_inst *inst);
-int   ch_one_inst(t_inst *tmp, t_inst *inst);
+int					get_inst(char *line, t_inst **inst, t_header *head);
+int					ft_ch_opcode(char *str);
+int					ft_ret_opcode(char *str);
+int					ft_ch_err_lab(char *str);
+int					ft_ch_rm_lab_c(char **str);
 
-// size and arguments value
-int calc_one_inst_size(t_inst *tmp);
-void  calc_all_size(t_inst *inst);
-int ft_is_lab(char *arg);
-int ft_is_reg(char *str);
-int ft_is_ind(char *str);
-int ft_is_dir(char *str);
-int ft_arg_size(char *arg, int opcode);
-void calc_all_arg(t_inst *inst);
+/*
+** check instructions
+*/
 
-// print out instruction to .cor file
-void out_all_inst(int fd, t_inst *inst);
-void  out_header(int fd, t_header *head);
+int					ch_all_inst(t_inst *inst);
+int					ch_one_inst(t_inst *tmp, t_inst *inst);
 
-// free instruction list & header
-void  ft_free_all_inst(t_inst *inst);
-void  ft_free_head(t_header *head);
+/*
+** size and arguments value
+*/
 
-// annex
-int ft_is_valid_opcode(int opcode);
-int ft_is_empty_line(char *line);
-char		*s_to_cor(char *str);
-int   get_prog_comment(char *line, int *flag, t_header *head);
-int   get_prog_name(char *line, int *flag, t_header *head);
+int					calc_one_inst_size(t_inst *tmp);
+void				calc_all_size(t_inst *inst);
+int					ft_is_lab(char *arg);
+int					ft_is_reg(char *str);
+int					ft_is_ind(char *str);
+int					ft_is_dir(char *str);
+int					ft_arg_size(char *arg, int opcode);
+void				calc_all_arg(t_inst *inst);
 
-// debug
-void   prt_inst(t_inst *inst);
-void  prt_tab(char **tab);
-void  prt_one_inst(t_inst *inst);
+/*
+** print out instruction to .cor file
+*/
 
-extern const t_op op_tab[17];
+void				out_all_inst(int fd, t_inst *inst);
+void				out_header(int fd, t_header *head);
+
+/*
+** free instruction list & header
+*/
+
+void				ft_free_all_inst(t_inst *inst);
+void				ft_free_head(t_header *head);
+
+/*
+** annex
+*/
+
+int					ft_is_valid_opcode(int opcode);
+int					ft_is_empty_line(char *line);
+char				*s_to_cor(char *str);
+int					get_prog_comment(char *line, int *flag, t_header *head);
+int					get_prog_name(char *line, int *flag, t_header *head);
+
+/*
+** debug
+*/
+
+void				prt_inst(t_inst *inst);
+void				prt_tab(char **tab);
+void				prt_one_inst(t_inst *inst);
+
+extern const t_op	op_tab[17];
 
 #endif
