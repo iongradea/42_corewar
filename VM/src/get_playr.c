@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:40 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/05 21:27:12 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/07 20:45:23 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static t_ps		*ft_new_ps(int fd, int uid)
 		exit(ERROR_MSG("ft_new_ps : error heap allocation"));
 	ps->uid = uid;
 	ps->code_size = ft_get_code_size(fd);
-	if (!(ps->code \
-			 = (unsigned char *)ft_memalloc(sizeof(unsigned char) * ps->code_size)))
+	if (!(ps->code = (unsigned char *)ft_memalloc(sizeof(unsigned char) \
+														* ps->code_size)))
 		exit(ERROR_MSG("ft_new_ps : error heap allocation"));
 	ft_bzero(ps->reg, sizeof(ps->reg));
 	ps->reg[0] = uid;
@@ -130,6 +130,5 @@ int				get_playr(int fd, t_ps **ps, int ac, char **av)
 									" already exist for another process."))));
 		ft_add_ps(*ps, new);
 	}
-//	prt_ps(*ps);
 	return (EXIT_SUCCESS);
 }
