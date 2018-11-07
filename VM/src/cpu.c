@@ -6,11 +6,17 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/06 19:41:31 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/07 19:39:42 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
+
+/*
+** if (vm->opt & VERBOSE && !(vm->cycle % VERBOSE_DISPLAY))
+**	DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", \
+**	vm->cycle, vm->cycle_to_die, i) : DEBUG;
+*/
 
 static void			display_opt(t_vm_mem *vm, t_ps *ps)
 {
@@ -30,17 +36,15 @@ static void			display_opt(t_vm_mem *vm, t_ps *ps)
 	if (vm->opt & GRAPHIC && !(vm->cycle % vm->display))
 	{
 		ft_prt_mem(vm, ps);
-		DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", \
-											vm->cycle, vm->cycle_to_die, i) : DEBUG;
+		DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - nb_process \
+						: %d\n\n", vm->cycle, vm->cycle_to_die, i) : DEBUG;
 	}
 	if (vm->opt & NCURSE && !(vm->cycle % vm->ncurse))
 	{
 		ft_ncurse(vm, ps);
-		ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", vm->cycle, vm->cycle_to_die, i);
+		ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", \
+											vm->cycle, vm->cycle_to_die, i);
 	}
-	if (vm->opt & VERBOSE && !(vm->cycle % VERBOSE_DISPLAY))
-		DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", \
-											vm->cycle, vm->cycle_to_die, i) : DEBUG;
 }
 
 int					cpu(t_vm_mem *vm, t_ps *ps)
@@ -64,10 +68,9 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 		exec_op(vm, lst_ps);
 		vm->check++;
 		vm->ch_decr++;
-		g_verbose == 3 ? ft_printf("It's now cycle %d\n", vm->cycle) : g_verbose;
+		g_verbose == 3 ? ft_printf("It's now cycle %d\n", vm->cycle) \
+																	: g_verbose;
 		vm->cycle++;
 	}
-	//prt_ps(ps);
-	//prt_vm(vm);
 	return (ft_prt_winner(vm, ps));
 }
