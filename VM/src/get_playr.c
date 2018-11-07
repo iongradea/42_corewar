@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:40 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/07 20:45:23 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/07 21:19:35 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 		*ps = ft_new_ps(fd, uid);
 		lseek(fd, 4, SEEK_SET);
 		read(fd, (*ps)->playr, PROG_NAME_LENGTH);
-		lseek(fd, sizeof(header_t), SEEK_SET);
+		lseek(fd, sizeof(t_header), SEEK_SET);
 		read(fd, (*ps)->code, (*ps)->code_size);
 		close(fd);
 		nb_playr++;

@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/07 19:50:14 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/07 21:19:59 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int				ft_get_code_size(int fd)
 
 	size = 0;
 	DEBUG > 0 ? ft_printf("launching ft_get_code_size ...\n") : DEBUG;
-	lseek(fd, sizeof(header_t), SEEK_SET);
+	lseek(fd, sizeof(t_header), SEEK_SET);
 	while (read(fd, &c, 1) > 0)
 		size++;
-	lseek(fd, sizeof(header_t), SEEK_SET);
+	lseek(fd, sizeof(t_header), SEEK_SET);
 	return (size);
 }
 
