@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/11/06 19:37:34 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/07 20:34:25 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void		ft_ncurse(t_vm_mem *vm, t_ps *ps)
 {
 	ft_printf("fsdfsdfsdfsdf\n");
-  (void)vm;
-  (void)ps;
+	(void)vm;
+	(void)ps;
 }
