@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.h                                               :+:      :+:    :+:   */
+/*   cpu_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/11/05 21:45:01 by bbichero         ###   ########.fr       */
+/*   Created: 2018/11/07 19:40:42 by bbichero          #+#    #+#             */
+/*   Updated: 2018/11/07 19:41:13 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/vm.h"
+#include "../inc/vm.h"
 
-int  ft_nb_live(t_ps *ps)
+int			ft_nb_live(t_ps *ps)
 {
-	int   nb_live;
+	int		nb_live;
 
 	DEBUG ? ft_printf("launching ft_nb_live ...\n") : DEBUG;
 	nb_live = 0;
@@ -27,14 +27,15 @@ int  ft_nb_live(t_ps *ps)
 	return (nb_live);
 }
 
-void  ft_kill_reset_ps(t_ps *ps)
+void		ft_kill_reset_ps(t_ps *ps)
 {
 	DEBUG ? ft_printf("launching ft_kill_reset_ps ...\n") : DEBUG;
 	while (ps)
 	{
 		if (ps->live <= 0)
 		{
-			g_verbose == 5 ? ft_printf("Le joueur %d(%s) viens de mourrir ...\n", ps->uid, ps->playr) : g_verbose;
+			g_verbose == 5 ? ft_printf("Le joueur %d(%s) viens de mourrir \
+									...\n", ps->uid, ps->playr) : g_verbose;
 			ps->live = PS_DEAD;
 		}
 		else
@@ -43,7 +44,7 @@ void  ft_kill_reset_ps(t_ps *ps)
 	}
 }
 
-void   ft_reset_ps(t_ps *ps)
+void		ft_reset_ps(t_ps *ps)
 {
 	DEBUG ? ft_printf("launching ft_reset_ps ...\n") : DEBUG;
 	while (ps)
@@ -54,14 +55,15 @@ void   ft_reset_ps(t_ps *ps)
 	}
 }
 
-int   ft_one_live_ps(t_ps *ps)
+int			ft_one_live_ps(t_ps *ps)
 {
 	DEBUG ? ft_printf("launching ft_one_live_ps ...\n") : DEBUG;
 	while (ps)
 	{
 		if (ps->live != PS_DEAD)
 		{
-			g_verbose == 2 ? ft_printf("Le joueur %d(%s) est en vie ...\n", ps->uid, ps->playr) : g_verbose;
+			g_verbose == 2 ? ft_printf("Le joueur %d(%s) est en vie \
+								...\n", ps->uid, ps->playr) : g_verbose;
 			return (true);
 		}
 		ps = ps->next;
