@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/01 16:58:53 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/07 21:14:05 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,15 @@ static int		ft_get_dist(t_ps *ps)
 	return ((MEM_SIZE - code_size) / nb_ps);
 }
 
+/*
+** code starts at beginning of line (visual display)
+*/
+
 static void		ft_cpy_code(t_vm_mem *vm, t_ps *ps, int *j)
 {
 	int			i;
 
 	i = -1;
-	// code starts at beginning of line (visual display)
 	while (*j % MEM_LINE_LENGTH)
 		(*j)--;
 	ps->pc = MEM_CIR_POS(*j);
@@ -45,9 +48,9 @@ static void		ft_cpy_code(t_vm_mem *vm, t_ps *ps, int *j)
 	}
 }
 
-void	ft_set_colors(t_vm_mem *vm)
+void			ft_set_colors(t_vm_mem *vm)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	while (i < MEM_SIZE)
