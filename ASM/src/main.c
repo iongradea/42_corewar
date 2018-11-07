@@ -6,16 +6,16 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2013/11/06 14:44:35 by iongradea        ###   ########.fr       */
+/*   Updated: 2018/11/07 19:28:41 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-static void 	parse_input(char *str, t_inst **inst, t_header *head)
+static void		parse_input(char *str, t_inst **inst, t_header *head)
 {
-	int fd;
-	char *line;
+	int			fd;
+	char		*line;
 
 	DEBUG ? ft_printf("launching parse_input ...\n") : DEBUG;
 	line = NULL;
@@ -26,10 +26,10 @@ static void 	parse_input(char *str, t_inst **inst, t_header *head)
 	close(fd);
 }
 
-static void 	create_file(char *av, t_inst *inst, t_header *head)
+static void		create_file(char *av, t_inst *inst, t_header *head)
 {
-	int fd;
-	char *new;
+	int			fd;
+	char		*new;
 
 	DEBUG ? ft_printf("launching create_file ...\n") : DEBUG;
 	new = s_to_cor(av);
@@ -40,7 +40,7 @@ static void 	create_file(char *av, t_inst *inst, t_header *head)
 	close(fd);
 }
 
-static void 	ft_init_head(t_header *head)
+static void		ft_init_head(t_header *head)
 {
 	DEBUG ? ft_printf("launching ft_init_head ...\n") : DEBUG;
 	head->magic = COREWAR_EXEC_MAGIC;
@@ -48,11 +48,11 @@ static void 	ft_init_head(t_header *head)
 	ft_bzero(head->comment, COMMENT_LENGTH + 1);
 }
 
-int main(int ac, char **av)
+int				main(int ac, char **av)
 {
-	int i;
-	t_inst *inst;
-	t_header head;
+	int			i;
+	t_inst		*inst;
+	t_header	head;
 
 	i = 0;
 	inst = NULL;
