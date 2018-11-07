@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.h                                               :+:      :+:    :+:   */
+/*   ft_live_zjmp_fork_lfork.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/11/05 21:27:52 by bbichero         ###   ########.fr       */
+/*   Created: 2018/11/07 20:31:38 by bbichero          #+#    #+#             */
+/*   Updated: 2018/11/07 20:33:45 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
 
-int   ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
+/*
+** DEBUG ? ft_printf("launching ft_live ...\n") : DEBUG;
+** DEBUG ? ft_printf("un processus dit que le joueur %d(%s) est en vie\n", \
+**													ps->uid, ps->playr) : DEBUG;
+*/
+
+int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 {
-	unsigned int  arg0;
-	t_ps          *lst;
-	int           i;
+	unsigned int	arg0;
+	t_ps			*lst;
+	int				i;
 
 	(void)opcode;
-	DEBUG ? ft_printf("launching ft_live ...\n") : DEBUG;
 	i = -1;
 	arg0 = 0;
 	while (++i < DIR_SIZE(OP_TAB_INDEX(LIVE)) && ((arg0 = arg0 << 8) || true))
@@ -28,24 +33,23 @@ int   ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	while (lst)
 	{
 		if (lst->uid == (int)arg0)
-			break;
+			break ;
 		lst = lst->next;
 	}
-	//ft_printf("ft_live => lst : %p - arg0 : %d - ps->playr : %s\n", lst, arg0, ps->playr);
-	DEBUG ? print_memory(vm->mem + ps->pc, OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(LIVE))) : DEBUG;
+	DEBUG ? print_memory(vm->mem + ps->pc, OPCODE_SIZE \
+								+ DIR_SIZE(OP_TAB_INDEX(LIVE))) : DEBUG;
 	if (lst == NULL)
 		lst = ps;
 	lst->live++;
 	vm->last_live = lst->uid;
 	ps->op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(LIVE));
-	DEBUG ? ft_printf("un processus dit que le joueur %d(%s) est en vie\n", ps->uid, ps->playr) : DEBUG;
 	return (ft_next_op(ps, NO_CARRY));
 }
 
-int   ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode)
+int					ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode)
 {
-	unsigned int  arg0;
-	int           i;
+	unsigned int	arg0;
+	int				i;
 
 	(void)opcode;
 	i = -1;
@@ -58,11 +62,11 @@ int   ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode)
 	return (EXIT_SUCCESS);
 }
 
-int   ft_fork(t_vm_mem *vm, t_ps *ps, int opcode)
+int					ft_fork(t_vm_mem *vm, t_ps *ps, int opcode)
 {
-	t_ps  *new;
-	unsigned int arg0;
-	int   i;
+	t_ps			*new;
+	unsigned int	arg0;
+	int				i;
 
 	i = -1;
 	arg0 = 0;
