@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.h                                               :+:      :+:    :+:   */
+/*   ft_op_fun.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:33:27 by igradea               #+#    #+#         */
-/*   Updated: 2018/10/24 15:06:33 by bbichero         ###   ########.fr       */
+/*   Created: 2018/11/07 20:35:08 by bbichero          #+#    #+#             */
+/*   Updated: 2018/11/07 20:37:25 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
 
-int  ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i)
+int					ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i)
 {
 	DEBUG ? ft_printf("launching ft_arg_size ...\n") : DEBUG;
 	if (ft_is_type(vm, ps, arg_i, T_REG))
@@ -24,9 +24,9 @@ int  ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i)
 	exit(ERROR_MSG("ft_arg_size : error unknown type"));
 }
 
-int  ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg)
+int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg)
 {
-	int op_size;
+	int				op_size;
 
 	if (nb_arg == 1)
 		op_size = OPCODE_SIZE + OCP_SIZE + ft_arg_size(vm, ps, 0);
@@ -41,11 +41,11 @@ int  ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg)
 	return (op_size);
 }
 
-unsigned int  ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
+unsigned int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
 {
-	int           offset;
-	unsigned int  arg;
-	int           i;
+	int				offset;
+	unsigned int	arg;
+	int				i;
 
 	DEBUG ? ft_printf("launching ft_get_arg ...\n") : DEBUG;
 	i = -1;
@@ -56,16 +56,17 @@ unsigned int  ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
 	else if (arg_i == 1)
 		offset = OPCODE_SIZE + OCP_SIZE + ft_arg_size(vm, ps, 0);
 	else if (arg_i == 2)
-		offset = OPCODE_SIZE + OCP_SIZE + ft_arg_size(vm, ps, 0) + ft_arg_size(vm, ps, 1);
+		offset = OPCODE_SIZE + OCP_SIZE + ft_arg_size(vm, ps, 0) \
+											+ ft_arg_size(vm, ps, 1);
 	while (++i < ft_arg_size(vm, ps, arg_i) && ((arg = arg << 8) || true))
 		arg += *(vm->mem + MEM_CIR_POS(ps->pc + offset + i));
 	return (arg);
 }
 
-unsigned int ft_get_val(t_ps *ps, t_vm_mem *vm, unsigned int arg,
-		int arg_i)
+unsigned int		ft_get_val(t_ps *ps, t_vm_mem *vm, unsigned int arg,\
+																int arg_i)
 {
-	unsigned int val;
+	unsigned int	val;
 
 	val = 0;
 	DEBUG ? ft_printf("launching ft_get_val ...\n") : DEBUG;
