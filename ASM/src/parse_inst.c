@@ -6,16 +6,16 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/06 20:39:24 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/07 19:33:21 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-static t_inst 	*ft_new_inst(void)
+static t_inst		*ft_new_inst(void)
 {
-	t_inst *inst;
-	int i;
+	t_inst			*inst;
+	int				i;
 
 	i = -1;
 	DEBUG ? ft_printf("launching ft_new_inst ...\n") : DEBUG;
@@ -35,10 +35,10 @@ static t_inst 	*ft_new_inst(void)
 	return (inst);
 }
 
-static void ft_clean_comment(char **str)
+static void			ft_clean_comment(char **str)
 {
-	int	i;
-	int len;
+	int				i;
+	int				len;
 
 	DEBUG ? ft_printf("launching ft_clean_comment ...\n") : DEBUG;
 	i = -1;
@@ -51,10 +51,10 @@ static void ft_clean_comment(char **str)
 	}
 }
 
-static void ft_clean_sp(char **str)
+static void			ft_clean_sp(char **str)
 {
-	int i;
-	int len;
+	int				i;
+	int				len;
 
 	i = -1;
 	DEBUG ? ft_printf("launching ft_clean_sp ...\n") : DEBUG;
@@ -66,19 +66,22 @@ static void ft_clean_sp(char **str)
 	}
 }
 
-static int 	get_inst_sub(char *line, t_inst *inst)
+/*
+** DEBUG ? ft_printf("launching get_inst_sub ...\n") : DEBUG;
+** DEBUG ? prt_tab(tab) : DEBUG;
+*/
+
+static int			get_inst_sub(char *line, t_inst *inst)
 {
-	char **tab;
-	int index;
-	int i;
+	char			**tab;
+	int				index;
+	int				i;
 
 	index = 0;
 	i = -1;
-	DEBUG ? ft_printf("launching get_inst_sub ...\n") : DEBUG;
 	ft_clean_comment(&line);
 	ft_clean_sp(&line);
 	tab = ft_strsplit(line);
-	DEBUG ? prt_tab(tab) : DEBUG;
 	if (!ft_arrlen(tab))
 		return (EXIT_SUCCESS);
 	ft_ch_err_lab(tab[0]) ? exit(ERROR_MSG("syntax error")) : true;
@@ -97,14 +100,17 @@ static int 	get_inst_sub(char *line, t_inst *inst)
 	return (EXIT_SUCCESS);
 }
 
-int 	get_inst(char *line, t_inst **inst, t_header *head)
-{
-	t_inst *new;
-	t_inst *tmp;
-	static int flag = FL_STANDARD;
+/*
+** DEBUG ? ft_printf("launching get_inst ...\n") : DEBUG;
+** DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
+*/
 
-	DEBUG ? ft_printf("launching get_inst ...\n") : DEBUG;
-	DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
+int					get_inst(char *line, t_inst **inst, t_header *head)
+{
+	t_inst			*new;
+	t_inst			*tmp;
+	static int		flag = FL_STANDARD;
+
 	tmp = *inst;
 	if (IS_COMMENT_LINE)
 		return (get_prog_comment(line, &flag, head));
