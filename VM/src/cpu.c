@@ -6,17 +6,17 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/08 11:35:34 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/08 19:17:28 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
 
 /*
-** if (vm->opt & VERBOSE && !(vm->cycle % VERBOSE_DISPLAY))
-**	DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", \
-**	vm->cycle, vm->cycle_to_die, i) : DEBUG;
-*/
+ ** if (vm->opt & VERBOSE && !(vm->cycle % VERBOSE_DISPLAY))
+ **	DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - nb_process : %d\n\n", \
+ **	vm->cycle, vm->cycle_to_die, i) : DEBUG;
+ */
 
 static void			display_opt(t_vm_mem *vm, t_ps *ps)
 {
@@ -37,10 +37,10 @@ static void			display_opt(t_vm_mem *vm, t_ps *ps)
 	{
 		ft_prt_mem(vm, ps);
 		DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - nb_process \
-						: %d\n\n", vm->cycle, vm->cycle_to_die, i) : DEBUG;
+				: %d\n\n", vm->cycle, vm->cycle_to_die, i) : DEBUG;
 	}
 	if (vm->opt & NCURSE && !(vm->cycle % vm->ncurse))
-		ft_ncurse(vm);
+		ft_ncurse(vm, ps);
 }
 
 int					cpu(t_vm_mem *vm, t_ps *ps)
@@ -59,13 +59,13 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 		display_opt(vm, ps);
 		flag = vm->cycle >= vm->cycle_to_die ? true : false;
 		DEBUG ? ft_printf("\nCPU => lst->playr : %s\ncycle : \
-			%d\ncycle_to_die : %d\n", lst_ps->playr, vm->cycle, \
-									vm->cycle_to_die) : DEBUG;
+				%d\ncycle_to_die : %d\n", lst_ps->playr, vm->cycle, \
+				vm->cycle_to_die) : DEBUG;
 		exec_op(vm, lst_ps);
 		vm->check++;
 		vm->ch_decr++;
 		g_verbose == 3 ? ft_printf("It's now cycle %d\n", vm->cycle) \
-																	: g_verbose;
+				   : g_verbose;
 		vm->cycle++;
 	}
 	return (ft_prt_winner(vm, ps));

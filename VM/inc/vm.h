@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/08 11:29:29 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/08 18:49:45 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@
 # define PARAM_OCP_CODE(op, arg_i) (((op) >> ((3 - arg_i) * 2)) & 0b11)
 # define VALID_OCP_PART(ocp) (ocp == 0b01 || ocp == 0b10 || ocp == 0b11)
 # define CHECK_OCP_END_00(ocp) (ocp & 0b11)
+# define TOTAL_SIZE (CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + 4)
 
 /*
 ** Process structure
@@ -131,6 +132,10 @@ typedef struct		s_ps
 	int				color;
 	int				carry;
 	int				cyc_len;
+	int				index_start;
+	int				inst_len;
+	char			string[TOTAL_SIZE + 1];
+	char			inst[CHAMP_MAX_SIZE + 1];
 	struct s_ps		*next;
 }					t_ps;
 
@@ -164,7 +169,9 @@ typedef struct		s_vm_mem
 	int				mem_color_size;
 	int				mem_color_ind;
 	int				last_live;
+	int				nb_players;
 	t_arena			a[MEM_SIZE];
+	t_ps			ps[MAX_NB_PLAYR + 1];
 }					t_vm_mem;
 
 /*
@@ -284,8 +291,15 @@ int					ft_main_debug(t_vm_mem *vm, t_ps *ps);
 void		ft_ncurse(t_vm_mem *vm, t_ps *ps);
 void 		ft_init_ncurses(void);
 void		ft_init_arena(t_vm_mem *vm);
-void		ft_print_arena(t_vm_mem *vm);
+void		ft_print_arena(t_vm_mem *vm, t_ps *ps);
 void		ft_print_test(void);
+void		ft_print_game_stats(t_vm_mem *vm, t_ps *ps);
+
+void		ft_parsing(t_vm_mem *vm, t_ps *ps);
+void		ft_build_arena(t_vm_mem *vm, t_ps *ps);
+void		ft_player_to_arena(t_vm_mem *vm, t_ps *ps, int i, int *k);
+
+void		ft_print_lives(t_vm_mem *vm, t_ps *ps, int i);
 
 /*
 ** Global variable

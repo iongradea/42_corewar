@@ -6,44 +6,115 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/11/08 11:38:26 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/08 19:24:07 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
 
-
-void	ft_init_arena(t_vm_mem *vm)
+void	ft_parsing(t_vm_mem *vm, t_ps *ps)
 {
-	int i;
+	int		i;
+	int		k;
+
+	i = -1;
+	while (++i < vm->nb_players)
+	{
+		k = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
+		ps->inst_len = k;
+	}
+}
+
+void	ft_player_to_arena(t_vm_mem *vm, t_ps *ps, int i, int *k)
+{
+	int	count;
+
+	count = 0;
+	while (count < ps->inst_len)
+	{
+		vm->a[*k].hex = 0xFF & ps->inst[count];
+		vm->a[*k].color = 1 + (i % 6);
+		vm->a[*k].prevcolor = 1 + (i % 6);
+		*k += 1;
+		count++;
+	}
+}
+
+void	ft_build_arena(t_vm_mem *vm, t_ps *ps)
+{
+	int			i;
+	static int	k;
 
 	i = 0;
-	while (i < MEM_SIZE)
+	k = 0;
+	while (i < vm->nb_players)
 	{
-		vm->a[i].hex = 0;
-		vm->a[i].color = 12;
-		vm->a[i].prevcolor = 12;
-		vm->a[i].occupied = 0;
-		vm->a[i].new_color_count = 0;
+		ps->index_start = (MEM_SIZE / vm->nb_players) * i;
+		ps->live = 0;
+		k = (MEM_SIZE / vm->nb_players) * i;
+		ft_player_to_arena(vm, ps, i, &k);
 		i++;
 	}
 }
 
-//void	ft_print_game_stats(t_vm_mem *vm)
-//{
-//	int i;
-//
-//	i = -1;
-//	while (++i < vm->player_amount)
-//		ft_print_lives(e, i);
-//	attron(COLOR_PAIR(14));
-//	printw("\n\nCycle: %-10d Cursors: %-10d Total Number of lives: %d/%-10d \
-//			Checks: %d/9 > Decrease cycle to die with: %d     \
-//			Cycles to die: %d/%d\n\n", e->tot_cycle, e->cursors, NBR_LIVE, e->lives, \
-//			e->check, CYCLE_DELTA, e->cycles_to_die, e->cycle);
-//	attroff(COLOR_PAIR(14));
-//	refresh();
-//}
+
+void	ft_print_lives(t_vm_mem *vm, t_ps *ps, int i)
+{
+	int k;
+	int cycles;
+	attron(COLOR_PAIR(vm->a[i].color));
+	cycles = (ps->live < 161) ? ps->live : 161;
+	k = -1;
+	printw("\nLives for %-15s", ps->playr);
+	printw("%-5d", ps->live);
+	while (++k < cycles)
+		addch(ACS_CKBOARD);
+	attroff(COLOR_PAIR(vm->a[i].color));
+}
+
+void	ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
+{
+	int i;
+	i = -1;
+	while (ps)
+	{
+		ft_print_lives(vm, ps, ++i);
+		ps = ps->next;
+	}
+	attron(COLOR_PAIR(14));
+	printw("\n\nCycle: %-10d Total Number of lives: %d/%-10d \
+			Checks: %d/9 > Decrease cycle to die with: %d     \
+			Cycles to die: %d/%d\n\n", vm->cycle, NBR_LIVE, vm->last_live, \
+			vm->check, CYCLE_DELTA, vm->cycle_to_die, vm->cycle);
+	attroff(COLOR_PAIR(14));
+	refresh();
+}
+
+void	ft_print_arena(t_vm_mem *vm, t_ps *ps)
+{
+	int i;
+
+	i = 0;
+	erase();
+	while (i < MEM_SIZE)
+	{
+		if (vm->a[i].new_color_count > 0)
+			attron(A_BOLD);
+		attron(COLOR_PAIR(vm->a[i].color));
+		printw("%02x", 0xFF & vm->a[i].hex);
+		attroff(COLOR_PAIR(vm->a[i].color));
+		if (vm->a[i].new_color_count > 0)
+		{
+			attroff(A_BOLD);
+			vm->a[i].new_color_count -= 1;
+		}
+		printw(" ");
+		if ((i + 1) % (128 / 2) == 0)
+			printw("\n");
+		i++;
+	}
+	ft_print_game_stats(vm, ps);
+}
 
 void	ft_init_ncurses(void)
 {
@@ -69,36 +140,8 @@ void	ft_init_ncurses(void)
 	curs_set(FALSE);
 }
 
-void	ft_print_arena(t_vm_mem *vm)
+void		ft_ncurse(t_vm_mem *vm, t_ps *ps)
 {
-	int i;
-
-	i = 0;
-	erase();
-	while (i < MEM_SIZE)
-	{
-		if (vm->a[i].new_color_count > 0)
-			attron(A_BOLD);
-		attron(COLOR_PAIR(vm->a[i].color));
-		printw("%02x", 0xFF & vm->a[i].hex);
-		attroff(COLOR_PAIR(vm->a[i].color));
-		if (vm->a[i].new_color_count > 0)
-		{
-			attroff(A_BOLD);
-			vm->a[i].new_color_count -= 1;
-		}
-		printw(" ");
-		if ((i + 1) % (128 / 2) == 0)
-			printw("\n");
-		i++;
-	}
-	//	ft_print_game_stats(vm);
-}
-
-void		ft_ncurse(t_vm_mem *vm)
-{
-	ft_print_arena(vm);
-	ft_printf("00");
-	refresh();
+	ft_print_arena(vm, ps);
 }
 

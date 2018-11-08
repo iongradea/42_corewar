@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/07 21:14:05 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/08 15:32:01 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_vm_mem		*ft_new_mem(void)
 	vm->mem_color_size = 0;
 	vm->mem_color_ind = 0;
 	vm->last_live = NO_PLAYR;
-	ft_set_colors(vm);
+	//ft_set_colors(vm);
 	return (vm);
 }
 
@@ -93,6 +93,7 @@ void			add_data_vm(t_vm_mem *vm, t_ps *ps)
 	int			dist;
 
 	j = 0;
+	vm->nb_players = 1;
 	dist = ft_get_dist(ps);
 	ft_cpy_code(vm, ps, &j);
 	j += dist;
@@ -102,5 +103,6 @@ void			add_data_vm(t_vm_mem *vm, t_ps *ps)
 		ft_cpy_code(vm, ps, &j);
 		j += dist;
 		ps = ps->next;
+		vm->nb_players++;
 	}
 }
