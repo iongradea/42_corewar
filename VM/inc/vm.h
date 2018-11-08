@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/06 19:42:20 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/06 20:35:36 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <sys/types.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <ncurses.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -223,6 +224,10 @@ int					ft_main_debug(t_vm_mem *vm, t_ps *ps);
 
 // Ncurse functions
 void		ft_ncurse(t_vm_mem *vm, t_ps *ps);
+void 		ft_init_ncurses(void);
+void		ft_init_arena(t_vm_mem *vm);
+void		ft_print_arena(t_vm_mem *vm);
+void		ft_print_test(void);
 
 
 // Global variable

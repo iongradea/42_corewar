@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2018/11/01 18:01:52 by romontei         ###   ########.fr        #
+#    Updated: 2018/11/06 20:15:11 by romontei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ LBFT_DIR = ../libft
 
 # Libraries
 LIBFT_LIB = -lftprintf
+NCURSES_LIB = -lncurses
 
 # Include
 INC_H = vm.h op.h
@@ -75,8 +76,8 @@ all: libft $(NAME)
 # compiling run binary
 $(NAME): $(OBJS)
 	@echo "$(Y)[COMPILING VM FILES]$(E)"
-	@echo "$(G)$(CC) $(CFLAGS) $^ -L$(LBFT_DIR) $(LIBFT_LIB) -o $@$(E)"
-	@$(CC) $(CFLAGS) $^ -L$(LBFT_DIR) $(LIBFT_LIB) -o $@
+	@echo "$(G)$(CC) $(CFLAGS) $^ -L$(LBFT_DIR) $(LIBFT_LIB) $(NCURSES_LIB) -o $@$(E)"
+	@$(CC) $(CFLAGS) $^ -L$(LBFT_DIR) $(LIBFT_LIB) $(NCURSES_LIB) -o $@
 	@echo "$(Y)[COMPILLING DONE]"
 
 # compiling binaries
