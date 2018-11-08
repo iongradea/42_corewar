@@ -3,3 +3,7 @@ libft/libftprintf.a
 VM/bin/*.o
 VM/src/.*
 VM/corewar
+
+ASM/bin/*.o
+ASM/src/.*
+ASM/asm

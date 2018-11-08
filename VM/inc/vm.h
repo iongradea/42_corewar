@@ -6,14 +6,14 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/06 20:35:36 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/08 11:29:29 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
-#include <sys/types.h>
+# include <sys/types.h>
 # include <stdbool.h>
 # include <limits.h>
 # include <ncurses.h>
@@ -25,16 +25,25 @@
 # include "../../libft/inc/ft_printf.h"
 # include "op.h"
 
-/*			Some var		*/
+/*
+** Some var
+*/
+
 # define UNDEFINED -1
 # define PS_DEAD -1
 # define MAX_NB_PLAYR 1000
 
-/*			Debugging and errors		*/
+/*
+** Debugging and errors
+*/
+
 # define DEBUG 0
 # define ERROR_MSG(str) (ft_printf("%s\n", str))
 
-/*			Operation codes				*/
+/*
+** Operation codes
+*/
+
 # define LIVE 0x01
 # define LD 0x02
 # define ST 0x03
@@ -54,7 +63,10 @@
 
 # define NB_OP 16
 
-/*			Options			*/
+/*
+** Options
+*/
+
 # define VERBOSE 0x01
 # define GRAPHIC 0x02
 # define DUMP 0x04
@@ -62,38 +74,49 @@
 
 # define VERBOSE_DISPLAY 400
 
-/*			Parameters size			*/
+/*
+** Parameters size
+*/
+
 # define OPCODE_SIZE 1
 # define OCP_SIZE 1
 # define REG_SIZE 1
 # define IND_SIZE 2
 # define DIR_SIZE(op) (op_tab[op].dir_size)
 
-/*			carry			*/
+/*
+** carry
+*/
+
 # define CARRY_TRUE 1
 # define CARRY_FALSE 0
 # define NO_CARRY -1
 
-/*			VM			*/
-# define MEM_LINE_LENGTH 64 // memory length for graphic visual
+/*
+** VM
+** memory length for graphic visual
+*/
+
+# define MEM_LINE_LENGTH 64
 # define NO_PLAYR -1
 
-/*			CPU operations			*/
-# define MEM_CIR_POS(pos) (((pos) % MEM_SIZE) < 0 ? \
-		(((pos) % MEM_SIZE) + MEM_SIZE) : ((pos) % MEM_SIZE))
+/*
+** CPU operations
+*/
+
+# define MEM_CIR_POS(pos) (((pos) % MEM_SIZE) < 0 ? (((pos) % MEM_SIZE) + MEM_SIZE) : ((pos) % MEM_SIZE))
 # define IS_OP_CODE(i) (i <= 0x10 && i >= 0x01)
 # define OP_TAB_INDEX(opcode) (opcode - 1)
 # define IS_REG(nb) (nb < 16 && nb >= 0)
-# define IS_INVALID_REG(vm, ps, arg_i, arg) \
-												(ft_is_type(vm, ps, arg_i, T_REG) && !IS_REG(arg))
-# define PARAM_OCP_CODE(op, arg_i) \
-												(((op) >> ((3 - arg_i) * 2)) & 0b11)
+# define IS_INVALID_REG(vm, ps, arg_i, arg) (ft_is_type(vm, ps, arg_i, T_REG) && !IS_REG(arg))
+# define PARAM_OCP_CODE(op, arg_i) (((op) >> ((3 - arg_i) * 2)) & 0b11)
 # define VALID_OCP_PART(ocp) (ocp == 0b01 || ocp == 0b10 || ocp == 0b11)
 # define CHECK_OCP_END_00(ocp) (ocp & 0b11)
 
+/*
+** Process structure
+*/
 
-
-/*			Process structure			*/
 typedef struct		s_ps
 {
 	char			*playr;
@@ -120,7 +143,10 @@ typedef struct		s_arena
 	int				new_color_count;
 }					t_arena;
 
-// Virtual machine memory
+/*
+** Virtual machine memory
+*/
+
 typedef struct		s_vm_mem
 {
 	unsigned char	mem[MEM_SIZE];
@@ -141,7 +167,10 @@ typedef struct		s_vm_mem
 	t_arena			a[MEM_SIZE];
 }					t_vm_mem;
 
-// Operations structure
+/*
+** Operations structure
+*/
+
 typedef struct		s_op
 {
 	int				opcode;
@@ -156,7 +185,10 @@ typedef struct		s_op
 	int				(*fun)(t_vm_mem *, t_ps *, int);
 }					t_op;
 
-// Parsing functions & initialization functions
+/*
+** Parsing functions & initialization functions
+*/
+
 int					get_playr(int fd, t_ps **ps, int ac, char **av);
 void				add_data_vm(t_vm_mem *vm, t_ps *ps);
 t_vm_mem			*ft_new_mem(void);
@@ -164,10 +196,12 @@ int					ft_parse_opt(int ac, char **av, t_vm_mem *vm);
 int					ft_usage(void);
 void				ft_jmp_opt(int ac, char **av, int *i);
 int					ft_check_ps_uid(t_ps *ps, int uid);
-
 void				cpu_checks(t_vm_mem *vm, t_ps *ps);
 
-// CPU architecture
+/*
+** CPU architecture
+*/
+
 int					cpu(t_vm_mem *vm, t_ps *ps);
 int					exec_op(t_vm_mem *vm, t_ps *lst);
 int					ft_nb_live(t_ps *ps);
@@ -175,33 +209,48 @@ void				ft_kill_reset_ps(t_ps *ps);
 void				ft_reset_ps(t_ps *ps);
 int					ft_one_live_ps(t_ps *ps);
 
-// CPU Operations
-int					ft_bin(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
-int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
-int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
+/*
+** CPU Operations
+*/
+
+int					ft_bin(t_vm_mem *vm, t_ps *ps, int opcode);
+int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode);
+int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode);
 int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode);
 int					ft_aff(t_vm_mem *vm, t_ps *ps, int opcode);
 int					ft_sti(t_vm_mem *vm, t_ps *ps, int opcode);
 int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode);
 int					ft_lldi(t_vm_mem *vm, t_ps *ps, int opcode);
 
-// CPU operations no ocp
+/*
+** CPU operations no ocp
+*/
+
 int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode);
 int					ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode);
-int					ft_fork(t_vm_mem *vm, t_ps *ps, int opcode); // opcode useful
+int					ft_fork(t_vm_mem *vm, t_ps *ps, int opcode);
 
-// CPU Operations functions
-int					ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, unsigned int type);
+/*
+** CPU Operations functions
+*/
+
+int					ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, \
+		unsigned int type);
 int					ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i);
 int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
 unsigned int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
-unsigned int		ft_get_val(t_ps *ps, t_vm_mem *vm, unsigned int arg, int arg_i);
+unsigned int		ft_get_val(t_ps *ps, t_vm_mem *vm, \
+		unsigned int arg, int arg_i);
 unsigned char		ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
 int					check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
 t_ps				*ft_cpy_playr(t_ps *ps);
-void				ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, int size);
+void				ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, \
+		int size);
 
-// Print memory to console functions
+/*
+** Print memory to console functions
+*/
+
 void				ft_prt_mem(t_vm_mem *vm, t_ps *ps);
 void				ft_byte(t_vm_mem *vm, unsigned char c);
 void				ft_hex(t_vm_mem *vm, unsigned char c);
@@ -209,30 +258,41 @@ void				add_bot_mem(t_vm_mem *vm);
 void				add_top_mem(t_vm_mem *vm);
 int					ft_add_c_mem(t_vm_mem *vm, char *str);
 
-// Annex functions
+/*
+** Annex functions
+*/
+
 void				ft_add_ps(t_ps *ps, t_ps *tmp);
 int					ft_next_op(t_ps *ps, int carry_mod);
 int					ft_get_code_size(int fd);
 int					ft_prt_winner(t_vm_mem *vm, t_ps *ps);
 
-// Debug functions
+/*
+** Debug functions
+*/
+
 void				prt_op(void);
 void				prt_ps(t_ps *ps);
 void				prt_vm(t_vm_mem *vm);
 void				prt_mem_uid(t_vm_mem *vm);
 int					ft_main_debug(t_vm_mem *vm, t_ps *ps);
 
-// Ncurse functions
+/*
+** Ncurse functions
+*/
+
 void		ft_ncurse(t_vm_mem *vm, t_ps *ps);
 void 		ft_init_ncurses(void);
 void		ft_init_arena(t_vm_mem *vm);
 void		ft_print_arena(t_vm_mem *vm);
 void		ft_print_test(void);
 
+/*
+** Global variable
+** extern means it is available throughout the program
+** static means it can only be used inside the .c file where it is defined
+*/
 
-// Global variable
-// extern means it is available throughout the program
-// static means it can only be used inside the .c file where it is defined
 extern const t_op			op_tab[17];
 extern const unsigned char	g_color[6][10];
 extern const unsigned char	g_colorpc[6][10];

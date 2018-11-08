@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/10/27 13:06:46 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/07 21:19:59 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int				ft_next_op(t_ps *ps, int carry_mod)
 	DEBUG > 0 ? ft_printf("launching ft_next_op ...\n") : DEBUG;
 	ps->pc = MEM_CIR_POS(ps->pc + ps->op_size);
 	ps->op_size = 0;
-	/*if (i == 20)
-	  exit(ERROR_MSG("===>"));*/
 	if (carry_mod == NO_CARRY)
 		return (EXIT_SUCCESS);
 	else
@@ -54,10 +52,10 @@ int				ft_get_code_size(int fd)
 
 	size = 0;
 	DEBUG > 0 ? ft_printf("launching ft_get_code_size ...\n") : DEBUG;
-	lseek(fd, sizeof(header_t), SEEK_SET);
+	lseek(fd, sizeof(t_header), SEEK_SET);
 	while (read(fd, &c, 1) > 0)
 		size++;
-	lseek(fd, sizeof(header_t), SEEK_SET);
+	lseek(fd, sizeof(t_header), SEEK_SET);
 	return (size);
 }
 
@@ -65,7 +63,6 @@ int				ft_prt_winner(t_vm_mem *vm, t_ps *ps)
 {
 	DEBUG > 0 ? ft_printf("launching ft_prt_winner ...\n") : DEBUG;
 	DEBUG > 0 ? prt_vm(vm) : DEBUG;
-	/* prt_ps(ps); */
 	while (ps)
 	{
 		if (ps->uid == vm->last_live)
