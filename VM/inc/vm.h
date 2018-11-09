@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/08 18:49:45 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/09 18:46:05 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct		s_ps
 	int				op_size;
 	int				opcode;
 	int				color;
+	int				nolor;
 	int				carry;
 	int				cyc_len;
 	int				index_start;
@@ -156,6 +157,7 @@ typedef struct		s_vm_mem
 {
 	unsigned char	mem[MEM_SIZE];
 	int				cycle;
+	int				real_cycle;
 	int				cycle_to_die;
 	int				ch_decr;
 	int				check;
@@ -170,6 +172,7 @@ typedef struct		s_vm_mem
 	int				mem_color_ind;
 	int				last_live;
 	int				nb_players;
+	int				lives;
 	t_arena			a[MEM_SIZE];
 	t_ps			ps[MAX_NB_PLAYR + 1];
 }					t_vm_mem;

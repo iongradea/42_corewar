@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/08 19:17:28 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/09 18:45:08 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,20 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 	{
 		if (!lst_ps)
 			lst_ps = ps;
-		cpu_checks(vm, ps);
+		if (vm->cycle % vm->cycle_to_die == 0)
+			cpu_checks(vm, ps);
+		if (vm->check == vm->ch_decr)
+			vm->check = 0;
 		display_opt(vm, ps);
 		flag = vm->cycle >= vm->cycle_to_die ? true : false;
 		DEBUG ? ft_printf("\nCPU => lst->playr : %s\ncycle : \
 				%d\ncycle_to_die : %d\n", lst_ps->playr, vm->cycle, \
 				vm->cycle_to_die) : DEBUG;
 		exec_op(vm, lst_ps);
-		vm->check++;
-		vm->ch_decr++;
 		g_verbose == 3 ? ft_printf("It's now cycle %d\n", vm->cycle) \
 				   : g_verbose;
 		vm->cycle++;
+		vm->real_cycle++;
 	}
 	return (ft_prt_winner(vm, ps));
 }

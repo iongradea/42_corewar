@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/07 19:45:30 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/09 18:45:22 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,20 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 		DEBUG ? ft_printf("NB_LIVE - ft_nb_live(ps) : %d - NBR_LIVE : %d\n", \
 									ft_nb_live(ps), NBR_LIVE) : DEBUG;
 		vm->cycle_to_die -= CYCLE_DELTA;
-		vm->ch_decr = 0;
+		vm->lives = 0;
+		vm->check = 0;
 	}
-	if (vm->ch_decr > MAX_CHECKS)
+	if (vm->check >= MAX_CHECKS)
 	{
-		DEBUG ? ft_printf("MAX_CHECKS - vm->ch_decr : %d - MAX_CHECKS : %d\n", \
-									vm->ch_decr, MAX_CHECKS) : DEBUG;
+		DEBUG ? ft_printf("MAX_CHECKS - vm->check : %d - MAX_CHECKS : %d\n", \
+									vm->check, MAX_CHECKS) : DEBUG;
 		vm->cycle_to_die -= CYCLE_DELTA;
 		g_verbose == 3 ? ft_printf("Cycle to die is now at %d\n", \
 											vm->cycle_to_die) : g_verbose;
-		vm->ch_decr = 0;
+		vm->check = 0;
 	}
+	vm->check++;
+	vm->real_cycle = 0;
 }
 
 int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
@@ -80,6 +83,8 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 			}
 			else
 			{
+				if (!ft_strcmp("live", op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
+					vm->lives++;
 				g_verbose == 4 ? ft_printf("%s\n", \
 					op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
 				op_tab[OP_TAB_INDEX(lst_ps->opcode)].fun(vm, lst_ps, \

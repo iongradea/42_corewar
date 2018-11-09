@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/11/08 19:24:07 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/09 18:57:18 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ void	ft_parsing(t_vm_mem *vm, t_ps *ps)
 
 void	ft_player_to_arena(t_vm_mem *vm, t_ps *ps, int i, int *k)
 {
-	int	count;
+	int		count;
 
 	count = 0;
-	while (count < ps->inst_len)
+	while (ps && count < ps->inst_len)
 	{
 		vm->a[*k].hex = 0xFF & ps->inst[count];
 		vm->a[*k].color = 1 + (i % 6);
 		vm->a[*k].prevcolor = 1 + (i % 6);
 		*k += 1;
 		count++;
+		ps = ps->next;
 	}
 }
 
@@ -45,15 +46,14 @@ void	ft_build_arena(t_vm_mem *vm, t_ps *ps)
 	int			i;
 	static int	k;
 
-	i = 0;
+	i = -1;
 	k = 0;
-	while (i < vm->nb_players)
+	while (++i < vm->nb_players)
 	{
 		ps->index_start = (MEM_SIZE / vm->nb_players) * i;
-		ps->live = 0;
+		ps->live = 4;
 		k = (MEM_SIZE / vm->nb_players) * i;
 		ft_player_to_arena(vm, ps, i, &k);
-		i++;
 	}
 }
 
@@ -62,30 +62,30 @@ void	ft_print_lives(t_vm_mem *vm, t_ps *ps, int i)
 {
 	int k;
 	int cycles;
-	attron(COLOR_PAIR(vm->a[i].color));
+	attron(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
 	cycles = (ps->live < 161) ? ps->live : 161;
 	k = -1;
 	printw("\nLives for %-15s", ps->playr);
 	printw("%-5d", ps->live);
 	while (++k < cycles)
 		addch(ACS_CKBOARD);
-	attroff(COLOR_PAIR(vm->a[i].color));
+	attroff(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
 }
 
 void	ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
 {
 	int i;
 	i = -1;
-	while (ps)
+	while (++i < vm->nb_players && ps)
 	{
-		ft_print_lives(vm, ps, ++i);
+		ft_print_lives(vm, ps, i);
 		ps = ps->next;
 	}
 	attron(COLOR_PAIR(14));
 	printw("\n\nCycle: %-10d Total Number of lives: %d/%-10d \
 			Checks: %d/9 > Decrease cycle to die with: %d     \
-			Cycles to die: %d/%d\n\n", vm->cycle, NBR_LIVE, vm->last_live, \
-			vm->check, CYCLE_DELTA, vm->cycle_to_die, vm->cycle);
+			Cycles to die: %d/%d\n\n", vm->cycle, vm->lives, NBR_LIVE, \
+			vm->check, CYCLE_DELTA, vm->cycle_to_die, vm->real_cycle);
 	attroff(COLOR_PAIR(14));
 	refresh();
 }
@@ -142,6 +142,10 @@ void	ft_init_ncurses(void)
 
 void		ft_ncurse(t_vm_mem *vm, t_ps *ps)
 {
-	ft_print_arena(vm, ps);
+	t_ps *tps;
+
+	tps = ps;
+	ft_print_arena(vm, tps);
+	//usleep(300);
 }
 

@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/08 15:32:01 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/09 18:44:56 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,14 @@ t_vm_mem		*ft_new_mem(void)
 		exit(ERROR_MSG("ft_new_mem : error heap allocation"));
 	ft_bzero(vm->mem, MEM_SIZE);
 	vm->cycle = 0;
+	vm->real_cycle = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->ch_decr = 0;
 	vm->check = 0;
 	vm->opt = 0x00;
 	vm->display = 0;
 	vm->dump = 0;
+	vm->lives = 0;
 	ft_memset(vm->mem_uid, NO_PLAYR, sizeof(vm->mem_uid));
 	ft_bzero(vm->mem_color, sizeof(vm->mem_color));
 	vm->mem_color_size = 0;

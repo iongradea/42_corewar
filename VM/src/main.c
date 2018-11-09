@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/08 19:14:27 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:48:55 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int				main(int ac, char **av)
 	ft_build_arena(vm, ps);
 
 	cpu(vm, ps);
-	ft_printf("main: display name in cpu: %s --- %s\n", ps->playr, ps->next->playr);
 	
 	if (vm->opt & NCURSE)
 	{
