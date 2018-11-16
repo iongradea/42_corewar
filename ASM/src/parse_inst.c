@@ -12,7 +12,7 @@
 
 #include "../inc/asm.h"
 
-static t_inst		*ft_new_inst(void)
+static t_inst		*ft_new_inst(char *line)
 {
 	t_inst			*inst;
 	int				i;
@@ -21,6 +21,8 @@ static t_inst		*ft_new_inst(void)
 	DEBUG ? ft_printf("launching ft_new_inst ...\n") : DEBUG;
 	if (!(inst = ft_memalloc(sizeof(t_inst))))
 		exit(ERROR_MSG("malloc error"));
+	if (!(inst->line = ft_memalloc(sizeof(line))))
+		exit(ERROR_MSG("mallor error"));
 	inst->opcode = UNDEFINED;
 	while (inst->args[++i])
 		inst->args[i] = NULL;
@@ -79,8 +81,10 @@ static int			get_inst_sub(char *line, t_inst *inst)
 
 	index = 0;
 	i = -1;
+	DEBUG ? ft_printf("launching get_inst_sub ...\n") : DEBUG;
 	ft_clean_comment(&line);
 	ft_clean_sp(&line);
+	ft_strcpy(inst->line, line);
 	tab = ft_strsplit(line);
 	if (!ft_arrlen(tab))
 		return (EXIT_SUCCESS);
@@ -95,7 +99,6 @@ static int			get_inst_sub(char *line, t_inst *inst)
 		while (((++i + index) < ft_arrlen(tab)) && tab[i + index])
 			inst->args[i] = ft_strdup(ft_strtrim(tab[i + index]));
 	}
-	DEBUG ? prt_inst(inst) : DEBUG;
 	ft_free_tab(tab);
 	return (EXIT_SUCCESS);
 }
@@ -112,18 +115,20 @@ int					get_inst(char *line, t_inst **inst, t_header *head)
 	static int		flag = FL_STANDARD;
 
 	tmp = *inst;
+	DEBUG ? ft_printf("launching get_inst ...\n") : DEBUG;
+	DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
 	if (IS_COMMENT_LINE)
 		return (get_prog_comment(line, &flag, head));
 	else if (IS_NAME_LINE)
 		return (get_prog_name(line, &flag, head));
 	else if (ft_is_empty_line(line))
-		return (flag = FL_END);
+		return (EXIT_SUCCESS);
 	else if (*line == COMMENT_CHAR)
 		return (EXIT_SUCCESS);
 	if (tmp && tmp->n)
 		while (tmp->n)
 			tmp = tmp->n;
-	new = ft_new_inst();
+	new = ft_new_inst(line);
 	if (!tmp)
 		*inst = new;
 	else
