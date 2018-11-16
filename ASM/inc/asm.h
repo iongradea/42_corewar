@@ -51,12 +51,11 @@
 # define DIR_SIZE(opcode) (op_tab[OP_TAB_INDEX(opcode)].dir_size)
 
 # define FL_STANDARD 0
-# define FL_NAME 1
-# define FL_COMMENT 2
-# define FL_END 3
+# define FL_NAME 0b1
+# define FL_COMMENT 0b10
 
-# define IS_COMMENT_LINE (!ft_is_empty_line(line) && flag != FL_END && (flag == FL_COMMENT || ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING))) || (flag != FL_COMMENT && ft_strchr(line, ';')))
-# define IS_NAME_LINE (!ft_is_empty_line(line) && flag != FL_END && (flag == FL_NAME || ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING))))
+# define IS_COMMENT_LINE (!ft_is_empty_line(line) && ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+# define IS_NAME_LINE (!ft_is_empty_line(line) && ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 
 /*
 ** Operation codes
@@ -88,6 +87,7 @@
 typedef struct		s_inst
 {
 	int				opcode;
+	char 			*line;
 	char			*args[1 + NB_ARG_MAX + 1];
 	char			*label;
 	struct s_inst	*n;

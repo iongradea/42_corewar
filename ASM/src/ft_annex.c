@@ -49,7 +49,7 @@ char			*s_to_cor(char *str)
 	while ((ft_strcmp(&str[i], ".s")) != 0)
 	{
 		if (i == (int)ft_strlen(str) - 1)
-			exit(write(2, "Usage: ./asm <sourcefile.s>\n", 28));
+			exit(ERROR_MSG("Usage: ./asm <sourcefile.s>\n"));
 		new[i] = str[i];
 		i++;
 	}
@@ -68,10 +68,12 @@ int				get_prog_comment(char *line, int *flag, t_header *head)
 	DEBUG ? ft_printf("launching get_prog_comment ...\n") : DEBUG;
 	DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
 	comment_cmd_len = ft_strlen(COMMENT_CMD_STRING);
+	if (*flag & FL_COMMENT)
+		exit(ERROR_MSG("parsing error: 2 comment lines\n"));
 	if (ft_strnstr(line, COMMENT_CMD_STRING, comment_cmd_len))
 	{
 		ft_strcpy(head->comment, line + comment_cmd_len);
-		*flag = FL_COMMENT;
+		*flag += FL_COMMENT;
 	}
 	else
 		ft_strcpy(head->comment + ft_strlen(head->comment), line);
@@ -85,10 +87,12 @@ int				get_prog_name(char *line, int *flag, t_header *head)
 	DEBUG ? ft_printf("launching get_prog_name ...\n") : DEBUG;
 	name_cmd_len = ft_strlen(NAME_CMD_STRING);
 	DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
+	if (*flag & FL_NAME)
+		exit(ERROR_MSG("parsing error: 2 name lines\n"));
 	if (ft_strnstr(line, NAME_CMD_STRING, name_cmd_len))
 	{
 		ft_strcpy(head->prog_name, line + name_cmd_len);
-		*flag = FL_NAME;
+		*flag += FL_NAME;
 	}
 	else
 		ft_strcpy(head->prog_name + ft_strlen(head->prog_name), line);
