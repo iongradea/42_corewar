@@ -123,8 +123,8 @@ int					get_inst(char *line, t_inst **inst, t_header *head)
 		return (get_prog_name(line, &flag, head));
 	else if (ft_is_empty_line(line))
 		return (EXIT_SUCCESS);
-	else if (*line == COMMENT_CHAR)
-		return (EXIT_SUCCESS);
+	else if (ft_is_special_line(line))
+		exit(ERROR_MSG("Lexical error\n"));
 	if (tmp && tmp->n)
 		while (tmp->n)
 			tmp = tmp->n;

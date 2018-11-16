@@ -47,7 +47,7 @@ int			ft_arg_size(char *arg, int opcode)
 		return (IND_SIZE);
 	if (ft_is_dir(arg))
 		return (DIR_SIZE(opcode));
-	exit(ERROR_MSG("arg_size error"));
+	exit(ERROR_MSG("arg_size error\n"));
 }
 
 int			calc_one_inst_size(t_inst *tmp)
