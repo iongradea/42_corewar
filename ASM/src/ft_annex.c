@@ -32,8 +32,12 @@ int				ft_is_empty_line(char *line)
 	else
 		len = ft_strlen(line);
 	while (++i < len)
+	{
 		if (!ft_isspace(line[i]))
 			return (false);
+		if (line[i] == COMMENT_CHAR)
+			return (true);
+	}
 	return (true);
 }
 
