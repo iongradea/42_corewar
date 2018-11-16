@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:31:38 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/09 18:54:33 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/16 17:22:38 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	if (lst == NULL)
 		lst = ps;
 	lst->live++;
-	ft_printf("ps->playr = %s\nGE SUI EN VI\nps->live = %d\n\n", ps->playr, ps->live);
+	//ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n\n", ps->playr, ps->live);
 	vm->last_live = lst->uid;
 	ps->op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(LIVE));
 	return (ft_next_op(ps, NO_CARRY));
