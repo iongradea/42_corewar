@@ -43,8 +43,12 @@ static int			ft_is_ind_arg(char *arg)
 	i = -1;
 	len = ft_strlen(arg);
 	DEBUG ? ft_printf("launching ft_is_ind_arg ...\n") : DEBUG;
+	if (*arg == '-')
+		i++;
+	if (i + 1 == len)
+		return (false);
 	while (++i < len)
-		if (arg[i] < '0' && arg[i] > '9')
+		if (arg[i] < '0' || arg[i] > '9')
 			return (false);
 	return (true);
 }
@@ -71,17 +75,20 @@ static int			ft_is_dir_arg(char *arg)
 	return (false);
 }
 
-int					ft_is_valid_lab(char *arg, t_inst *inst)
+int					ft_is_valid_lab(char *arg, t_inst *inst, int fl)
 {
 	int				len;
 
 	len = ft_strlen(arg);
 	DEBUG ? ft_printf("launching ft_is_valid_lab ...\n") : DEBUG;
-	if (*arg == DIRECT_CHAR && len > 2 && *(arg + 1) == LABEL_CHAR)
+	if ((*arg == DIRECT_CHAR && len > 2 && *(arg + 1) == LABEL_CHAR
+		&& fl == T_DIR) || (*arg == LABEL_CHAR && len > 1 && fl == T_IND))
 	{
 		while (inst)
 		{
-			if (inst->label && !ft_strcmp(arg + 2, inst->label))
+			if (fl == T_DIR && inst->label && !ft_strcmp(arg + 2, inst->label))
+				return (true);
+			if (fl == T_IND && inst->label && !ft_strcmp(arg + 1, inst->label))
 				return (true);
 			inst = inst->n;
 		}
@@ -99,16 +106,17 @@ int					ch_one_inst(t_inst *tmp, t_inst *inst)
 	{
 		if ((op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_DIR)
 				&& tmp->args[ARG_INDEX(i)]
-				&& (ft_is_valid_lab(tmp->args[ARG_INDEX(i)], inst)
-					|| ft_is_dir_arg(tmp->args[ARG_INDEX(i)])))
+				&& (ft_is_valid_lab(tmp->args[ARG_INDEX(i)], inst, T_DIR)
+				|| ft_is_dir_arg(tmp->args[ARG_INDEX(i)])))
 			true;
 		else if ((op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_IND)
-				&& tmp->args[ARG_INDEX(i)] && \
-								ft_is_ind_arg(tmp->args[ARG_INDEX(i)]))
+				&& tmp->args[ARG_INDEX(i)]
+				&& (ft_is_valid_lab(tmp->args[ARG_INDEX(i)], inst, T_IND)
+				|| ft_is_ind_arg(tmp->args[ARG_INDEX(i)])))
 			true;
 		else if ((op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_REG)
-				&& tmp->args[ARG_INDEX(i)] && \
-								ft_is_valid_reg(tmp->args[ARG_INDEX(i)]))
+				&& tmp->args[ARG_INDEX(i)]
+				&& ft_is_valid_reg(tmp->args[ARG_INDEX(i)]))
 			true;
 		else
 			return (false);

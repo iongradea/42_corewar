@@ -22,7 +22,7 @@ static t_inst		*ft_new_inst(char *line)
 	DEBUG ? ft_printf("new inst - line : %s\n", line) : DEBUG;
 	if (!(inst = ft_memalloc(sizeof(t_inst))))
 		exit(ERROR_MSG("malloc error\n"));
-	if (!(inst->line = ft_memalloc(sizeof(line))))
+	if (!(inst->line = ft_memalloc(strlen(line) + 1)))
 		exit(ERROR_MSG("mallor error\n"));
 	inst->opcode = UNDEFINED;
 	while (inst->args[++i])
@@ -87,6 +87,7 @@ static int			get_inst_sub(char *line, t_inst *inst)
 	ft_clean_sp(&line);
 	ft_strcpy(inst->line, line);
 	tab = ft_strsplit(line);
+	//DEBUG ? ft_printf("HEREE\n") : DEBUG;
 	if (!ft_arrlen(tab))
 		return (EXIT_SUCCESS);
 	ft_ch_err_lab(tab[0]) ? exit(ERROR_MSG("syntax error\n")) : true;

@@ -23,6 +23,8 @@ int			ft_is_ind(char *str)
 {
 	if ((*str >= '0' && *str <= '9') || *str == '-')
 		return (true);
+	if (*str == LABEL_CHAR)
+		return (true);
 	return (false);
 }
 
