@@ -20,9 +20,13 @@ static void		parse_input(char *str, t_inst **inst, t_header *head)
 	DEBUG ? ft_printf("launching parse_input ...\n") : DEBUG;
 	line = NULL;
 	if ((fd = open(str, O_RDONLY)) < 1)
-		exit(ERROR_MSG("error opening file"));
+		exit(ERROR_MSG("error opening file\n"));
 	while (get_next_line(fd, &line) > 0)
+	{
 		get_inst(line, inst, head);
+		DEBUG ? ft_printf("gnl - line : %s\n", line) : DEBUG;
+		free(line);
+	}
 	close(fd);
 }
 
@@ -34,7 +38,7 @@ static void		create_file(char *av, t_inst *inst, t_header *head)
 	DEBUG ? ft_printf("launching create_file ...\n") : DEBUG;
 	new = s_to_cor(av);
 	if ((fd = open(new, O_CREAT | O_WRONLY, 0666)) < 1)
-		exit(ERROR_MSG("can't creat file .cor"));
+		exit(ERROR_MSG("can't creat file .cor\n"));
 	out_header(fd, head);
 	out_all_inst(fd, inst);
 	close(fd);

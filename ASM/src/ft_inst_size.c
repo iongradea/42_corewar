@@ -56,7 +56,7 @@ int			calc_one_inst_size(t_inst *tmp)
 
 	size = 0;
 	DEBUG ? ft_printf("launching calc_one_inst_size ...\n") : DEBUG;
-	DEBUG ? ft_printf("LINE: %s\n", tmp->line) : DEBUG;
+	//DEBUG ? ft_printf("line : %s\n", tmp->line) : DEBUG;
 	if (!ft_is_valid_opcode(tmp->opcode))
 		return (UNDEFINED);
 	size++;

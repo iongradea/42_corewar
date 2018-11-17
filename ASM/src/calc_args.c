@@ -36,7 +36,7 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 		add += tmp->size;
 		tmp = tmp->n;
 	}
-	exit(ERROR_MSG("calc_lab_value error"));
+	exit(ERROR_MSG("calc_lab_value error\n"));
 }
 
 static int		calc_arg_value(char *arg, t_inst *inst)
@@ -50,7 +50,7 @@ static int		calc_arg_value(char *arg, t_inst *inst)
 		return (calc_lab_value(arg, inst));
 	if (ft_is_dir(arg))
 		return (ft_atoi(arg + 1));
-	exit(ERROR_MSG("calc_arg_value error"));
+	exit(ERROR_MSG("calc_arg_value error\n"));
 }
 
 static int		calc_one_ocp(char *arg)
@@ -62,7 +62,7 @@ static int		calc_one_ocp(char *arg)
 		return (OCP_IND);
 	if (ft_is_dir(arg))
 		return (OCP_DIR);
-	exit(ERROR_MSG("calc_arg_value error"));
+	exit(ERROR_MSG("calc_arg_value error\n"));
 }
 
 static int		calc_ocp(t_inst *inst)
