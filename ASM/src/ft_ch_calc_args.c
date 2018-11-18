@@ -30,7 +30,7 @@ int				ch_all_inst(t_inst *inst)
 			{
 				//DEBUG ? prt_one_inst(tmp) : DEBUG;
 				ERROR_MSG("Error .s file at line : ");
-				ERROR_MSG(tmp->line)
+				ERROR_MSG(tmp->line);
 				exit(ERROR_MSG("\n"));
 			}
 		}
