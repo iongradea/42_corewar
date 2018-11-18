@@ -69,7 +69,7 @@ int				ft_is_lab(char *arg)
 
 	len = ft_strlen(arg);
 	if ((*arg == DIRECT_CHAR && len > 2 && *(arg + 1) == LABEL_CHAR)
-		|| (len > 2 && *arg == LABEL_CHAR))
+		|| (*arg == LABEL_CHAR && len > 1))
 		return (true);
 	return (false);
 }

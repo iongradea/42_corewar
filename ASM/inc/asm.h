@@ -27,7 +27,7 @@
 # define ERROR_MSG(msg) (write(2, msg, ft_strlen(msg)))
 # define ERROR -1
 # define UNDEFINED -1
-# define DEBUG 0
+# define DEBUG 1
 
 # define NAME_LEN ft_strlen(NAME_CMD_STRING)
 # define COMMENT_LEN ft_strlen(COMMENT_CMD_STRING)

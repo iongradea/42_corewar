@@ -23,23 +23,25 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 	DEBUG ? ft_printf("launching calc_lab_value ...\n") : DEBUG;
 	st = LABEL_CHAR == *arg ? 1 : 2;
 	DEBUG ? ft_printf("arg : %s\nst : %d\n", arg, st) : DEBUG;
-	while (tmp->p)
+	while (tmp)
 	{
+		ft_printf("P => arg + st : %s - tmp->label : %s\n", arg + st, tmp->label);
 		if (tmp->label && !ft_strcmp(arg + st, tmp->label))
 			return (add);
 		tmp = tmp->p;
-		add -= tmp->size;
+		tmp ? add -= tmp->size : true;
 	}
 	add = 0;
 	tmp = inst;
-	while (tmp->n)
+	while (tmp)
 	{
+		ft_printf("N => arg + st : %s - tmp->label : %s\n", arg + st, tmp->label);
 		if (tmp->label && !ft_strcmp(arg + st, tmp->label))
 			return (add);
 		add += tmp->size;
 		tmp = tmp->n;
 	}
-	DEBUG ? prt_one_inst(inst->n) : DEBUG;
+	prt_inst(inst);
 	//DEBUG ? prt_inst(inst) : DEBUG;
 	exit(ERROR_MSG("calc_lab_value error\n"));
 }
@@ -47,9 +49,10 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 static int		calc_arg_value(char *arg, t_inst *inst)
 {
 	DEBUG ? ft_printf("launching calc_arg_value ...\n") : DEBUG;
+	DEBUG ? ft_printf("arg : %s\n", arg) : DEBUG;
 	if (ft_is_reg(arg))
 		return (ft_atoi(arg + 1));
-	if (ft_is_ind(arg))
+	if (*arg != LABEL_CHAR && ft_is_ind(arg))
 		return (ft_atoi(arg));
 	if (ft_is_lab(arg))
 		return (calc_lab_value(arg, inst));
@@ -61,6 +64,7 @@ static int		calc_arg_value(char *arg, t_inst *inst)
 static int		calc_one_ocp(char *arg)
 {
 	DEBUG ? ft_printf("launching calc_one_ocp ...\n") : DEBUG;
+	DEBUG ? ft_printf("arg : %s\n", arg) : DEBUG;
 	if (ft_is_reg(arg))
 		return (OCP_REG);
 	if (ft_is_ind(arg))
@@ -102,6 +106,8 @@ void			calc_all_arg(t_inst *inst)
 		{
 			if (tmp->args[ARG_INDEX(i)])
 				tmp->param[i] = calc_arg_value(tmp->args[ARG_INDEX(i)], tmp);
+			//tmp->args[ARG_INDEX(i)] && !ft_strcmp(tmp->args[ARG_INDEX(i)], ":buff") ? prt_inst(inst) : true;
+			//tmp->args[ARG_INDEX(i)] && !ft_strcmp(tmp->args[ARG_INDEX(i)], ":buff") ? exit(0) : true;
 		}
 		i = -1;
 		tmp = tmp->n;
