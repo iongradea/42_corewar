@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 14:43:17 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:07:24 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,7 +291,7 @@ int					ft_main_debug(t_vm_mem *vm, t_ps *ps);
 ** Ncurse functions
 */
 
-void		ft_ncurse(t_vm_mem *vm, t_ps *ps);
+void		ft_ncurse(t_vm_mem *vm);
 void 		ft_init_ncurses(void);
 void		ft_init_arena(t_vm_mem *vm);
 void		ft_print_arena(t_vm_mem *vm);
@@ -299,8 +299,8 @@ void		ft_print_test(void);
 void		ft_print_game_stats(t_vm_mem *vm);
 
 void		ft_parsing(t_vm_mem *vm, t_ps *ps);
-void		ft_build_arena(t_vm_mem *vm, t_ps *ps);
-void		ft_player_to_arena(t_vm_mem *vm, t_ps *ps, int i, int *k);
+void		ft_build_arena(t_vm_mem *vm);
+void		ft_player_to_arena(t_vm_mem *vm, int i, int *k);
 
 void		ft_print_lives(t_vm_mem *vm, int i);
 
