@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/11/18 14:30:03 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:07:13 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,26 @@ void	ft_parsing(t_vm_mem *vm, t_ps *ps)
 	{
 		k = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
 		ps->inst_len = k;
-	}
-}
-
-void	ft_player_to_arena(t_vm_mem *vm, t_ps *ps, int i, int *k)
-{
-	int		count;
-
-	count = 0;
-	while (ps && count < ps->inst_len)
-	{
-		vm->a[*k].hex = 0xFF & ps->inst[count];
-		vm->a[*k].color = 1 + (i % 6);
-		vm->a[*k].prevcolor = 1 + (i % 6);
-		*k += 1;
-		count++;
 		ps = ps->next;
 	}
 }
 
-void	ft_build_arena(t_vm_mem *vm, t_ps *ps)
+void	ft_player_to_arena(t_vm_mem *vm, int i, int *k)
+{
+	int		count;
+
+	count = 0;
+	while (count < vm->ps[i].inst_len)
+	{
+		vm->a[*k].hex = 0xFF & vm->ps[i].inst[count];
+		vm->a[*k].color = 1 + (i % 6);
+		vm->a[*k].prevcolor = 1 + (i % 6);
+		*k += 1;
+		count++;
+	}
+}
+
+void	ft_build_arena(t_vm_mem *vm)
 {
 	int			i;
 	static int	k;
@@ -50,9 +50,9 @@ void	ft_build_arena(t_vm_mem *vm, t_ps *ps)
 	k = 0;
 	while (++i < vm->nb_players)
 	{
-		ps->index_start = (MEM_SIZE / vm->nb_players) * i;
+		vm->ps[i].index_start = (MEM_SIZE / vm->nb_players) * i;
 		k = (MEM_SIZE / vm->nb_players) * i;
-		ft_player_to_arena(vm, ps, i, &k);
+		ft_player_to_arena(vm, i, &k);
 	}
 }
 
@@ -138,12 +138,8 @@ void	ft_init_ncurses(void)
 	curs_set(FALSE);
 }
 
-void		ft_ncurse(t_vm_mem *vm, t_ps *ps)
+void		ft_ncurse(t_vm_mem *vm)
 {
-	t_ps *tps;
-
-	tps = ps;
 	ft_print_arena(vm);
-	//usleep(300);
 }
 

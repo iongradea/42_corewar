@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/18 14:19:26 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:06:11 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ int				main(int ac, char **av)
 	if (vm->opt & NCURSE) 
 		ft_init_ncurses();
 	ft_parsing(vm, ps);
-	ft_build_arena(vm, ps);
+	ft_build_arena(vm);
 
 	cpu(vm, ps);
 	
 	if (vm->opt & NCURSE)
 	{
 		//endwin();
-	//	refresh();
+		//refresh();
 		while(42);
 	}
 	exit(EXIT_SUCCESS);
