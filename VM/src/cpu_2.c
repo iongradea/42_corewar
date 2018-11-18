@@ -6,67 +6,78 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 19:40:42 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 14:06:50 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:10:45 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
 
-int			ft_nb_live(t_ps *ps)
+int			ft_nb_live(t_vm_mem *vm)
 {
 	int		nb_live;
+	int		i;
 
 	DEBUG ? ft_printf("launching ft_nb_live ...\n") : DEBUG;
+	i = 0;
 	nb_live = 0;
-	while (ps)
+	while (i < vm->nb_players)
 	{
-		if (ps->live > 0)
-			nb_live += ps->live;
-		ps = ps->next;
+		if (vm->ps[i].live > 0)
+			nb_live += vm->ps[i].live;
+		i++;
 	}
 	return (nb_live);
 }
 
-void		ft_kill_reset_ps(t_ps *ps)
+void		ft_kill_reset_ps(t_vm_mem *vm)
 {
+	int	i;
+
+	i = 0;
 	DEBUG ? ft_printf("launching ft_kill_reset_ps ...\n") : DEBUG;
-	while (ps)
+	while (i < vm->nb_players)
 	{
-		if (ps->live <= 0)
+		if (vm->ps[i].live <= 0)
 		{
 			g_verbose == 5 ? ft_printf("Le joueur %d(%s) viens de mourrir \
-									...\n", ps->uid, ps->playr) : g_verbose;
-			ps->live = PS_DEAD;
+									...\n", vm->ps[i].uid, vm->ps[i].playr) : g_verbose;
+			vm->ps[i].live = PS_DEAD;
 		}
 		else
-			ps->live = 0;
-		ps = ps->next;
+			vm->ps[i].live = 0;
+		i++;
 	}
 }
 
-void		ft_reset_ps(t_ps *ps)
+void		ft_reset_ps(t_vm_mem *vm)
 {
+	int	i;
+
+	i = 0;
 	DEBUG ? ft_printf("launching ft_reset_ps ...\n") : DEBUG;
-	while (ps)
+	while (i < vm->nb_players)
 	{
-		if (ps->live != PS_DEAD)
-			ps->live = 0;
-		ps = ps->next;
+		if (vm->ps[i].live != PS_DEAD)
+			vm->ps[i].live = 0;
+		i++;
 	}
 }
 
-int			ft_one_live_ps(t_ps *ps)
+int			ft_one_live_ps(t_vm_mem *vm)
 {
+	int	i;
+
+	i = 0;
 	DEBUG ? ft_printf("launching ft_one_live_ps ...\n") : DEBUG;
-	while (ps)
+	while (i < vm->nb_players)
 	{
-		if (ps->live != PS_DEAD)
+		if (vm->ps[i].live != PS_DEAD)
 		{
 			g_verbose == 2 ? ft_printf("Le joueur %d(%s) est en vie \
-								...\n", ps->uid, ps->playr) : g_verbose;
+								...\n", vm->ps[i].uid, vm->ps[i].playr) : g_verbose;
 			return (true);
 		}
-		ps = ps->next;
+		i++;
 	}
 	return (false);
 }

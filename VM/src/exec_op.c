@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 13:13:00 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:04:26 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 	ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n -- cycles %d\n\n ", ps->playr, ps->live, vm->cycle);
 		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", \
 									vm->check, vm->cycle_to_die) : DEBUG;
-		ft_kill_reset_ps(ps);
+		ft_kill_reset_ps(vm);
 		vm->check = 0;
 	}
-	if (ft_nb_live(ps) > NBR_LIVE)
+	if (ft_nb_live(vm) > NBR_LIVE)
 	{
-		ft_reset_ps(ps);
+		ft_reset_ps(vm);
 		DEBUG ? ft_printf("NB_LIVE - ft_nb_live(ps) : %d - NBR_LIVE : %d\n", \
-									ft_nb_live(ps), NBR_LIVE) : DEBUG;
+									ft_nb_live(vm), NBR_LIVE) : DEBUG;
 		vm->cycle_to_die -= CYCLE_DELTA;
 		vm->lives = 0;
 		vm->check = 0;
