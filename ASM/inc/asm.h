@@ -27,7 +27,7 @@
 # define ERROR_MSG(msg) (write(2, msg, ft_strlen(msg)))
 # define ERROR -1
 # define UNDEFINED -1
-# define DEBUG 1
+# define DEBUG 0
 
 # define NAME_LEN ft_strlen(NAME_CMD_STRING)
 # define COMMENT_LEN ft_strlen(COMMENT_CMD_STRING)
@@ -159,7 +159,7 @@ void				ft_free_all_inst(t_inst *inst);
 void				ft_free_head(t_header *head);
 
 /*
-** annex
+** annex et annex_2
 */
 
 int					ft_is_valid_opcode(int opcode);
@@ -167,6 +167,7 @@ int					ft_is_empty_line(char *line);
 char				*s_to_cor(char *str);
 int					get_prog_comment(char *line, int *flag, t_header *head);
 int					get_prog_name(char *line, int *flag, t_header *head);
+int				ft_is_special_line(char *line);
 
 /*
 ** debug

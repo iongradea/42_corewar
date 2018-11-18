@@ -70,7 +70,7 @@ int				get_prog_comment(char *line, int *flag, t_header *head)
 	int			comment_cmd_len;
 
 	DEBUG ? ft_printf("launching get_prog_comment ...\n") : DEBUG;
-	DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
+	//DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
 	comment_cmd_len = ft_strlen(COMMENT_CMD_STRING);
 	if (*flag & FL_COMMENT)
 		exit(ERROR_MSG("parsing error: 2 comment lines\n"));
@@ -90,7 +90,7 @@ int				get_prog_name(char *line, int *flag, t_header *head)
 
 	DEBUG ? ft_printf("launching get_prog_name ...\n") : DEBUG;
 	name_cmd_len = ft_strlen(NAME_CMD_STRING);
-	DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
+	//DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
 	if (*flag & FL_NAME)
 		exit(ERROR_MSG("parsing error: 2 name lines\n"));
 	if (ft_strnstr(line, NAME_CMD_STRING, name_cmd_len))

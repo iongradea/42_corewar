@@ -28,8 +28,8 @@ int				ch_all_inst(t_inst *inst)
 		{
 			if (!ch_one_inst(tmp, inst))
 			{
-				DEBUG ? prt_one_inst(tmp) : DEBUG;
-				return (false);
+				//DEBUG ? prt_one_inst(tmp) : DEBUG;
+				exit(ERROR_MSG("Error : label not present\n"));
 			}
 		}
 		tmp = tmp->n;
@@ -58,7 +58,7 @@ void			calc_all_size(t_inst *inst)
 		tmp = tmp->n;
 	}
 	if (size > CHAMP_MAX_SIZE)
-		exit(ERROR_MSG("champion file too large"));
+		exit(ERROR_MSG("champion file too large\n"));
 }
 
 int				ft_is_lab(char *arg)
@@ -66,7 +66,8 @@ int				ft_is_lab(char *arg)
 	int			len;
 
 	len = ft_strlen(arg);
-	if (*arg == DIRECT_CHAR && len > 2 && *(arg + 1) == LABEL_CHAR)
+	if ((*arg == DIRECT_CHAR && len > 2 && *(arg + 1) == LABEL_CHAR)
+		|| (len > 2 && *arg == LABEL_CHAR))
 		return (true);
 	return (false);
 }

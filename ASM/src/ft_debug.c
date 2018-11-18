@@ -20,6 +20,7 @@ void				prt_inst(t_inst *inst)
 	DEBUG ? ft_printf("launching prt_inst ...\n") : DEBUG;
 	while (tmp)
 	{
+		ft_printf("prt_inst - line : %s\n", tmp->line);
 		ft_printf("label : %s\n", tmp->label);
 		ft_printf("opcode : %x\n", tmp->opcode);
 		ft_printf("arg1 : %s\narg2 : %s\narg3 : %s\narg4 : %s\n", \
@@ -37,6 +38,7 @@ void				prt_one_inst(t_inst *inst)
 
 	tmp = inst;
 	DEBUG ? ft_printf("launching prt_one_inst ...\n") : DEBUG;
+	ft_printf("prt_one_inst - line : %s\n", tmp->line);
 	ft_printf("label : %s\n", tmp->label);
 	ft_printf("opcode : %x\n", tmp->opcode);
 	ft_printf("arg1 : %s\narg2 : %s\narg3 : %s\narg4 : %s\n", tmp->args[0], \

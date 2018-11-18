@@ -16,13 +16,16 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 {
 	int			add;
 	t_inst		*tmp;
+	int 		st;
 
 	add = 0;
 	tmp = inst;
 	DEBUG ? ft_printf("launching calc_lab_value ...\n") : DEBUG;
+	st = LABEL_CHAR == *arg ? 1 : 2;
+	DEBUG ? ft_printf("arg : %s\nst : %d\n", arg, st) : DEBUG;
 	while (tmp->p)
 	{
-		if (tmp->label && !ft_strcmp(arg + 2, tmp->label))
+		if (tmp->label && !ft_strcmp(arg + st, tmp->label))
 			return (add);
 		tmp = tmp->p;
 		add -= tmp->size;
@@ -31,12 +34,14 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 	tmp = inst;
 	while (tmp->n)
 	{
-		if (tmp->label && !ft_strcmp(arg + 2, tmp->label))
+		if (tmp->label && !ft_strcmp(arg + st, tmp->label))
 			return (add);
 		add += tmp->size;
 		tmp = tmp->n;
 	}
-	exit(ERROR_MSG("calc_lab_value error"));
+	DEBUG ? prt_one_inst(inst->n) : DEBUG;
+	//DEBUG ? prt_inst(inst) : DEBUG;
+	exit(ERROR_MSG("calc_lab_value error\n"));
 }
 
 static int		calc_arg_value(char *arg, t_inst *inst)
@@ -50,7 +55,7 @@ static int		calc_arg_value(char *arg, t_inst *inst)
 		return (calc_lab_value(arg, inst));
 	if (ft_is_dir(arg))
 		return (ft_atoi(arg + 1));
-	exit(ERROR_MSG("calc_arg_value error"));
+	exit(ERROR_MSG("calc_arg_value error\n"));
 }
 
 static int		calc_one_ocp(char *arg)
@@ -62,7 +67,7 @@ static int		calc_one_ocp(char *arg)
 		return (OCP_IND);
 	if (ft_is_dir(arg))
 		return (OCP_DIR);
-	exit(ERROR_MSG("calc_arg_value error"));
+	exit(ERROR_MSG("calc_arg_value error\n"));
 }
 
 static int		calc_ocp(t_inst *inst)

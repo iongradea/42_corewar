@@ -46,7 +46,7 @@ static void			out_one_inst(int fd, t_inst *inst)
 		{
 			if (inst->args[ARG_INDEX(i)])
 			{
-				DEBUG ? prt_one_inst(inst) : DEBUG;
+				//DEBUG ? prt_one_inst(inst) : DEBUG;
 				prt_arg(fd, inst->param[i], \
 			ft_arg_size(inst->args[ARG_INDEX(i)], inst->opcode));
 			}

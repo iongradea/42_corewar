@@ -23,6 +23,8 @@ int			ft_is_ind(char *str)
 {
 	if ((*str >= '0' && *str <= '9') || *str == '-')
 		return (true);
+	if (*str == LABEL_CHAR)
+		return (true);
 	return (false);
 }
 
@@ -47,7 +49,7 @@ int			ft_arg_size(char *arg, int opcode)
 		return (IND_SIZE);
 	if (ft_is_dir(arg))
 		return (DIR_SIZE(opcode));
-	exit(ERROR_MSG("arg_size error"));
+	exit(ERROR_MSG("arg_size error\n"));
 }
 
 int			calc_one_inst_size(t_inst *tmp)
@@ -56,7 +58,7 @@ int			calc_one_inst_size(t_inst *tmp)
 
 	size = 0;
 	DEBUG ? ft_printf("launching calc_one_inst_size ...\n") : DEBUG;
-	DEBUG ? ft_printf("LINE: %s\n", tmp->line) : DEBUG;
+	//DEBUG ? ft_printf("line : %s\n", tmp->line) : DEBUG;
 	if (!ft_is_valid_opcode(tmp->opcode))
 		return (UNDEFINED);
 	size++;
