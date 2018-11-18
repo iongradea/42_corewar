@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:40:36 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/07 20:42:23 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:35:48 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,65 +27,65 @@ int					ft_add_c_mem(t_vm_mem *vm, char *str)
 	return (EXIT_SUCCESS);
 }
 
-static int			ft_is_pc(t_ps *ps, int index)
+static int			ft_is_pc(t_vm_mem *vm, int index)
 {
-	t_ps			*lst;
+	int			i;
 
-	lst = ps;
-	while (lst)
+	i = 0;
+	while (i < vm->nb_players)
 	{
-		if (lst->pc == index)
+		if (vm->ps[i].pc == index)
 			return (true);
-		lst = lst->next;
+		i++;
 	}
 	return (false);
 }
 
-static unsigned int	ft_get_color(t_vm_mem *vm, t_ps *ps, int index)
+static unsigned int	ft_get_color(t_vm_mem *vm, int index)
 {
-	t_ps			*lst;
+	int			i;
 
+	i = 0;
 	DEBUG ? ft_printf("launching ft_get_color ...\n") : DEBUG;
-	lst = ps;
-	if (vm->mem_uid[index] == NO_PLAYR && ft_is_pc(ps, index))
+	if (vm->mem_uid[index] == NO_PLAYR && ft_is_pc(vm, index))
 	{
-		while (lst->pc != index)
-			lst = lst->next;
-		vm->mem_uid[index] = lst->uid;
-		return (lst->color);
+		while (vm->ps[i].pc != index)
+			i++;
+		vm->mem_uid[index] = vm->ps[i].uid;
+		return (vm->ps[i].color);
 	}
-	while (lst)
+	while (i < vm->nb_players)
 	{
-		if (vm->mem_uid[index] == lst->uid)
+		if (vm->mem_uid[index] == vm->ps[i].uid)
 			break ;
-		lst = lst->next;
+		i++;
 	}
-	if (lst == NULL)
+	if (vm->ps[i].color)
 		exit(ERROR_MSG("ft_get_color : uid not found in processes ... weird!"));
-	return (lst->color);
+	return (vm->ps[i].color);
 }
 
 /*
 ** DEBUG ? ft_printf("launching ft_prt_mem_loop ...\n") : DEBUG;
 */
 
-static void			ft_prt_mem_loop(t_vm_mem *vm, t_ps *ps, int i)
+static void			ft_prt_mem_loop(t_vm_mem *vm, int i)
 {
 	int				color_i;
 
 	color_i = UNDEFINED;
-	if (vm->mem_uid[i] == NO_PLAYR && !ft_is_pc(ps, i))
+	if (vm->mem_uid[i] == NO_PLAYR && !ft_is_pc(vm, i))
 		ft_byte(vm, vm->mem[i]);
-	else if (ft_is_pc(ps, i))
+	else if (ft_is_pc(vm, i))
 	{
-		color_i = ft_get_color(vm, ps, i);
+		color_i = ft_get_color(vm, i);
 		ft_add_c_mem(vm, (char*)g_colorpc[color_i]);
 		ft_byte(vm, vm->mem[i]);
 		ft_add_c_mem(vm, EOC);
 	}
 	else
 	{
-		color_i = ft_get_color(vm, ps, i);
+		color_i = ft_get_color(vm, i);
 		ft_add_c_mem(vm, (char*)g_color[color_i]);
 		ft_byte(vm, vm->mem[i]);
 		ft_add_c_mem(vm, EOC);
@@ -93,7 +93,7 @@ static void			ft_prt_mem_loop(t_vm_mem *vm, t_ps *ps, int i)
 	ft_add_c_mem(vm, " ");
 }
 
-void				ft_prt_mem(t_vm_mem *vm, t_ps *ps)
+void				ft_prt_mem(t_vm_mem *vm)
 {
 	int				i;
 
@@ -107,7 +107,7 @@ void				ft_prt_mem(t_vm_mem *vm, t_ps *ps)
 	{
 		if (i != 0 && i % MEM_LINE_LENGTH == 0)
 			ft_add_c_mem(vm, "||\n||");
-		ft_prt_mem_loop(vm, ps, i);
+		ft_prt_mem_loop(vm, i);
 	}
 	add_bot_mem(vm);
 	write(1, vm->mem_color, vm->mem_color_size);

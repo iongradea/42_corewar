@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 15:11:48 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:38:34 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ void				ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, \
 ** Print memory to console functions
 */
 
-void				ft_prt_mem(t_vm_mem *vm, t_ps *ps);
+void				ft_prt_mem(t_vm_mem *vm);
 void				ft_byte(t_vm_mem *vm, unsigned char c);
 void				ft_hex(t_vm_mem *vm, unsigned char c);
 void				add_bot_mem(t_vm_mem *vm);
@@ -275,7 +275,7 @@ int					ft_add_c_mem(t_vm_mem *vm, char *str);
 void				ft_add_ps(t_ps *ps, t_ps *tmp, t_vm_mem *vm);
 int					ft_next_op(t_ps *ps, int carry_mod);
 int					ft_get_code_size(int fd);
-int					ft_prt_winner(t_vm_mem *vm, t_ps *ps);
+int					ft_prt_winner(t_vm_mem *vm);
 
 /*
 ** Debug functions

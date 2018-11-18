@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/18 15:06:11 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:42:49 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				main(int ac, char **av)
 	ft_parsing(vm, ps);
 	ft_build_arena(vm);
 
-	cpu(vm, ps);
+	cpu(vm);
 	
 	if (vm->opt & NCURSE)
 	{
