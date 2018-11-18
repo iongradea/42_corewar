@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:31:38 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/16 17:22:38 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 14:42:10 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int					ft_fork(t_vm_mem *vm, t_ps *ps, int opcode)
 	DEBUG ? ft_printf("launching ft_fork ...\n") : DEBUG;
 	while (++i < DIR_SIZE(OP_TAB_INDEX(FORK)) && ((arg0 = arg0 << 8) || true))
 		arg0 += *(vm->mem + MEM_CIR_POS(ps->pc + OPCODE_SIZE + i));
-	new = ft_cpy_playr(ps);
+	new = ft_cpy_playr(ps, vm);
 	if (opcode == FORK)
 		new->pc = MEM_CIR_POS(ps->pc + (arg0 % IDX_MOD));
 	else if (opcode == LFORK)

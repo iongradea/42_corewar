@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/16 17:42:06 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 13:13:00 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ static int		ft_cycle_len(int opcode)
 void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 {
 	DEBUG ? ft_printf("launching cpu_checks ...\n") : DEBUG;
-	//if (vm->check >= vm->cycle_to_die + 1)
-	ft_printf("R CYCLE%d\n CYCLE%d\n", vm->real_cycle, vm->cycle);
-	if (vm->real_cycle % vm->cycle == 0)
+	if (vm->check >= vm->cycle_to_die + 1)
 	{
 	ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n -- cycles %d\n\n ", ps->playr, ps->live, vm->cycle);
 		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", \

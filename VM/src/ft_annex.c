@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/07 21:19:59 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/18 14:44:03 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,21 @@
 **  add process at the end of process listi
 */
 
-void			ft_add_ps(t_ps *ps, t_ps *new)
+void			ft_add_ps(t_ps *ps, t_ps *new, t_vm_mem *vm)
 {
 	static int	color = 1;
+	int i;
 
 	DEBUG > 0 ? ft_printf("launching ft_add_ps ...\n") : DEBUG;
 	new->color = color;
+	i = 0;
 	while (ps->next)
+	{
+		vm->ps[i] = *ps;
 		ps = ps->next;
+		i++;
+	}
+
 	ps->next = new;
 	color++;
 }

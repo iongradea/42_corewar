@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/11/09 18:57:18 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 14:30:03 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,36 +51,34 @@ void	ft_build_arena(t_vm_mem *vm, t_ps *ps)
 	while (++i < vm->nb_players)
 	{
 		ps->index_start = (MEM_SIZE / vm->nb_players) * i;
-		ps->live = 4;
 		k = (MEM_SIZE / vm->nb_players) * i;
 		ft_player_to_arena(vm, ps, i, &k);
 	}
 }
 
 
-void	ft_print_lives(t_vm_mem *vm, t_ps *ps, int i)
+void	ft_print_lives(t_vm_mem *vm, int i)
 {
 	int k;
 	int cycles;
-	attron(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
-	cycles = (ps->live < 161) ? ps->live : 161;
+	//attron(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
+	attron(COLOR_PAIR(vm->ps[i].color));
+	cycles = (vm->ps[i].live < 161) ? vm->ps[i].live : 161;
 	k = -1;
-	printw("\nLives for %-15s", ps->playr);
-	printw("%-5d", ps->live);
+	printw("\nLives for %-15s", vm->ps[i].playr);
+	printw("%-5d", vm->ps[i].live);
 	while (++k < cycles)
 		addch(ACS_CKBOARD);
-	attroff(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
+	//attroff(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
+	attroff(COLOR_PAIR(vm->ps[i].color));
 }
 
-void	ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
+void	ft_print_game_stats(t_vm_mem *vm)
 {
 	int i;
 	i = -1;
-	while (++i < vm->nb_players && ps)
-	{
-		ft_print_lives(vm, ps, i);
-		ps = ps->next;
-	}
+	while (++i < vm->nb_players)
+		ft_print_lives(vm,  i);
 	attron(COLOR_PAIR(14));
 	printw("\n\nCycle: %-10d Total Number of lives: %d/%-10d \
 			Checks: %d/9 > Decrease cycle to die with: %d     \
@@ -90,7 +88,7 @@ void	ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
 	refresh();
 }
 
-void	ft_print_arena(t_vm_mem *vm, t_ps *ps)
+void	ft_print_arena(t_vm_mem *vm)
 {
 	int i;
 
@@ -113,7 +111,7 @@ void	ft_print_arena(t_vm_mem *vm, t_ps *ps)
 			printw("\n");
 		i++;
 	}
-	ft_print_game_stats(vm, ps);
+	ft_print_game_stats(vm);
 }
 
 void	ft_init_ncurses(void)
@@ -145,7 +143,7 @@ void		ft_ncurse(t_vm_mem *vm, t_ps *ps)
 	t_ps *tps;
 
 	tps = ps;
-	ft_print_arena(vm, tps);
+	ft_print_arena(vm);
 	//usleep(300);
 }
 

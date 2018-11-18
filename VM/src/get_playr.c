@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:40 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/09 16:16:42 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 14:42:39 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 		exit(ERROR_MSG("too many players"));
 }
 
-t_ps			*ft_cpy_playr(t_ps *ps)
+t_ps			*ft_cpy_playr(t_ps *ps, t_vm_mem *vm)
 {
 	t_ps		*new;
 
@@ -97,14 +97,14 @@ t_ps			*ft_cpy_playr(t_ps *ps)
 	new->reg[0] = ps->uid;
 	new->pc = 0;
 	new->carry = ps->carry;
-	ft_add_ps(ps, new);
+	ft_add_ps(ps, new, vm);
 	new->op_size = 0;
 	new->live = 0;
 	new->color = ps->color;
 	return (new);
 }
 
-int				get_playr(int fd, t_ps **ps, int ac, char **av)
+int				get_playr(int fd, t_ps **ps, int ac, char **av, t_vm_mem *vm)
 {
 	int			i;
 	t_ps		*new;
@@ -128,7 +128,7 @@ int				get_playr(int fd, t_ps **ps, int ac, char **av)
 		if (!ft_check_ps_uid(*ps, uid))
 			exit(ERROR_MSG(ft_strjoin("UID ", ft_strjoin(ft_itoa(uid), \
 								" already exist for another process."))));
-		ft_add_ps(*ps, new);
+		ft_add_ps(*ps, new, vm);
 	}
 	return (EXIT_SUCCESS);
 }

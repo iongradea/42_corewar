@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/09 18:46:05 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 14:43:17 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ typedef struct		s_op
 ** Parsing functions & initialization functions
 */
 
-int					get_playr(int fd, t_ps **ps, int ac, char **av);
+int					get_playr(int fd, t_ps **ps, int ac, char **av, t_vm_mem *vm);
 void				add_data_vm(t_vm_mem *vm, t_ps *ps);
 t_vm_mem			*ft_new_mem(void);
 int					ft_parse_opt(int ac, char **av, t_vm_mem *vm);
@@ -253,7 +253,7 @@ unsigned int		ft_get_val(t_ps *ps, t_vm_mem *vm, \
 		unsigned int arg, int arg_i);
 unsigned char		ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
 int					check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
-t_ps				*ft_cpy_playr(t_ps *ps);
+t_ps				*ft_cpy_playr(t_ps *ps, t_vm_mem *vm);
 void				ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, \
 		int size);
 
@@ -272,7 +272,7 @@ int					ft_add_c_mem(t_vm_mem *vm, char *str);
 ** Annex functions
 */
 
-void				ft_add_ps(t_ps *ps, t_ps *tmp);
+void				ft_add_ps(t_ps *ps, t_ps *tmp, t_vm_mem *vm);
 int					ft_next_op(t_ps *ps, int carry_mod);
 int					ft_get_code_size(int fd);
 int					ft_prt_winner(t_vm_mem *vm, t_ps *ps);
@@ -294,15 +294,15 @@ int					ft_main_debug(t_vm_mem *vm, t_ps *ps);
 void		ft_ncurse(t_vm_mem *vm, t_ps *ps);
 void 		ft_init_ncurses(void);
 void		ft_init_arena(t_vm_mem *vm);
-void		ft_print_arena(t_vm_mem *vm, t_ps *ps);
+void		ft_print_arena(t_vm_mem *vm);
 void		ft_print_test(void);
-void		ft_print_game_stats(t_vm_mem *vm, t_ps *ps);
+void		ft_print_game_stats(t_vm_mem *vm);
 
 void		ft_parsing(t_vm_mem *vm, t_ps *ps);
 void		ft_build_arena(t_vm_mem *vm, t_ps *ps);
 void		ft_player_to_arena(t_vm_mem *vm, t_ps *ps, int i, int *k);
 
-void		ft_print_lives(t_vm_mem *vm, t_ps *ps, int i);
+void		ft_print_lives(t_vm_mem *vm, int i);
 
 /*
 ** Global variable
