@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 15:15:21 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:18:33 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,44 +90,7 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 		DEBUG ? ft_printf("\nCPU => lst->playr : %s\ncycle : \
 				%d\ncycle_to_die : %d\n", lst_ps->playr, vm->cycle, \
 				vm->cycle_to_die) : DEBUG;
-	//	exec_op(vm, lst_ps);
-		while (ps && ps->cyc_len >= 0)
-		{
-			ft_printf("[CPU WHILE] PS->PLAYER => %s (%p)\n", ps->playr, ps);
-			if (ps->cyc_len == 0)
-			{
-				ps->opcode = *(vm->mem + MEM_CIR_POS(ps->pc));
-				ps->cyc_len = ft_cycle_len(ps->opcode);
-				if (!ft_valid_opcode(ps->opcode))
-				{
-					ps->op_size = 1;
-					return (ft_next_op(ps, NO_CARRY));
-				}
-				else
-				{
-					ft_printf("[WHILE ELSE] PS->PLAYER => %s (%p)\n", ps->playr, ps);
-					if (!ft_strcmp("live", op_tab[OP_TAB_INDEX(ps->opcode)].mmemo))
-					{
-						vm->lives++;
-						ps->live++;
-						ft_printf("[EXEC OP WHILE] ps->playr = %s ps->live = %d (%p)\n", ps->playr, ps->live, ps);
-						ft_printf("[LIVE TOT] vm->lives = %d ps->player = %s\n", vm->lives, ps->playr);
-						ft_printf("[LIVE PLAYER] live = %d\n", ps->live);
-					}
-					g_verbose == 4 ? ft_printf("%s\n", \
-						op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
-					op_tab[OP_TAB_INDEX(ps->opcode)].fun(vm, ps, \
-											ps->opcode);
-				}
-			}
-			ps->cyc_len--;
-			if (!ps->next)
-				ft_printf("[EXEC OP END] ps -> %p\n", ps);
-			ft_printf("[CPU WHILE NEXT] PS->PLAYER => %s (%p)\n", ps->playr, ps->next);
-			ps = ps->next;
-			if (!ps)
-				ft_printf("[EXEC OP] PS -> NULL\n");
-		}
+		exec_op(vm, lst_ps);
 		g_verbose == 3 ? ft_printf("It's now cycle %d\n", vm->cycle) \
 				   : g_verbose;
 		vm->cycle++;
