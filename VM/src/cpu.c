@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 15:05:44 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:15:21 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void			display_opt(t_vm_mem *vm, t_ps *ps)
 				: %d\n\n", vm->cycle, vm->cycle_to_die, i) : DEBUG;
 	}
 	if (vm->opt & NCURSE && !(vm->cycle % vm->ncurse))
-		ft_ncurse(vm, ps);
+		ft_ncurse(vm);
 }
 
 static int		ft_valid_opcode(int opcode)
