@@ -86,17 +86,35 @@ int				get_prog_comment(char *line, int *flag, t_header *head)
 
 int				get_prog_name(char *line, int *flag, t_header *head)
 {
-	int			name_cmd_len;
+	char 		*st;
+	int 		i;
+	char 		*trim_line;
 
 	DEBUG ? ft_printf("launching get_prog_name ...\n") : DEBUG;
-	name_cmd_len = ft_strlen(NAME_CMD_STRING);
 	//DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
+	i = 0;
 	if (*flag & FL_NAME)
 		exit(ERROR_MSG("parsing error: 2 name lines\n"));
-	if (ft_strnstr(line, NAME_CMD_STRING, name_cmd_len))
+	trim_line = IS_NAME_LINE ? \
+				ft_strtrim(ft_strnstr(line, NAME_CMD_STRING, NAME_LEN)) : \
+				ft_strtrim(line);
+	if (st = ft_strchr(trim_line, DEL_CHAR) && *(st + 1))
 	{
-		ft_strcpy(head->prog_name, line + name_cmd_len);
+		if (*(st + 1) != DEL_CHAR)
+		{
+			while (st[i] && st[i] != DEL_CHAR)
+				i++;
+			if (!st[i])
+				*flag += FL_NAME_LINES;
+			else if (st[i + 1] != '\0')
+				exit(ERROR_MSG("Lexical error"));
+			ft_strncpy(head->prog_name, st + 1);
+		}
 		*flag += FL_NAME;
+	}
+	else if (*flag & FL_NAME_LINES)
+	{
+
 	}
 	else
 		ft_strcpy(head->prog_name + ft_strlen(head->prog_name), line);
