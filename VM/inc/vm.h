@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 15:38:34 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/22 14:23:12 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,8 +212,8 @@ void				cpu_checks(t_vm_mem *vm, t_ps *ps);
 ** CPU architecture
 */
 
-int					cpu(t_vm_mem *vm, t_ps *ps);
-int					exec_op(t_vm_mem *vm, t_ps *lst);
+int					cpu(t_vm_mem *vm);
+int					exec_op(t_vm_mem *vm);
 int					ft_nb_live(t_vm_mem *vm);
 void				ft_kill_reset_ps(t_vm_mem *vm);
 void				ft_reset_ps(t_vm_mem *vm);

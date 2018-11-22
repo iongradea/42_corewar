@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/09 18:44:56 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:43:53 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_vm_mem		*ft_new_mem(void)
 	vm->mem_color_size = 0;
 	vm->mem_color_ind = 0;
 	vm->last_live = NO_PLAYR;
-	//ft_set_colors(vm);
+	ft_set_colors(vm);
 	return (vm);
 }
 
