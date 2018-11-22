@@ -139,7 +139,7 @@ int					ch_one_inst(t_inst *tmp, t_inst *inst);
 */
 
 int					calc_one_inst_size(t_inst *tmp);
-void				calc_all_size(t_inst *inst);
+int				calc_all_size(t_inst *inst);
 int					ft_is_lab(char *arg);
 int					ft_is_reg(char *str);
 int					ft_is_ind(char *str);
@@ -152,7 +152,7 @@ void				calc_all_arg(t_inst *inst);
 */
 
 void				out_all_inst(int fd, t_inst *inst);
-void				out_header(int fd, t_header *head);
+void				out_header(int fd, t_header *head, int size);
 
 /*
 ** free instruction list & header
@@ -171,7 +171,7 @@ char				*s_to_cor(char *str);
 int				ft_is_special_line(char *line);
 //int					get_prog_name(char *line, int *flag, t_header *head);
 int 	get_prog_name(char *line, int *flag, t_header *head);
-int					get_prog_comment(char *line, int *flag, t_header *head);
+int 	get_prog_comment(char *line, int *flag, t_header *head);
 int 	ft_ch_cmd_error(char *str);
 
 /*

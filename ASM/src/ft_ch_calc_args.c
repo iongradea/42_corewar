@@ -39,7 +39,7 @@ int				ch_all_inst(t_inst *inst)
 	return (true);
 }
 
-void			calc_all_size(t_inst *inst)
+int			calc_all_size(t_inst *inst)
 {
 	t_inst		*tmp;
 	int			size;
@@ -61,6 +61,7 @@ void			calc_all_size(t_inst *inst)
 	}
 	if (size > CHAMP_MAX_SIZE)
 		exit(ERROR_MSG("champion file too large\n"));
+	return (size);
 }
 
 int				ft_is_lab(char *arg)

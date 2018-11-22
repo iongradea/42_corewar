@@ -64,22 +64,3 @@ char			*s_to_cor(char *str)
 	new[i + 4] = '\0';
 	return (new);
 }
-
-int				get_prog_comment(char *line, int *flag, t_header *head)
-{
-	int			comment_cmd_len;
-
-	DEBUG ? ft_printf("launching get_prog_comment ...\n") : DEBUG;
-	//DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
-	comment_cmd_len = ft_strlen(COMMENT_CMD_STRING);
-	if (*flag & FL_COMMENT)
-		exit(ERROR_MSG("parsing error: 2 comment lines\n"));
-	if (ft_strnstr(line, COMMENT_CMD_STRING, comment_cmd_len))
-	{
-		ft_strcpy(head->comment, line + comment_cmd_len);
-		*flag += FL_COMMENT;
-	}
-	else
-		ft_strcpy(head->comment + ft_strlen(head->comment), line);
-	return (EXIT_SUCCESS);
-}

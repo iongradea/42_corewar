@@ -118,7 +118,6 @@ int					get_inst(char *line, t_inst **inst, t_header *head)
 
 	tmp = *inst;
 	DEBUG ? ft_printf("launching get_inst ...\n") : DEBUG;
-	//DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
 	if (IS_COMMENT_LINE)
 		return (get_prog_comment(line, &flag, head));
 	else if ((IS_NAME_LINE && !(flag & FL_NAME)) || FL_NAME_LINES & flag)

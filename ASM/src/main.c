@@ -30,7 +30,7 @@ static void		parse_input(char *str, t_inst **inst, t_header *head)
 	close(fd);
 }
 
-static void		create_file(char *av, t_inst *inst, t_header *head)
+static void		create_file(char *av, t_inst *inst, t_header *head, int size)
 {
 	int			fd;
 	char		*new;
@@ -39,7 +39,7 @@ static void		create_file(char *av, t_inst *inst, t_header *head)
 	new = s_to_cor(av);
 	if ((fd = open(new, O_CREAT | O_WRONLY, 0666)) < 1)
 		exit(ERROR_MSG("can't creat file .cor\n"));
-	out_header(fd, head);
+	out_header(fd, head, size);
 	out_all_inst(fd, inst);
 	close(fd);
 	ft_printf("Writing output to .cor file\n");
@@ -53,11 +53,14 @@ static void		ft_init_head(t_header *head)
 	ft_bzero(head->comment, COMMENT_LENGTH + 1);
 }
 
+
+
 int				main(int ac, char **av)
 {
 	int			i;
 	t_inst		*inst;
 	t_header	head;
+	int 		size;
 
 	i = 0;
 	inst = NULL;
@@ -67,12 +70,13 @@ int				main(int ac, char **av)
 		ft_init_head(&head);
 		parse_input(av[i], &inst, &head);
 		ch_all_inst(inst);
-		calc_all_size(inst);
+		size = calc_all_size(inst);
 		calc_all_arg(inst);
-		DEBUG ? prt_inst(inst) : DEBUG;
-		//exit(0);
-		create_file(av[i], inst, &head);
-		DEBUG ? prt_inst(inst) : DEBUG;
+		create_file(av[i], inst, &head, size);
+		//DEBUG ? prt_inst(inst) : DEBUG;
+		ft_printf("struct : %d\n", sizeof(t_toto));
+		ft_printf("struct : %d\n", sizeof(t_toto2));
+		ft_printf("struct : %d\n", sizeof(t_toto3));
 	}
 	exit(0);
 }

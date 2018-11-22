@@ -33,10 +33,9 @@ static void 	sub_progname_lines(char *line, int *flag, t_header *head, char *end
 
 	DEBUG ? ft_printf("launching sub_progname_lines ...\n") : DEBUG;
 	len = ft_strlen(head->prog_name);
-	len > PROG_NAME_LENGTH ? exit(ERROR_MSG("Error: name too long\n")) : true;
 	if (end)
 	{
-		ft_strncpy(head->prog_name + len, line, end - line + 1);
+		ft_strncpy(head->prog_name + len, line, end - line);
 		*flag -= FL_NAME_LINES;
 	}
 	else
@@ -54,7 +53,7 @@ static void 	progname_oneln(char *st, char *end, int *flag, t_header *head)
 	if (end == st + 1)
 		true;
 	else
-		ft_strncpy(head->prog_name, st + 1, end - st + 1);
+		ft_strncpy(head->prog_name, st + 1, end - st);
 	*flag += FL_NAME;
 }
 
@@ -84,11 +83,11 @@ int 	get_prog_name(char *line, int *flag, t_header *head)
 			exit(ERROR_MSG("Error last .name line\n"));
 		sub_progname_lines(line, flag, head, end);
 	}
-	else if (IS_NAME_LINE && st != end)
+	else if (IS_NAME_LINE && st != end && st + 1 != end)
 		progname_oneln(st, end, flag, head);
 	else if (IS_NAME_LINE && st == end)
 		progname_multiln(st, flag, head);
-	else
-		exit(ERROR_MSG("Error unexpected\n"));
+	if (ft_strlen(head->prog_name) > PROG_NAME_LENGTH)
+		exit(ERROR_MSG("Error : name too long\n"));
 	return (EXIT_SUCCESS);
 }

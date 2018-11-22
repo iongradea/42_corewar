@@ -18,7 +18,8 @@ CC = gcc
 # Source files
 SRC = main.c parse_inst.c parse_inst_2.c op.c ft_debug.c ft_ch_args.c \
 			ft_annex.c ft_ch_calc_args.c ft_inst_size.c calc_args.c \
-			create_out_file.c ft_free.c ft_annex_2.c get_progname.c
+			create_out_file.c ft_free.c ft_annex_2.c get_progname.c \
+			get_progcomment.c 
 
 SRCS = $(addprefix ./$(SRC_DIR)/, $(SRC))
 

@@ -76,6 +76,7 @@
 # define COREWAR_EXEC_MAGIC		0xea83f3
 # define COREWAR_MAGIC_SIZE		4
 
+
 typedef struct					s_header
 {
 	unsigned int				magic;

@@ -68,9 +68,8 @@ void				out_all_inst(int fd, t_inst *inst)
 	}
 }
 
-void				out_header(int fd, t_header *head)
+void				out_header(int fd, t_header *head, int size)
 {
-	int				len;
 	int				i;
 
 	i = -1;
@@ -79,15 +78,16 @@ void				out_header(int fd, t_header *head)
 	ft_putchar_fd((unsigned char)(head->magic >> 16), fd);
 	ft_putchar_fd((unsigned char)(head->magic >> 8), fd);
 	ft_putchar_fd((unsigned char)(head->magic), fd);
-	DEBUG ? ft_printf("magic : %#010x\nname : %s\ncomment : %s\n",\
+	//DEBUG ? ft_printf("magic : %#010x\nname : %s\ncomment : %s\n",\
 			head->magic, head->prog_name, head->comment) : DEBUG;
-	len = *(head->prog_name) ? ft_strlen(head->prog_name) : 0;
-	while (++i < PROG_NAME_LENGTH)
-		if (*(head->prog_name + i) != '"')
-			ft_putchar_fd((unsigned char)*(head->prog_name + i), fd);
-	len = *(head->comment) ? ft_strlen(head->comment) : 0;
+	while (++i < PROG_NAME_LENGTH + 1)
+		ft_putchar_fd((unsigned char)*(head->prog_name + i), fd);
+	//ft_printf("i : %d\nsize : %d\nsize hex : %#010x\nsize bin : %b\n", i, size, size, size);
+	ft_putchar_fd((unsigned char)(size >> 24), fd);
+	ft_putchar_fd((unsigned char)(size >> 16), fd);
+	ft_putchar_fd((unsigned char)(size >> 8), fd);
+	ft_putchar_fd((unsigned char)(size), fd);
 	i = -1;
-	while (++i < COMMENT_LENGTH)
-		if (*(head->comment + i) != '"')
-			ft_putchar_fd((unsigned char)*(head->comment + i), fd);
+	while (++i < COMMENT_LENGTH + 1)
+		ft_putchar_fd((unsigned char)*(head->comment + i), fd);
 }
