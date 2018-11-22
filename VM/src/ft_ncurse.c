@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/11/18 15:46:04 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/09 18:57:18 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,26 @@ void	ft_parsing(t_vm_mem *vm, t_ps *ps)
 	{
 		k = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
 		ps->inst_len = k;
-		ps = ps->next;
 	}
 }
 
-void	ft_player_to_arena(t_vm_mem *vm, int i, int *k)
+void	ft_player_to_arena(t_vm_mem *vm, t_ps *ps, int i, int *k)
 {
 	int		count;
 
 	count = 0;
-	while (count < vm->ps[i].inst_len)
+	while (ps && count < ps->inst_len)
 	{
-		vm->a[*k].hex = 0xFF & vm->ps[i].inst[count];
+		vm->a[*k].hex = 0xFF & ps->inst[count];
 		vm->a[*k].color = 1 + (i % 6);
 		vm->a[*k].prevcolor = 1 + (i % 6);
 		*k += 1;
 		count++;
+		ps = ps->next;
 	}
 }
 
-void	ft_build_arena(t_vm_mem *vm)
+void	ft_build_arena(t_vm_mem *vm, t_ps *ps)
 {
 	int			i;
 	static int	k;
@@ -50,33 +50,37 @@ void	ft_build_arena(t_vm_mem *vm)
 	k = 0;
 	while (++i < vm->nb_players)
 	{
-		vm->ps[i].index_start = (MEM_SIZE / vm->nb_players) * i;
+		ps->index_start = (MEM_SIZE / vm->nb_players) * i;
+		ps->live = 4;
 		k = (MEM_SIZE / vm->nb_players) * i;
-		ft_player_to_arena(vm, i, &k);
+		ft_player_to_arena(vm, ps, i, &k);
 	}
 }
 
 
-void	ft_print_lives(t_vm_mem *vm, int i)
+void	ft_print_lives(t_vm_mem *vm, t_ps *ps, int i)
 {
 	int k;
 	int cycles;
-	attron(COLOR_PAIR(vm->ps[i].color));
-	cycles = (vm->ps[i].live < 161) ? vm->ps[i].live : 161;
+	attron(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
+	cycles = (ps->live < 161) ? ps->live : 161;
 	k = -1;
-	printw("\nLives for %-15s", vm->ps[i].playr);
-	printw("%-5d", vm->ps[i].live);
+	printw("\nLives for %-15s", ps->playr);
+	printw("%-5d", ps->live);
 	while (++k < cycles)
 		addch(ACS_CKBOARD);
-	attroff(COLOR_PAIR(vm->ps[i].color));
+	attroff(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
 }
 
-void	ft_print_game_stats(t_vm_mem *vm)
+void	ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
 {
 	int i;
-	i = -2;
-	while (++i < vm->nb_players)
-		ft_print_lives(vm, i);
+	i = -1;
+	while (++i < vm->nb_players && ps)
+	{
+		ft_print_lives(vm, ps, i);
+		ps = ps->next;
+	}
 	attron(COLOR_PAIR(14));
 	printw("\n\nCycle: %-10d Total Number of lives: %d/%-10d \
 			Checks: %d/9 > Decrease cycle to die with: %d     \
@@ -86,7 +90,7 @@ void	ft_print_game_stats(t_vm_mem *vm)
 	refresh();
 }
 
-void	ft_print_arena(t_vm_mem *vm)
+void	ft_print_arena(t_vm_mem *vm, t_ps *ps)
 {
 	int i;
 
@@ -109,7 +113,7 @@ void	ft_print_arena(t_vm_mem *vm)
 			printw("\n");
 		i++;
 	}
-	ft_print_game_stats(vm);
+	ft_print_game_stats(vm, ps);
 }
 
 void	ft_init_ncurses(void)
@@ -136,8 +140,12 @@ void	ft_init_ncurses(void)
 	curs_set(FALSE);
 }
 
-void		ft_ncurse(t_vm_mem *vm)
+void		ft_ncurse(t_vm_mem *vm, t_ps *ps)
 {
-	ft_print_arena(vm);
+	t_ps *tps;
+
+	tps = ps;
+	ft_print_arena(vm, tps);
+	//usleep(300);
 }
 

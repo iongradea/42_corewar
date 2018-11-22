@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/18 15:42:49 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:48:55 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ int				main(int ac, char **av)
 		exit(ft_usage());
 	vm = ft_new_mem();
 	ft_parse_opt(ac, av, vm);
-	get_playr(fd, &ps, ac, av, vm);
+	get_playr(fd, &ps, ac, av);
 	add_data_vm(vm, ps);
 	
 	if (vm->opt & NCURSE) 
 		ft_init_ncurses();
 	ft_parsing(vm, ps);
-	ft_build_arena(vm);
+	ft_build_arena(vm, ps);
 
-	cpu(vm);
+	cpu(vm, ps);
 	
 	if (vm->opt & NCURSE)
 	{
 		//endwin();
-		//refresh();
+	//	refresh();
 		while(42);
 	}
 	exit(EXIT_SUCCESS);

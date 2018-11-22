@@ -6,24 +6,23 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:31:38 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 15:38:56 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/16 17:22:38 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
 
 /*
- ** DEBUG ? ft_printf("launching ft_live ...\n") : DEBUG;
- ** DEBUG ? ft_printf("un processus dit que le joueur %d(%s) est en vie\n", \
- **													ps->uid, ps->playr) : DEBUG;
- */
+** DEBUG ? ft_printf("launching ft_live ...\n") : DEBUG;
+** DEBUG ? ft_printf("un processus dit que le joueur %d(%s) est en vie\n", \
+**													ps->uid, ps->playr) : DEBUG;
+*/
 
 int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 {
 	unsigned int	arg0;
 	t_ps			*lst;
 	int				i;
-	int				j;
 
 	(void)opcode;
 	i = -1;
@@ -31,21 +30,21 @@ int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	while (++i < DIR_SIZE(OP_TAB_INDEX(LIVE)) && ((arg0 = arg0 << 8) || true))
 		arg0 += *(vm->mem + MEM_CIR_POS(ps->pc + OPCODE_SIZE + i));
 	lst = ps;
-	j = 0;
-	while (j < vm->nb_players)
+	while (lst)
 	{
-		if (vm->ps[j].uid == (int)arg0)
+		if (lst->uid == (int)arg0)
 			break ;
-		j++;
+		lst = lst->next;
 	}
 	DEBUG ? print_memory(vm->mem + ps->pc, OPCODE_SIZE \
-			+ DIR_SIZE(OP_TAB_INDEX(LIVE))) : DEBUG;
-
-	vm->ps[j].live++;
+								+ DIR_SIZE(OP_TAB_INDEX(LIVE))) : DEBUG;
+	if (lst == NULL)
+		lst = ps;
+	lst->live++;
 	//ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n\n", ps->playr, ps->live);
-	vm->last_live = vm->ps[j].uid;
-	vm->ps[j].op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(LIVE));
-	return (ft_next_op(&(vm->ps[j]), NO_CARRY));
+	vm->last_live = lst->uid;
+	ps->op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(LIVE));
+	return (ft_next_op(ps, NO_CARRY));
 }
 
 int					ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode)
@@ -75,7 +74,7 @@ int					ft_fork(t_vm_mem *vm, t_ps *ps, int opcode)
 	DEBUG ? ft_printf("launching ft_fork ...\n") : DEBUG;
 	while (++i < DIR_SIZE(OP_TAB_INDEX(FORK)) && ((arg0 = arg0 << 8) || true))
 		arg0 += *(vm->mem + MEM_CIR_POS(ps->pc + OPCODE_SIZE + i));
-	new = ft_cpy_playr(ps, vm);
+	new = ft_cpy_playr(ps);
 	if (opcode == FORK)
 		new->pc = MEM_CIR_POS(ps->pc + (arg0 % IDX_MOD));
 	else if (opcode == LFORK)
