@@ -6,7 +6,19 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+/*   Updated: 2018/11/18 15:21:38 by romontei         ###   ########.fr       */
+=======
+/*   Updated: 2018/11/18 15:38:48 by bbichero         ###   ########.fr       */
+>>>>>>> 4bae5f8... change ps from vm->ps
+=======
+/*   Updated: 2018/11/22 13:08:48 by bbichero         ###   ########.fr       */
+>>>>>>> b1ac0c0... qwe
+=======
 /*   Updated: 2018/11/22 13:19:15 by romontei         ###   ########.fr       */
+>>>>>>> eb16b707ad665e8aae6e0202124e55b1555c9662
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +61,15 @@ int					cpu(t_vm_mem *vm)
 	i = 0;
 	flag = false;
 	DEBUG ? ft_printf("launching cpu ...\n") : DEBUG;
+<<<<<<< HEAD
+<<<<<<< HEAD
+	lst_ps = ps;
+=======
 	ft_printf("[CPU START] PS->PLAYER => %s (%p)\n", vm->ps[i].playr, vm->ps[i]);
+>>>>>>> b1ac0c0... qwe
+=======
+	ft_printf("[CPU START] PS->PLAYER => %s (%p)\n", vm->ps[i].playr, vm->ps[i]);
+>>>>>>> eb16b707ad665e8aae6e0202124e55b1555c9662
 	while ((flag == false ? true : ft_one_live_ps(vm)) && vm->cycle_to_die > 0)
 	{
 		if (vm->cycle % vm->cycle_to_die == 0)
