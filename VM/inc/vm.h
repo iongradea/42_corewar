@@ -6,19 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2018/11/22 13:20:39 by bbichero         ###   ########.fr       */
-=======
-<<<<<<< HEAD
-/*   Updated: 2018/11/22 13:20:39 by bbichero         ###   ########.fr       */
-=======
-<<<<<<< HEAD
-/*   Updated: 2018/11/22 13:25:01 by bbichero         ###   ########.fr       */
-=======
-/*   Updated: 2018/11/22 13:20:39 by bbichero         ###   ########.fr       */
->>>>>>> 3916587403f07d8f44c9eb86cd253526b2fb3d3e
->>>>>>> 846d1986fc83c019fe38f3d9d96bbf6139484e27
->>>>>>> eb16b707ad665e8aae6e0202124e55b1555c9662
+/*   Updated: 2018/11/22 14:20:44 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,17 +213,7 @@ void				cpu_checks(t_vm_mem *vm, t_ps *ps);
 */
 
 int					cpu(t_vm_mem *vm);
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 int					exec_op(t_vm_mem *vm);
-=======
->>>>>>> 846d1986fc83c019fe38f3d9d96bbf6139484e27
->>>>>>> eb16b707ad665e8aae6e0202124e55b1555c9662
-int					exec_op(t_vm_mem *vm, t_ps *lst);
->>>>>>> 3916587403f07d8f44c9eb86cd253526b2fb3d3e
 int					ft_nb_live(t_vm_mem *vm);
 void				ft_kill_reset_ps(t_vm_mem *vm);
 void				ft_reset_ps(t_vm_mem *vm);
