@@ -42,7 +42,7 @@ int			ft_is_dir(char *str)
 int			ft_arg_size(char *arg, int opcode)
 {
 	DEBUG ? ft_printf("launching ft_arg_size ...\n") : DEBUG;
-	DEBUG ? ft_printf("arg: %s\n", arg) : DEBUG;
+	//DEBUG ? ft_printf("arg: %s\n", arg) : DEBUG;
 	if (ft_is_reg(arg))
 		return (REG_SIZE);
 	if (ft_is_ind(arg))

@@ -41,8 +41,8 @@ static void		create_file(char *av, t_inst *inst, t_header *head)
 		exit(ERROR_MSG("can't creat file .cor\n"));
 	out_header(fd, head);
 	out_all_inst(fd, inst);
-	ft_printf("Writing output to .cor file\n");
 	close(fd);
+	ft_printf("Writing output to .cor file\n");
 }
 
 static void		ft_init_head(t_header *head)
@@ -66,10 +66,11 @@ int				main(int ac, char **av)
 	{
 		ft_init_head(&head);
 		parse_input(av[i], &inst, &head);
-		DEBUG ? prt_inst(inst) : DEBUG;
 		ch_all_inst(inst);
 		calc_all_size(inst);
 		calc_all_arg(inst);
+		DEBUG ? prt_inst(inst) : DEBUG;
+		//exit(0);
 		create_file(av[i], inst, &head);
 		DEBUG ? prt_inst(inst) : DEBUG;
 	}

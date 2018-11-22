@@ -27,7 +27,7 @@
 # define ERROR_MSG(msg) (write(2, msg, ft_strlen(msg)))
 # define ERROR -1
 # define UNDEFINED -1
-# define DEBUG 0
+# define DEBUG 1
 
 # define NAME_LEN ft_strlen(NAME_CMD_STRING)
 # define COMMENT_LEN ft_strlen(COMMENT_CMD_STRING)
@@ -52,10 +52,13 @@
 
 # define FL_STANDARD 0
 # define FL_NAME 0b1
-# define FL_COMMENT 0b10
+# define FL_NAME_LINES 0b10
+# define FL_COMMENT 0b100
+# define FL_COMMENT_LINES 0b1000
+# define DEL_CHAR '"'
 
-# define IS_COMMENT_LINE (!ft_is_empty_line(line) && ft_strnstr(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
-# define IS_NAME_LINE (!ft_is_empty_line(line) && ft_strnstr(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+# define IS_COMMENT_LINE (!ft_is_empty_line(line) && ft_strncmp(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+# define IS_NAME_LINE (!ft_is_empty_line(line) && ft_strncmp(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 
 /*
 ** Operation codes

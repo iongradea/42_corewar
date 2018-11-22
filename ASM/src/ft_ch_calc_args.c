@@ -29,7 +29,9 @@ int				ch_all_inst(t_inst *inst)
 			if (!ch_one_inst(tmp, inst))
 			{
 				//DEBUG ? prt_one_inst(tmp) : DEBUG;
-				exit(ERROR_MSG("Error : label not present\n"));
+				ERROR_MSG("Error .s file at line : ");
+				ERROR_MSG(tmp->line);
+				exit(ERROR_MSG("\n"));
 			}
 		}
 		tmp = tmp->n;
@@ -67,7 +69,7 @@ int				ft_is_lab(char *arg)
 
 	len = ft_strlen(arg);
 	if ((*arg == DIRECT_CHAR && len > 2 && *(arg + 1) == LABEL_CHAR)
-		|| (len > 2 && *arg == LABEL_CHAR))
+		|| (*arg == LABEL_CHAR && len > 1))
 		return (true);
 	return (false);
 }

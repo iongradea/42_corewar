@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 15:21:38 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/22 13:17:53 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,22 @@
  **	vm->cycle, vm->cycle_to_die, i) : DEBUG;
  */
 
-static void			display_opt(t_vm_mem *vm, t_ps *ps)
+static void			display_opt(t_vm_mem *vm)
 {
 	int				i;
-	t_ps			*lst;
 
 	i = 0;
-	lst = ps;
-	while (lst && ((i++) || true))
-		lst = lst->next;
+	//while (lst && ((i++) || true))
+	//	lst = lst->next;
 	DEBUG ? ft_printf("launching display_opt ...\n") : DEBUG;
 	if (vm->opt & DUMP && vm->cycle == vm->dump)
 	{
-		ft_prt_mem(vm, ps);
-		exit(ft_prt_winner(vm, ps));
+		ft_prt_mem(vm);
+		exit(ft_prt_winner(vm));
 	}
 	if (vm->opt & GRAPHIC && !(vm->cycle % vm->display))
 	{
-		ft_prt_mem(vm, ps);
+		ft_prt_mem(vm);
 		DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - nb_process \
 				: %d\n\n", vm->cycle, vm->cycle_to_die, i) : DEBUG;
 	}
@@ -60,7 +58,7 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 			cpu_checks(vm, ps);
 		if (vm->check == vm->ch_decr)
 			vm->check = 0;
-		display_opt(vm, ps);
+		display_opt(vm);
 		flag = vm->cycle >= vm->cycle_to_die ? true : false;
 		DEBUG ? ft_printf("\nCPU => lst->playr : %s\ncycle : \
 				%d\ncycle_to_die : %d\n", lst_ps->playr, vm->cycle, \
@@ -71,5 +69,5 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 		vm->cycle++;
 		vm->real_cycle++;
 	}
-	return (ft_prt_winner(vm, ps));
+	return (ft_prt_winner(vm));
 }

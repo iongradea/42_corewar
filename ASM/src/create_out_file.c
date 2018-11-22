@@ -60,6 +60,7 @@ void				out_all_inst(int fd, t_inst *inst)
 
 	tmp = inst;
 	DEBUG ? ft_printf("launching out_all_inst ...\n") : DEBUG;
+	DEBUG ? prt_inst(inst) : DEBUG;
 	while (tmp)
 	{
 		out_one_inst(fd, tmp);
