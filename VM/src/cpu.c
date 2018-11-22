@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 15:38:48 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/22 13:08:48 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,32 @@ static void			display_opt(t_vm_mem *vm)
 		ft_ncurse(vm);
 }
 
-int					cpu(t_vm_mem *vm, t_ps *ps)
+int					cpu(t_vm_mem *vm)
 {
-	t_ps			*lst_ps;
 	int				flag;
+	int				i;
 
+	i = 0;
 	flag = false;
-	lst_ps = NULL;
 	DEBUG ? ft_printf("launching cpu ...\n") : DEBUG;
-	lst_ps = ps;
-	ft_printf("[CPU START] PS->PLAYER => %s (%p)\n", ps->playr, ps);
+	ft_printf("[CPU START] PS->PLAYER => %s (%p)\n", vm->ps[i].playr, vm->ps[i]);
 	while ((flag == false ? true : ft_one_live_ps(vm)) && vm->cycle_to_die > 0)
 	{
-		if (!ps)
-			ps = lst_ps;
 		if (vm->cycle % vm->cycle_to_die == 0)
-			cpu_checks(vm, ps);
+			cpu_checks(vm, i);
 		if (vm->check == vm->ch_decr)
 			vm->check = 0;
 		display_opt(vm);
 		flag = vm->cycle >= vm->cycle_to_die ? true : false;
 		DEBUG ? ft_printf("\nCPU => lst->playr : %s\ncycle : \
-				%d\ncycle_to_die : %d\n", lst_ps->playr, vm->cycle, \
+				%d\ncycle_to_die : %d\n", vm->ps[i].playr, vm->cycle, \
 				vm->cycle_to_die) : DEBUG;
-		exec_op(vm, lst_ps);
+		exec_op(vm);
 		g_verbose == 3 ? ft_printf("It's now cycle %d\n", vm->cycle) \
 				   : g_verbose;
 		vm->cycle++;
 		vm->real_cycle++;
+		i++;
 	}
 	return (ft_prt_winner(vm));
 }
