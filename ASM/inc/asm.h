@@ -57,8 +57,8 @@
 # define FL_COMMENT_LINES 0b1000
 # define DEL_CHAR '"'
 
-# define IS_COMMENT_LINE (!ft_is_empty_line(line) && ft_strncmp(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
-# define IS_NAME_LINE (!ft_is_empty_line(line) && ft_strncmp(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+# define IS_COMMENT_LINE (!ft_is_empty_line(line) && !ft_strncmp(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+# define IS_NAME_LINE (!ft_is_empty_line(line) && !ft_strncmp(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 
 /*
 ** Operation codes
@@ -162,15 +162,17 @@ void				ft_free_all_inst(t_inst *inst);
 void				ft_free_head(t_header *head);
 
 /*
-** annex et annex_2
+** annex et annex_2 et get_progname et get_comment
 */
 
 int					ft_is_valid_opcode(int opcode);
 int					ft_is_empty_line(char *line);
 char				*s_to_cor(char *str);
-int					get_prog_comment(char *line, int *flag, t_header *head);
-int					get_prog_name(char *line, int *flag, t_header *head);
 int				ft_is_special_line(char *line);
+//int					get_prog_name(char *line, int *flag, t_header *head);
+int 	get_prog_name(char *line, int *flag, t_header *head);
+int					get_prog_comment(char *line, int *flag, t_header *head);
+int 	ft_ch_cmd_error(char *str);
 
 /*
 ** debug

@@ -1,5 +1,8 @@
-.comment "f*ck" 
-.name ""
+.name     "0_tst      
+.name     yolo   
+.namezzz   
+xxxx     "
+.comment ""
 
 l2: st r1, r1
 sti r1, %:live, %1

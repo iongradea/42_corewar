@@ -121,7 +121,7 @@ int					get_inst(char *line, t_inst **inst, t_header *head)
 	//DEBUG ? ft_printf("LINE : %s\n", line) : DEBUG;
 	if (IS_COMMENT_LINE)
 		return (get_prog_comment(line, &flag, head));
-	else if (IS_NAME_LINE)
+	else if ((IS_NAME_LINE && !(flag & FL_NAME)) || FL_NAME_LINES & flag)
 		return (get_prog_name(line, &flag, head));
 	else if (ft_is_empty_line(line))
 		return (EXIT_SUCCESS);
