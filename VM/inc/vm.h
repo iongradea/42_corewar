@@ -6,11 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2018/11/22 13:25:01 by bbichero         ###   ########.fr       */
-=======
-/*   Updated: 2018/11/22 13:20:39 by bbichero         ###   ########.fr       */
->>>>>>> 3916587403f07d8f44c9eb86cd253526b2fb3d3e
+/*   Updated: 2018/11/22 13:29:21 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,11 +213,7 @@ void				cpu_checks(t_vm_mem *vm, t_ps *ps);
 */
 
 int					cpu(t_vm_mem *vm);
-<<<<<<< HEAD
 int					exec_op(t_vm_mem *vm);
-=======
-int					exec_op(t_vm_mem *vm, t_ps *lst);
->>>>>>> 3916587403f07d8f44c9eb86cd253526b2fb3d3e
 int					ft_nb_live(t_vm_mem *vm);
 void				ft_kill_reset_ps(t_vm_mem *vm);
 void				ft_reset_ps(t_vm_mem *vm);
