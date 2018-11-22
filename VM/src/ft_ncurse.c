@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/11/18 15:07:13 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:46:04 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	ft_print_lives(t_vm_mem *vm, int i)
 {
 	int k;
 	int cycles;
-	//attron(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
 	attron(COLOR_PAIR(vm->ps[i].color));
 	cycles = (vm->ps[i].live < 161) ? vm->ps[i].live : 161;
 	k = -1;
@@ -69,16 +68,15 @@ void	ft_print_lives(t_vm_mem *vm, int i)
 	printw("%-5d", vm->ps[i].live);
 	while (++k < cycles)
 		addch(ACS_CKBOARD);
-	//attroff(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
 	attroff(COLOR_PAIR(vm->ps[i].color));
 }
 
 void	ft_print_game_stats(t_vm_mem *vm)
 {
 	int i;
-	i = -1;
+	i = -2;
 	while (++i < vm->nb_players)
-		ft_print_lives(vm,  i);
+		ft_print_lives(vm, i);
 	attron(COLOR_PAIR(14));
 	printw("\n\nCycle: %-10d Total Number of lives: %d/%-10d \
 			Checks: %d/9 > Decrease cycle to die with: %d     \

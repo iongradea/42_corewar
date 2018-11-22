@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 15:18:33 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/18 15:21:38 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,6 @@ static void			display_opt(t_vm_mem *vm, t_ps *ps)
 		ft_ncurse(vm);
 }
 
-static int		ft_valid_opcode(int opcode)
-{
-	int			i;
-
-	i = -1;
-	while (++i < NB_OP)
-		if (opcode == op_tab[i].opcode)
-			return (true);
-	return (false);
-}
-
-static int		ft_cycle_len(int opcode)
-{
-	int			i;
-
-	i = -1;
-	while (++i < NB_OP)
-	{
-		if (opcode == op_tab[i].opcode)
-			return (op_tab[i].cycle);
-	}
-	return (1);
-}
-
 int					cpu(t_vm_mem *vm, t_ps *ps)
 {
 	t_ps			*lst_ps;
@@ -76,7 +52,6 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 	lst_ps = NULL;
 	DEBUG ? ft_printf("launching cpu ...\n") : DEBUG;
 	lst_ps = ps;
-	ft_printf("[CPU START] PS->PLAYER => %s (%p)\n", ps->playr, ps);
 	while ((flag == false ? true : ft_one_live_ps(vm)) && vm->cycle_to_die > 0)
 	{
 		if (!ps)
