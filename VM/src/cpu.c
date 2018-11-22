@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/22 13:19:15 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/22 14:20:27 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int					cpu(t_vm_mem *vm)
 	while ((flag == false ? true : ft_one_live_ps(vm)) && vm->cycle_to_die > 0)
 	{
 		if (vm->cycle % vm->cycle_to_die == 0)
-			cpu_checks(vm, i);
+			cpu_checks(vm, &vm->ps[i]);
 		if (vm->check == vm->ch_decr)
 			vm->check = 0;
 		display_opt(vm);

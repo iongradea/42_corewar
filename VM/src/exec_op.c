@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/18 15:04:26 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/22 14:21:42 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,31 +69,33 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 	vm->real_cycle = 0;
 }
 
-int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
+int				exec_op(t_vm_mem *vm)
 {
-	while (lst_ps && lst_ps->cyc_len >= 0)
+	int			i;
+
+	i = 0;
+	while (i < vm->nb_players && vm->ps[i].cyc_len >= 0)
 	{
-		if (lst_ps->cyc_len == 0)
+		if (vm->ps[i].cyc_len == 0)
 		{
-			lst_ps->opcode = *(vm->mem + MEM_CIR_POS(lst_ps->pc));
-			lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode);
-			if (!ft_valid_opcode(lst_ps->opcode))
+			vm->ps[i].opcode = *(vm->mem + MEM_CIR_POS(vm->ps[i].pc));
+			vm->ps[i].cyc_len = ft_cycle_len(vm->ps[i].opcode);
+			if (!ft_valid_opcode(vm->ps[i].opcode))
 			{
-				lst_ps->op_size = 1;
-				return (ft_next_op(lst_ps, NO_CARRY));
+				vm->ps[i].op_size = 1;
+				return (ft_next_op(&vm->ps[i], NO_CARRY));
 			}
 			else
 			{
-				if (!ft_strcmp("live", op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
+				if (!ft_strcmp("live", op_tab[OP_TAB_INDEX(vm->ps[i].opcode)].mmemo))
 					vm->lives++;
 				g_verbose == 4 ? ft_printf("%s\n", \
-					op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
-				op_tab[OP_TAB_INDEX(lst_ps->opcode)].fun(vm, lst_ps, \
-														lst_ps->opcode);
+					op_tab[OP_TAB_INDEX(vm->ps[i].opcode)].mmemo) : g_verbose;
+				op_tab[OP_TAB_INDEX(vm->ps[i].opcode)].fun(vm, &vm->ps[i], vm->ps[i].opcode);
 			}
 		}
-		lst_ps->cyc_len--;
-		lst_ps = lst_ps->next;
+		vm->ps[i].cyc_len--;
+		i++;
 	}
 	return (EXIT_SUCCESS);
 }
