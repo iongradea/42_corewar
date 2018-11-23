@@ -71,7 +71,6 @@ int				main(int ac, char **av)
 		size = calc_all_size(inst);
 		calc_all_arg(inst);
 		create_file(av[i], inst, &head, size);
-		//DEBUG ? prt_inst(inst) : DEBUG;
 	}
 	exit(0);
 }

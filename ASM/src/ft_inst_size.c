@@ -42,7 +42,6 @@ int			ft_is_dir(char *str)
 int			ft_arg_size(char *arg, int opcode)
 {
 	DEBUG ? ft_printf("launching ft_arg_size ...\n") : DEBUG;
-	//DEBUG ? ft_printf("arg: %s\n", arg) : DEBUG;
 	if (ft_is_reg(arg))
 		return (REG_SIZE);
 	if (ft_is_ind(arg))
@@ -58,7 +57,6 @@ int			calc_one_inst_size(t_inst *tmp)
 
 	size = 0;
 	DEBUG ? ft_printf("launching calc_one_inst_size ...\n") : DEBUG;
-	//DEBUG ? ft_printf("line : %s\n", tmp->line) : DEBUG;
 	if (!ft_is_valid_opcode(tmp->opcode))
 		return (UNDEFINED);
 	size++;

@@ -28,7 +28,6 @@ int				ch_all_inst(t_inst *inst)
 		{
 			if (!ch_one_inst(tmp, inst))
 			{
-				//DEBUG ? prt_one_inst(tmp) : DEBUG;
 				ERROR_MSG("Error .s file at line : ");
 				ERROR_MSG(tmp->line);
 				exit(ERROR_MSG("\n"));

@@ -61,7 +61,6 @@ static int			get_inst_sub(char *line, t_inst *inst)
 	ft_clean_sp(&line);
 	ft_strcpy(inst->line, line);
 	tab = ft_strsplit(line);
-	//DEBUG ? ft_printf("HEREE\n") : DEBUG;
 	if (!ft_arrlen(tab))
 		return (EXIT_SUCCESS);
 	ft_ch_err_lab(tab[0]) ? exit(ERROR_MSG("syntax error\n")) : true;

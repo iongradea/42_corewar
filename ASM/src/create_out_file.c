@@ -46,9 +46,8 @@ static void			out_one_inst(int fd, t_inst *inst)
 		{
 			if (inst->args[ARG_INDEX(i)])
 			{
-				//DEBUG ? prt_one_inst(inst) : DEBUG;
 				prt_arg(fd, inst->param[i], \
-			ft_arg_size(inst->args[ARG_INDEX(i)], inst->opcode));
+						ft_arg_size(inst->args[ARG_INDEX(i)], inst->opcode));
 			}
 		}
 	}
@@ -90,7 +89,6 @@ void				out_header(int fd, t_header *head, int size)
 	while (++i < PROG_NAME_LENGTH + 1)
 		ft_putchar_fd((unsigned char)*(head->prog_name + i), fd);
 	head_add_bit_struct_padding(fd);
-	//ft_printf("i : %d\nsize : %d\nsize hex : %#010x\nsize bin : %b\n", i, size, size, size);
 	ft_putchar_fd((unsigned char)(size >> 24), fd);
 	ft_putchar_fd((unsigned char)(size >> 16), fd);
 	ft_putchar_fd((unsigned char)(size >> 8), fd);
