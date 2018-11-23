@@ -22,6 +22,7 @@ void		ft_free_all_inst(t_inst *inst)
 {
 	while (inst)
 	{
+		free(inst->line);
 		free(inst);
 		inst = inst->n;
 	}

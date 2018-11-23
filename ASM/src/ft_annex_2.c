@@ -37,7 +37,6 @@ t_inst		*ft_new_inst(char *line)
 
 	i = -1;
 	DEBUG ? ft_printf("launching ft_new_inst ...\n") : DEBUG;
-	DEBUG ? ft_printf("new inst - line : %s\n", line) : DEBUG;
 	if (!(inst = ft_memalloc(sizeof(t_inst))))
 		exit(ERROR_MSG("malloc error\n"));
 	if (!(inst->line = ft_memalloc(strlen(line) + 1)))

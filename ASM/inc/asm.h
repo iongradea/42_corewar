@@ -26,7 +26,7 @@
 
 # define ERROR -1
 # define UNDEFINED -1
-# define DEBUG 1
+# define DEBUG 0
 
 # define NB_ARG_MAX 3
 
