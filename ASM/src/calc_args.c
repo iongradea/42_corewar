@@ -22,7 +22,6 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 	tmp = inst;
 	DEBUG ? ft_printf("launching calc_lab_value ...\n") : DEBUG;
 	st = LABEL_CHAR == *arg ? 1 : 2;
-	DEBUG ? ft_printf("arg : %s\nst : %d\n", arg, st) : DEBUG;
 	while (tmp)
 	{
 		if (tmp->label && !ft_strcmp(arg + st, tmp->label))
@@ -39,8 +38,6 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 		add += tmp->size;
 		tmp = tmp->n;
 	}
-	prt_inst(inst);
-	//DEBUG ? prt_inst(inst) : DEBUG;
 	exit(ERROR_MSG("calc_lab_value error\n"));
 }
 
@@ -104,8 +101,6 @@ void			calc_all_arg(t_inst *inst)
 		{
 			if (tmp->args[ARG_INDEX(i)])
 				tmp->param[i] = calc_arg_value(tmp->args[ARG_INDEX(i)], tmp);
-			//tmp->args[ARG_INDEX(i)] && !ft_strcmp(tmp->args[ARG_INDEX(i)], ":buff") ? prt_inst(inst) : true;
-			//tmp->args[ARG_INDEX(i)] && !ft_strcmp(tmp->args[ARG_INDEX(i)], ":buff") ? exit(0) : true;
 		}
 		i = -1;
 		tmp = tmp->n;
