@@ -162,7 +162,6 @@ int					ft_is_valid_opcode(int opcode);
 int					ft_is_empty_line(char *line);
 char				*s_to_cor(char *str);
 int				ft_is_special_line(char *line);
-//int					get_prog_name(char *line, int *flag, t_header *head);
 int 	get_prog_name(char *line, int *flag, t_header *head);
 int 	get_prog_comment(char *line, int *flag, t_header *head);
 int 	ft_ch_cmd_error(char *str);
