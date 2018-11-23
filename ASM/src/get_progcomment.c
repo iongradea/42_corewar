@@ -33,7 +33,7 @@ static void 	sub_progcom_lines(char *line, int *flag, t_header *head, char *end)
 static void 	progcom_oneln(char *st, char *end, int *flag, t_header *head)
 {
 	DEBUG ? ft_printf("launching progcom_oneln ...\n") : DEBUG;
-	if (!*(end + 1) && *(end + 1) != '#')
+	if (*(end + 1) && *(end + 1) != '#')
 		exit(ERROR_MSG("Error comment line\n"));
 	if (end == st + 1)
 		true;

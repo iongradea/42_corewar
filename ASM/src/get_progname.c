@@ -50,7 +50,7 @@ static void 	sub_progname_lines(char *line, int *flag, t_header *head, char *end
 static void 	progname_oneln(char *st, char *end, int *flag, t_header *head)
 {
 	DEBUG ? ft_printf("launching progname_oneln ...\n") : DEBUG;
-	if (!*(end + 1) && *(end + 1) != '#')
+	if (*(end + 1) && *(end + 1) != '#')
 		exit(ERROR_MSG("Error name line\n"));
 	if (end == st + 1)
 		true;
