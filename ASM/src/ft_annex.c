@@ -27,10 +27,7 @@ int				ft_is_empty_line(char *line)
 
 	i = -1;
 	DEBUG ? ft_printf("launching ft_is_empty_line ...\n") : DEBUG;
-	if (line == NULL)
-		return (true);
-	else
-		len = ft_strlen(line);
+	len = ft_strlen(line);
 	while (++i < len)
 	{
 		if (!ft_isspace(line[i]) && line[i] != COMMENT_CHAR)
@@ -39,6 +36,54 @@ int				ft_is_empty_line(char *line)
 			return (true);
 	}
 	return (true);
+}
+
+/*
+** # define IS_COMMENT_LINE (!ft_is_empty_line(line) && !ft_strncmp(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+*/
+
+int 			IS_COMMENT_LINE(char *line)
+{
+	int	i;
+	int len;
+	int len_cmd;
+
+	i = -1;
+	len = ft_strlen(line);
+	len_cmd = ft_strlen(COMMENT_CMD_STRING);
+	while (++i < len)
+	{
+		if (!ft_isspace(line[i]) &&
+			ft_strncmp(line + i, COMMENT_CMD_STRING, len_cmd))
+			return (false);
+		if (!ft_strncmp(line + i, COMMENT_CMD_STRING, len_cmd))
+			return (true);
+	}
+	return (false);
+}
+
+/*
+** # define IS_NAME_LINE (!ft_is_empty_line(line) && !ft_strncmp(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+*/
+
+int 			IS_NAME_LINE(char *line)
+{
+	int	i;
+	int len;
+	int len_cmd;
+
+	i = -1;
+	len = ft_strlen(line);
+	len_cmd = ft_strlen(NAME_CMD_STRING);
+	while (++i < len)
+	{
+		if (!ft_isspace(line[i]) &&
+			ft_strncmp(line + i, NAME_CMD_STRING, len_cmd))
+			return (false);
+		if (!ft_strncmp(line + i, NAME_CMD_STRING, len_cmd))
+			return (true);
+	}
+	return (false);
 }
 
 char			*s_to_cor(char *str)

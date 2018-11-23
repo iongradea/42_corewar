@@ -24,13 +24,9 @@
 # include "../../libft/inc/ft_printf.h"
 # include "../../libft/inc/get_next_line.h"
 
-# define ERROR_MSG(msg) (write(2, msg, ft_strlen(msg)))
 # define ERROR -1
 # define UNDEFINED -1
 # define DEBUG 1
-
-# define NAME_LEN ft_strlen(NAME_CMD_STRING)
-# define COMMENT_LEN ft_strlen(COMMENT_CMD_STRING)
 
 # define NB_ARG_MAX 3
 
@@ -56,9 +52,6 @@
 # define FL_COMMENT 0b100
 # define FL_COMMENT_LINES 0b1000
 # define DEL_CHAR '"'
-
-# define IS_COMMENT_LINE (!ft_is_empty_line(line) && !ft_strncmp(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
-# define IS_NAME_LINE (!ft_is_empty_line(line) && !ft_strncmp(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 
 /*
 ** Operation codes
@@ -173,6 +166,10 @@ int				ft_is_special_line(char *line);
 int 	get_prog_name(char *line, int *flag, t_header *head);
 int 	get_prog_comment(char *line, int *flag, t_header *head);
 int 	ft_ch_cmd_error(char *str);
+int 			IS_NAME_LINE(char *line);
+int 			IS_COMMENT_LINE(char *line);
+t_inst		*ft_new_inst(char *line);
+int 	 ERROR_MSG(char *msg);
 
 /*
 ** debug

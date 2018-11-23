@@ -68,6 +68,13 @@ void				out_all_inst(int fd, t_inst *inst)
 	}
 }
 
+static void 		head_add_bit_struct_padding(int fd)
+{
+	ft_putchar_fd((unsigned char)('\0'), fd);
+	ft_putchar_fd((unsigned char)('\0'), fd);
+	ft_putchar_fd((unsigned char)('\0'), fd);
+}
+
 void				out_header(int fd, t_header *head, int size)
 {
 	int				i;
@@ -78,10 +85,11 @@ void				out_header(int fd, t_header *head, int size)
 	ft_putchar_fd((unsigned char)(head->magic >> 16), fd);
 	ft_putchar_fd((unsigned char)(head->magic >> 8), fd);
 	ft_putchar_fd((unsigned char)(head->magic), fd);
-	//DEBUG ? ft_printf("magic : %#010x\nname : %s\ncomment : %s\n",\
+	DEBUG ? ft_printf("magic : %#010x\nname : %s\ncomment : %s\n",\
 			head->magic, head->prog_name, head->comment) : DEBUG;
 	while (++i < PROG_NAME_LENGTH + 1)
 		ft_putchar_fd((unsigned char)*(head->prog_name + i), fd);
+	head_add_bit_struct_padding(fd);
 	//ft_printf("i : %d\nsize : %d\nsize hex : %#010x\nsize bin : %b\n", i, size, size, size);
 	ft_putchar_fd((unsigned char)(size >> 24), fd);
 	ft_putchar_fd((unsigned char)(size >> 16), fd);
@@ -90,4 +98,5 @@ void				out_header(int fd, t_header *head, int size)
 	i = -1;
 	while (++i < COMMENT_LENGTH + 1)
 		ft_putchar_fd((unsigned char)*(head->comment + i), fd);
+	head_add_bit_struct_padding(fd);
 }

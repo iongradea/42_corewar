@@ -55,12 +55,14 @@ int 	get_prog_comment(char *line, int *flag, t_header *head)
 {
 	char *st;
 	char *end;
+	char *com_st;
 
 	DEBUG ? ft_printf("launching get_prog_comment ...\n") : DEBUG;
 	st = ft_strchr(line, '"');
 	end = ft_strrchr(line, '"');
-	if (!(*flag & FL_COMMENT_LINES) && ((IS_COMMENT_LINE && !st)
-		|| (IS_COMMENT_LINE && ft_ch_cmd_error(line + COMMENT_LEN))))
+	com_st = ft_strstr(line, COMMENT_CMD_STRING);
+	if (!(*flag & FL_COMMENT_LINES) && ((IS_COMMENT_LINE(line) && !st)
+		|| (IS_COMMENT_LINE(line) && ft_ch_cmd_error(line + COMMENT_CMD_LEN))))
 		exit(ERROR_MSG("Error .comment line\n"));
 	if (*flag & FL_COMMENT_LINES)
 	{
@@ -68,9 +70,9 @@ int 	get_prog_comment(char *line, int *flag, t_header *head)
 			exit(ERROR_MSG("Error last .comment line\n"));
 		sub_progcom_lines(line, flag, head, end);
 	}
-	else if (IS_COMMENT_LINE && st != end && st + 1 != end)
+	else if (IS_COMMENT_LINE(line) && st != end && st + 1 != end)
 		progcom_oneln(st, end, flag, head);
-	else if (IS_COMMENT_LINE && st == end)
+	else if (IS_COMMENT_LINE(line) && st == end)
 		progcom_multiln(st, flag, head);
 	if (ft_strlen(head->comment) > COMMENT_LENGTH)
 		exit(ERROR_MSG("Error : comment too long\n"));

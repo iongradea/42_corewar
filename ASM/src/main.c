@@ -53,8 +53,6 @@ static void		ft_init_head(t_header *head)
 	ft_bzero(head->comment, COMMENT_LENGTH + 1);
 }
 
-
-
 int				main(int ac, char **av)
 {
 	int			i;
@@ -74,9 +72,6 @@ int				main(int ac, char **av)
 		calc_all_arg(inst);
 		create_file(av[i], inst, &head, size);
 		//DEBUG ? prt_inst(inst) : DEBUG;
-		ft_printf("struct : %d\n", sizeof(t_toto));
-		ft_printf("struct : %d\n", sizeof(t_toto2));
-		ft_printf("struct : %d\n", sizeof(t_toto3));
 	}
 	exit(0);
 }

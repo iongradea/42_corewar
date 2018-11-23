@@ -18,6 +18,8 @@ int 	ft_ch_cmd_error(char *str)
 
 	DEBUG ? ft_printf("launching ft_ch_cmd_error ...\n") : DEBUG;
 	i = 0;
+	if (!str)
+		return (false);
 	while (str[i] && str[i] != '"')
 	{
 		if (!ft_isspace(str[i]))
@@ -70,12 +72,14 @@ int 	get_prog_name(char *line, int *flag, t_header *head)
 {
 	char *st;
 	char *end;
+	char *name_st;
 
 	DEBUG ? ft_printf("launching get_prog_name ...\n") : DEBUG;
 	st = ft_strchr(line, '"');
 	end = ft_strrchr(line, '"');
-	if (!(*flag & FL_NAME_LINES) && ((IS_NAME_LINE && !st)
-		|| (IS_NAME_LINE && ft_ch_cmd_error(line + NAME_LEN))))
+	name_st = ft_strstr(line, NAME_CMD_STRING);
+	if (!(*flag & FL_NAME_LINES) && ((IS_NAME_LINE(line) && !st)
+		|| (IS_NAME_LINE(line) && ft_ch_cmd_error(name_st + NAME_CMD_LEN))))
 		exit(ERROR_MSG("Error .name line\n"));
 	if (*flag & FL_NAME_LINES)
 	{
@@ -83,9 +87,9 @@ int 	get_prog_name(char *line, int *flag, t_header *head)
 			exit(ERROR_MSG("Error last .name line\n"));
 		sub_progname_lines(line, flag, head, end);
 	}
-	else if (IS_NAME_LINE && st != end && st + 1 != end)
+	else if (IS_NAME_LINE(line) && st != end && st + 1 != end)
 		progname_oneln(st, end, flag, head);
-	else if (IS_NAME_LINE && st == end)
+	else if (IS_NAME_LINE(line) && st == end)
 		progname_multiln(st, flag, head);
 	if (ft_strlen(head->prog_name) > PROG_NAME_LENGTH)
 		exit(ERROR_MSG("Error : name too long\n"));

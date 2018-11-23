@@ -33,6 +33,8 @@
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
+# define NAME_CMD_LEN			5
+# define COMMENT_CMD_LEN		8
 # define NAME_CMD_STRING		".name"
 # define COMMENT_CMD_STRING		".comment"
 

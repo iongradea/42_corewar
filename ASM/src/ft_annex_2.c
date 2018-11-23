@@ -29,3 +29,35 @@ int				ft_is_special_line(char *line)
 	}
 	return (false);
 }
+
+t_inst		*ft_new_inst(char *line)
+{
+	t_inst			*inst;
+	int				i;
+
+	i = -1;
+	DEBUG ? ft_printf("launching ft_new_inst ...\n") : DEBUG;
+	DEBUG ? ft_printf("new inst - line : %s\n", line) : DEBUG;
+	if (!(inst = ft_memalloc(sizeof(t_inst))))
+		exit(ERROR_MSG("malloc error\n"));
+	if (!(inst->line = ft_memalloc(strlen(line) + 1)))
+		exit(ERROR_MSG("mallor error\n"));
+	inst->opcode = UNDEFINED;
+	while (inst->args[++i])
+		inst->args[i] = NULL;
+	inst->label = NULL;
+	inst->n = NULL;
+	inst->p = NULL;
+	inst->ocp = UNDEFINED;
+	i = -1;
+	while (++i < NB_ARG_MAX)
+		inst->param[i] = UNDEFINED;
+	inst->size = UNDEFINED;
+	return (inst);
+}
+
+int	 ERROR_MSG(char *msg)
+{
+	write(2, msg, ft_strlen(msg));
+	return (EXIT_SUCCESS);
+}
