@@ -8,6 +8,8 @@ ASM/bin/*.o
 ASM/src/.*
 ASM/asm
 
+ASM_tst/*/
+
 *.swp
 VM/zaz
 VM/testC
