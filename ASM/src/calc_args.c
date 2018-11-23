@@ -25,7 +25,6 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 	DEBUG ? ft_printf("arg : %s\nst : %d\n", arg, st) : DEBUG;
 	while (tmp)
 	{
-		ft_printf("P => arg + st : %s - tmp->label : %s\n", arg + st, tmp->label);
 		if (tmp->label && !ft_strcmp(arg + st, tmp->label))
 			return (add);
 		tmp = tmp->p;
@@ -35,7 +34,6 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 	tmp = inst;
 	while (tmp)
 	{
-		ft_printf("N => arg + st : %s - tmp->label : %s\n", arg + st, tmp->label);
 		if (tmp->label && !ft_strcmp(arg + st, tmp->label))
 			return (add);
 		add += tmp->size;
