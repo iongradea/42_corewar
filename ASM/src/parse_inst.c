@@ -35,7 +35,6 @@ static int			get_inst_sub(char *line, t_inst *inst)
 	index = 0;
 	i = -1;
 	DEBUG ? ft_printf("launching get_inst_sub ...\n") : DEBUG;
-	ft_printf("LINE : %s\n", line);
 	init_get_inst_sub(&tab, &line, inst);
 	if (!ft_arrlen(tab))
 		return (EXIT_SUCCESS);
