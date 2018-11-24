@@ -41,14 +41,16 @@ static int			get_inst_sub(char *line, t_inst *inst)
 	ft_ch_err_lab(tab[0]) ? exit(ERROR_MSG("syntax error\n")) : true;
 	if (ft_ch_rm_lab_c(&tab[0]) && (index = 1))
 		inst->label = ft_strtrim(tab[0]);
-	ft_arrlen(tab) < 2 ? exit(ERROR_MSG("syntax error\n")) : true;
-	!ft_ch_opcode(tab[index]) ? exit(ERROR_MSG("syntax error\n")) : true;
-	inst->opcode = op_tab[ft_ret_opcode(tab[index])].opcode;
-	if (ft_arrlen(tab) - index >
-		OPCODE + op_tab[ft_ret_opcode(tab[index])].nb_max_par)
-		exit(ERROR_MSG("Lexical error, too many parameters\n"));
-	while (((++i + index) < ft_arrlen(tab)) && tab[i + index])
-		inst->args[i] = ft_strtrim(tab[i + index]);
+	if (ft_arrlen(tab) > 1)
+	{
+		!ft_ch_opcode(tab[index]) ? exit(ERROR_MSG("syntax error\n")) : true;
+		inst->opcode = op_tab[ft_ret_opcode(tab[index])].opcode;
+		if (ft_arrlen(tab) - index >
+			OPCODE + op_tab[ft_ret_opcode(tab[index])].nb_max_par)
+			exit(ERROR_MSG("Lexical error, too many parameters\n"));
+		while (((++i + index) < ft_arrlen(tab)) && tab[i + index])
+			inst->args[i] = ft_strtrim(tab[i + index]);
+	}
 	ft_free_tab(tab);
 	return (EXIT_SUCCESS);
 }
