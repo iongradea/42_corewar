@@ -31,11 +31,9 @@ cp $EXEC_PATH/$ASM $DEST_ION
 cp $EXEC_PATH_ZAZ/$ASM $DEST_ZAZ
 
 for f in $DEST_ION/*.s ; do
-	echo "=====> ION |$f| <====="
-	$DEST_ION/$ASM "$f"
+	printf "`echo "ION |$f| :"` `$DEST_ION/$ASM "$f"`\n"
 done
 
 for f in $DEST_ZAZ/*.s ; do
-	echo "=====> ZAZ |$f| <====="
-	$DEST_ZAZ/$ASM "$f"
+	printf "`echo "ZAZ |$f| :"` `$DEST_ZAZ/$ASM "$f"`\n"
 done

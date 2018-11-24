@@ -88,6 +88,6 @@ void			ft_clean_sp(char **str)
 
 int	 ERROR_MSG(char *msg)
 {
-	write(2, msg, ft_strlen(msg));
+	write(1, msg, ft_strlen(msg));
 	return (EXIT_SUCCESS);
 }
