@@ -26,7 +26,7 @@
 
 # define ERROR -1
 # define UNDEFINED -1
-# define DEBUG 0
+# define DEBUG 1
 
 # define NB_ARG_MAX 3
 
@@ -35,6 +35,7 @@
 */
 
 # define OP_TAB_INDEX(opcode) (opcode - 1)
+# define OPCODE 1
 
 /*
 ** first argument is the name of the instruction
@@ -108,6 +109,7 @@ typedef struct		s_op
 	int				set_carry;
 	int				ocp_param;
 	int				dir_size;
+	int 			nb_max_par;
 }					t_op;
 
 /*
@@ -168,6 +170,8 @@ int 	ft_ch_cmd_error(char *str);
 int 			IS_NAME_LINE(char *line);
 int 			IS_COMMENT_LINE(char *line);
 t_inst		*ft_new_inst(char *line);
+void			ft_clean_comment(char **str);
+void			ft_clean_sp(char **str);
 int 	 ERROR_MSG(char *msg);
 
 /*

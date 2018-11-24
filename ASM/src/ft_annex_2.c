@@ -55,6 +55,37 @@ t_inst		*ft_new_inst(char *line)
 	return (inst);
 }
 
+void			ft_clean_comment(char **str)
+{
+	int				i;
+	int				len;
+
+	DEBUG ? ft_printf("launching ft_clean_comment ...\n") : DEBUG;
+	i = -1;
+	len = ft_strlen(*str);
+	while (++i < len)
+	{
+		if ((*str)[i] == COMMENT_CHAR)
+			while (i < len)
+				(*str)[i++] = ' ';
+	}
+}
+
+void			ft_clean_sp(char **str)
+{
+	int				i;
+	int				len;
+
+	i = -1;
+	DEBUG ? ft_printf("launching ft_clean_sp ...\n") : DEBUG;
+	len = ft_strlen(*str);
+	while (++i < len)
+	{
+		if ((*str)[i] == SEPARATOR_CHAR)
+			(*str)[i] = ' ';
+	}
+}
+
 int	 ERROR_MSG(char *msg)
 {
 	write(2, msg, ft_strlen(msg));

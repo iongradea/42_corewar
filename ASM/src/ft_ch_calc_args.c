@@ -58,8 +58,6 @@ int			calc_all_size(t_inst *inst)
 			size += tmp->size;
 		tmp = tmp->n;
 	}
-	if (size > CHAMP_MAX_SIZE)
-		exit(ERROR_MSG("champion file too large\n"));
 	return (size);
 }
 

@@ -39,6 +39,7 @@ void				prt_one_inst(t_inst *inst)
 	ft_printf("size : %d\n", tmp->size);
 	ft_printf("ocp : %08b\np1 : %d\np2 : %d\np3 : %d\n", tmp->ocp, \
 							tmp->param[0], tmp->param[1], tmp->param[2]);
+	ft_printf("next : %p\nprev : %p\n", tmp->n, tmp->p);
 }
 
 void				prt_tab(char **tab)

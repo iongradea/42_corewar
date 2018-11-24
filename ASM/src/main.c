@@ -21,10 +21,12 @@ static void		parse_input(char *str, t_inst **inst, t_header *head)
 	line = NULL;
 	if ((fd = open(str, O_RDONLY)) < 1)
 		exit(ERROR_MSG("error opening file\n"));
+	*inst = NULL;
 	while (get_next_line(fd, &line) > 0)
 	{
-		get_inst(line, inst, head);
 		DEBUG ? ft_printf("gnl - line : %s\n", line) : DEBUG;
+		DEBUG ? prt_inst(*inst) : DEBUG;
+		get_inst(line, inst, head);
 		free(line);
 	}
 	close(fd);

@@ -12,35 +12,13 @@
 
 #include "../inc/asm.h"
 
-static void			ft_clean_comment(char **str)
+static void			init_get_inst_sub(char ***tab, char **line, t_inst *inst)
 {
-	int				i;
-	int				len;
-
-	DEBUG ? ft_printf("launching ft_clean_comment ...\n") : DEBUG;
-	i = -1;
-	len = ft_strlen(*str);
-	while (++i < len)
-	{
-		if ((*str)[i] == COMMENT_CHAR)
-			while (i < len)
-				(*str)[i++] = ' ';
-	}
-}
-
-static void			ft_clean_sp(char **str)
-{
-	int				i;
-	int				len;
-
-	i = -1;
-	DEBUG ? ft_printf("launching ft_clean_sp ...\n") : DEBUG;
-	len = ft_strlen(*str);
-	while (++i < len)
-	{
-		if ((*str)[i] == SEPARATOR_CHAR)
-			(*str)[i] = ' ';
-	}
+	DEBUG ? ft_printf("launching init_get_inst_sub ...\n") : DEBUG;
+	ft_clean_comment(line);
+	ft_clean_sp(line);
+	ft_strcpy(inst->line, *line);
+	*tab = ft_strsplit(*line);
 }
 
 /*
@@ -57,23 +35,21 @@ static int			get_inst_sub(char *line, t_inst *inst)
 	index = 0;
 	i = -1;
 	DEBUG ? ft_printf("launching get_inst_sub ...\n") : DEBUG;
-	ft_clean_comment(&line);
-	ft_clean_sp(&line);
-	ft_strcpy(inst->line, line);
-	tab = ft_strsplit(line);
+	ft_printf("LINE : %s\n", line);
+	init_get_inst_sub(&tab, &line, inst);
 	if (!ft_arrlen(tab))
 		return (EXIT_SUCCESS);
 	ft_ch_err_lab(tab[0]) ? exit(ERROR_MSG("syntax error\n")) : true;
 	if (ft_ch_rm_lab_c(&tab[0]) && (index = 1))
 		inst->label = ft_strtrim(tab[0]);
-	if (ft_arrlen(tab) > 1)
-	{
-		ft_arrlen(tab) < 2 ? exit(ERROR_MSG("syntax error\n")) : true;
-		!ft_ch_opcode(tab[index]) ? exit(ERROR_MSG("syntax error\n")) : true;
-		inst->opcode = op_tab[ft_ret_opcode(tab[index])].opcode;
-		while (((++i + index) < ft_arrlen(tab)) && tab[i + index])
-			inst->args[i] = ft_strtrim(tab[i + index]);
-	}
+	ft_arrlen(tab) < 2 ? exit(ERROR_MSG("syntax error\n")) : true;
+	!ft_ch_opcode(tab[index]) ? exit(ERROR_MSG("syntax error\n")) : true;
+	inst->opcode = op_tab[ft_ret_opcode(tab[index])].opcode;
+	if (ft_arrlen(tab) - index >
+		OPCODE + op_tab[ft_ret_opcode(tab[index])].nb_max_par)
+		exit(ERROR_MSG("Lexical error, too many parameters\n"));
+	while (((++i + index) < ft_arrlen(tab)) && tab[i + index])
+		inst->args[i] = ft_strtrim(tab[i + index]);
 	ft_free_tab(tab);
 	return (EXIT_SUCCESS);
 }
@@ -96,6 +72,7 @@ int					get_inst(char *line, t_inst **inst, t_header *head)
 	static int		flag = FL_STANDARD;
 
 	tmp = *inst;
+	DEBUG ? ft_printf("tmp : %p\n", tmp) : DEBUG;
 	DEBUG ? ft_printf("launching get_inst ...\n") : DEBUG;
 	if (ft_is_empty_line(line))
 		return (EXIT_SUCCESS);
@@ -107,9 +84,14 @@ int					get_inst(char *line, t_inst **inst, t_header *head)
 		return (get_prog_name(line, &flag, head));
 	else if (ft_is_special_line(line))
 		exit(ERROR_MSG("Lexical error\n"));
+	DEBUG ? ft_printf("HERE_0\n") : DEBUG;
+	//DEBUG ? ft_printf("tmp : %p\n", tmp) : DEBUG;
+	//DEBUG ? ft_printf("tmp->n : %p\n", tmp->n) : DEBUG;
+	DEBUG ? prt_inst(*inst) : DEBUG;
 	if (tmp && tmp->n)
 		while (tmp->n)
 			tmp = tmp->n;
+	DEBUG ? ft_printf("HERE_1\n") : DEBUG;
 	new = ft_new_inst(line);
 	get_inst_annex(new, tmp, inst);
 	return (get_inst_sub(line, new));
