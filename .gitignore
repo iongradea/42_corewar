@@ -7,6 +7,7 @@ VM/corewar
 ASM/bin/*.o
 ASM/src/.*
 ASM/asm
+ASM/asm.dSYM
 
 ASM_tst/*/
 
