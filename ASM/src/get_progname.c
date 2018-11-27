@@ -52,7 +52,7 @@ static void		progname_oneln(char *st, char *end, int *flag, t_header *head)
 {
 	DEBUG ? ft_printf("launching progname_oneln ...\n") : DEBUG;
 	if (*(end + 1) && *(end + 1) != '#')
-		exit(ERROR_MSG("Error name line\n"));
+		exit(error_msg("Error name line\n"));
 	if (end == st + 1)
 		true;
 	else
@@ -79,20 +79,20 @@ int				get_prog_name(char *line, int *flag, t_header *head)
 	st = ft_strchr(line, '"');
 	end = ft_strrchr(line, '"');
 	name_st = ft_strstr(line, NAME_CMD_STRING);
-	if (!(*flag & FL_NAME_LINES) && ((IS_NAME_LINE(line) && !st)
-		|| (IS_NAME_LINE(line) && ft_ch_cmd_error(name_st + NAME_CMD_LEN))))
-		exit(ERROR_MSG("Error .name line\n"));
+	if (!(*flag & FL_NAME_LINES) && ((is_name_line(line) && !st)
+		|| (is_name_line(line) && ft_ch_cmd_error(name_st + NAME_CMD_LEN))))
+		exit(error_msg("Error .name line\n"));
 	if (*flag & FL_NAME_LINES)
 	{
 		if ((end && *(end + 1) && *(end + 1) != '#') || st != end)
-			exit(ERROR_MSG("Error last .name line\n"));
+			exit(error_msg("Error last .name line\n"));
 		sub_progname_lines(line, flag, head, end);
 	}
-	else if (IS_NAME_LINE(line) && st != end && st + 1 != end)
+	else if (is_name_line(line) && st != end && st + 1 != end)
 		progname_oneln(st, end, flag, head);
-	else if (IS_NAME_LINE(line) && st == end)
+	else if (is_name_line(line) && st == end)
 		progname_multiln(st, flag, head);
 	if (ft_strlen(head->prog_name) > PROG_NAME_LENGTH)
-		exit(ERROR_MSG("Error : name too long\n"));
+		exit(error_msg("Error : name too long\n"));
 	return (EXIT_SUCCESS);
 }

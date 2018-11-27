@@ -38,16 +38,16 @@ static int			get_inst_sub(char *line, t_inst *inst)
 	init_get_inst_sub(&tab, &line, inst);
 	if (!ft_arrlen(tab))
 		return (EXIT_SUCCESS);
-	ft_ch_err_lab(tab[0]) ? exit(ERROR_MSG("syntax error\n")) : true;
+	ft_ch_err_lab(tab[0]) ? exit(error_msg("syntax error\n")) : true;
 	if (ft_ch_rm_lab_c(&tab[0]) && (index = 1))
 		inst->label = ft_strtrim(tab[0]);
 	if (ft_arrlen(tab) > 1)
 	{
-		!ft_ch_opcode(tab[index]) ? exit(ERROR_MSG("syntax error\n")) : true;
+		!ft_ch_opcode(tab[index]) ? exit(error_msg("syntax error\n")) : true;
 		inst->opcode = op_tab[ft_ret_opcode(tab[index])].opcode;
 		if (ft_arrlen(tab) - index >
 			OPCODE + op_tab[ft_ret_opcode(tab[index])].nb_max_par)
-			exit(ERROR_MSG("Lexical error, too many parameters\n"));
+			exit(error_msg("Lexical error, too many parameters\n"));
 		while (((++i + index) < ft_arrlen(tab)) && tab[i + index])
 			inst->args[i] = ft_strtrim(tab[i + index]);
 	}
@@ -77,14 +77,14 @@ int					get_inst(char *line, t_inst **inst, t_header *head)
 	DEBUG ? ft_printf("launching get_inst ...\n") : DEBUG;
 	if (ft_is_empty_line(line))
 		return (EXIT_SUCCESS);
-	else if ((IS_COMMENT_LINE(line) && !(flag & FL_COMMENT))
+	else if ((is_comment_line(line) && !(flag & FL_COMMENT))
 			|| (FL_COMMENT_LINES & flag))
 		return (get_prog_comment(line, &flag, head));
-	else if ((IS_NAME_LINE(line) && !(flag & FL_NAME))
+	else if ((is_name_line(line) && !(flag & FL_NAME))
 			|| (FL_NAME_LINES & flag))
 		return (get_prog_name(line, &flag, head));
 	else if (ft_is_special_line(line))
-		exit(ERROR_MSG("Lexical error\n"));
+		exit(error_msg("Lexical error\n"));
 	if (tmp && tmp->n)
 		while (tmp->n)
 			tmp = tmp->n;

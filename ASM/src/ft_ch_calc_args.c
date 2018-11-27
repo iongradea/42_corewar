@@ -28,9 +28,9 @@ int				ch_all_inst(t_inst *inst)
 		{
 			if (!ch_one_inst(tmp, inst))
 			{
-				ERROR_MSG("Error .s file at line : ");
-				ERROR_MSG(tmp->line);
-				exit(ERROR_MSG("\n"));
+				error_msg("Error .s file at line : ");
+				error_msg(tmp->line);
+				exit(error_msg("\n"));
 			}
 		}
 		tmp = tmp->n;

@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/27 17:16:16 by igradea          ###   ########.fr       */
+/*   Updated: 2018/11/27 17:23:26 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,12 +167,12 @@ int					ft_is_special_line(char *line);
 int					get_prog_name(char *line, int *flag, t_header *head);
 int					get_prog_comment(char *line, int *flag, t_header *head);
 int					ft_ch_cmd_error(char *str);
-int					IS_NAME_LINE(char *line);
-int					IS_COMMENT_LINE(char *line);
+int					is_name_line(char *line);
+int					is_comment_line(char *line);
 t_inst				*ft_new_inst(char *line);
 void				ft_clean_comment(char **str);
 void				ft_clean_sp(char **str);
-int					ERROR_MSG(char *msg);
+int					error_msg(char *msg);
 
 /*
 ** debug

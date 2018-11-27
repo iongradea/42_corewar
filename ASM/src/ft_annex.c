@@ -38,7 +38,7 @@ int				ft_is_empty_line(char *line)
 	return (true);
 }
 
-int				IS_COMMENT_LINE(char *line)
+int				is_comment_line(char *line)
 {
 	int		i;
 	int		len;
@@ -58,7 +58,7 @@ int				IS_COMMENT_LINE(char *line)
 	return (false);
 }
 
-int				IS_NAME_LINE(char *line)
+int				is_name_line(char *line)
 {
 	int		i;
 	int		len;
@@ -90,7 +90,7 @@ char			*s_to_cor(char *str)
 	while ((ft_strcmp(&str[i], ".s")) != 0)
 	{
 		if (i == (int)ft_strlen(str) - 1)
-			exit(ERROR_MSG("Usage: ./asm <sourcefile.s>\n"));
+			exit(error_msg("Usage: ./asm <sourcefile.s>\n"));
 		new[i] = str[i];
 		i++;
 	}

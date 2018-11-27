@@ -38,9 +38,9 @@ t_inst		*ft_new_inst(char *line)
 	i = -1;
 	DEBUG ? ft_printf("launching ft_new_inst ...\n") : DEBUG;
 	if (!(inst = ft_memalloc(sizeof(t_inst))))
-		exit(ERROR_MSG("malloc error\n"));
+		exit(error_msg("malloc error\n"));
 	if (!(inst->line = ft_memalloc(strlen(line) + 1)))
-		exit(ERROR_MSG("mallor error\n"));
+		exit(error_msg("mallor error\n"));
 	inst->opcode = UNDEFINED;
 	while (inst->args[++i])
 		inst->args[i] = NULL;
@@ -86,7 +86,7 @@ void		ft_clean_sp(char **str)
 	}
 }
 
-int			ERROR_MSG(char *msg)
+int			error_msg(char *msg)
 {
 	write(1, msg, ft_strlen(msg));
 	return (EXIT_SUCCESS);
