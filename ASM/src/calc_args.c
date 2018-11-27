@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/07 18:31:44 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:02:08 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 {
 	int			add;
 	t_inst		*tmp;
-	int 		st;
+	int			st;
 
 	add = 0;
 	tmp = inst;

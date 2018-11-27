@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/07 18:42:29 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:06:31 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void				out_all_inst(int fd, t_inst *inst)
 	}
 }
 
-static void 		head_add_bit_struct_padding(int fd)
+static void			head_add_bit_struct_padding(int fd)
 {
 	ft_putchar_fd((unsigned char)('\0'), fd);
 	ft_putchar_fd((unsigned char)('\0'), fd);

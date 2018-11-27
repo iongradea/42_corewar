@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/07 21:49:38 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:16:16 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@
 typedef struct		s_inst
 {
 	int				opcode;
-	char 			*line;
+	char			*line;
 	char			*args[1 + NB_ARG_MAX + 1];
 	char			*label;
 	struct s_inst	*n;
@@ -109,7 +109,7 @@ typedef struct		s_op
 	int				set_carry;
 	int				ocp_param;
 	int				dir_size;
-	int 			nb_max_par;
+	int				nb_max_par;
 }					t_op;
 
 /*
@@ -134,7 +134,7 @@ int					ch_one_inst(t_inst *tmp, t_inst *inst);
 */
 
 int					calc_one_inst_size(t_inst *tmp);
-int				calc_all_size(t_inst *inst);
+int					calc_all_size(t_inst *inst);
 int					ft_is_lab(char *arg);
 int					ft_is_reg(char *str);
 int					ft_is_ind(char *str);
@@ -163,16 +163,16 @@ void				ft_free_head(t_header *head);
 int					ft_is_valid_opcode(int opcode);
 int					ft_is_empty_line(char *line);
 char				*s_to_cor(char *str);
-int				ft_is_special_line(char *line);
-int 	get_prog_name(char *line, int *flag, t_header *head);
-int 	get_prog_comment(char *line, int *flag, t_header *head);
-int 	ft_ch_cmd_error(char *str);
-int 			IS_NAME_LINE(char *line);
-int 			IS_COMMENT_LINE(char *line);
-t_inst		*ft_new_inst(char *line);
-void			ft_clean_comment(char **str);
-void			ft_clean_sp(char **str);
-int 	 ERROR_MSG(char *msg);
+int					ft_is_special_line(char *line);
+int					get_prog_name(char *line, int *flag, t_header *head);
+int					get_prog_comment(char *line, int *flag, t_header *head);
+int					ft_ch_cmd_error(char *str);
+int					IS_NAME_LINE(char *line);
+int					IS_COMMENT_LINE(char *line);
+t_inst				*ft_new_inst(char *line);
+void				ft_clean_comment(char **str);
+void				ft_clean_sp(char **str);
+int					ERROR_MSG(char *msg);
 
 /*
 ** debug

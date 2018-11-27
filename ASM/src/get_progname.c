@@ -6,13 +6,13 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/07 18:45:15 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:09:03 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-int 	ft_ch_cmd_error(char *str)
+int				ft_ch_cmd_error(char *str)
 {
 	int i;
 
@@ -29,7 +29,8 @@ int 	ft_ch_cmd_error(char *str)
 	return (false);
 }
 
-static void 	sub_progname_lines(char *line, int *flag, t_header *head, char *end)
+static void		sub_progname_lines(char *line, int *flag, t_header *head,
+									char *end)
 {
 	int len;
 
@@ -47,7 +48,7 @@ static void 	sub_progname_lines(char *line, int *flag, t_header *head, char *end
 	}
 }
 
-static void 	progname_oneln(char *st, char *end, int *flag, t_header *head)
+static void		progname_oneln(char *st, char *end, int *flag, t_header *head)
 {
 	DEBUG ? ft_printf("launching progname_oneln ...\n") : DEBUG;
 	if (*(end + 1) && *(end + 1) != '#')
@@ -59,7 +60,7 @@ static void 	progname_oneln(char *st, char *end, int *flag, t_header *head)
 	*flag += FL_NAME;
 }
 
-static void 	progname_multiln(char *st, int *flag, t_header *head)
+static void		progname_multiln(char *st, int *flag, t_header *head)
 {
 	DEBUG ? ft_printf("launching progname_multiln ...\n") : DEBUG;
 	ft_strcpy(head->prog_name, st + 1);
@@ -68,7 +69,7 @@ static void 	progname_multiln(char *st, int *flag, t_header *head)
 	*flag += FL_NAME;
 }
 
-int 	get_prog_name(char *line, int *flag, t_header *head)
+int				get_prog_name(char *line, int *flag, t_header *head)
 {
 	char *st;
 	char *end;

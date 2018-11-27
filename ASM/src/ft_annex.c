@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/07 18:45:15 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:05:24 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,11 @@ int				ft_is_empty_line(char *line)
 	return (true);
 }
 
-/*
-** # define IS_COMMENT_LINE (!ft_is_empty_line(line) && !ft_strncmp(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
-*/
-
-int 			IS_COMMENT_LINE(char *line)
+int				IS_COMMENT_LINE(char *line)
 {
-	int	i;
-	int len;
-	int len_cmd;
+	int		i;
+	int		len;
+	int		len_cmd;
 
 	i = -1;
 	len = ft_strlen(line);
@@ -62,15 +58,11 @@ int 			IS_COMMENT_LINE(char *line)
 	return (false);
 }
 
-/*
-** # define IS_NAME_LINE (!ft_is_empty_line(line) && !ft_strncmp(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
-*/
-
-int 			IS_NAME_LINE(char *line)
+int				IS_NAME_LINE(char *line)
 {
-	int	i;
-	int len;
-	int len_cmd;
+	int		i;
+	int		len;
+	int		len_cmd;
 
 	i = -1;
 	len = ft_strlen(line);

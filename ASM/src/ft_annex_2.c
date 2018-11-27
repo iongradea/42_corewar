@@ -6,13 +6,13 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/07 18:45:15 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:03:05 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-int				ft_is_special_line(char *line)
+int			ft_is_special_line(char *line)
 {
 	int			len;
 	int			i;
@@ -55,7 +55,7 @@ t_inst		*ft_new_inst(char *line)
 	return (inst);
 }
 
-void			ft_clean_comment(char **str)
+void		ft_clean_comment(char **str)
 {
 	int				i;
 	int				len;
@@ -71,7 +71,7 @@ void			ft_clean_comment(char **str)
 	}
 }
 
-void			ft_clean_sp(char **str)
+void		ft_clean_sp(char **str)
 {
 	int				i;
 	int				len;
@@ -86,7 +86,7 @@ void			ft_clean_sp(char **str)
 	}
 }
 
-int	 ERROR_MSG(char *msg)
+int			ERROR_MSG(char *msg)
 {
 	write(1, msg, ft_strlen(msg));
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/07 18:51:23 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:05:53 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				ch_all_inst(t_inst *inst)
 	return (true);
 }
 
-int			calc_all_size(t_inst *inst)
+int				calc_all_size(t_inst *inst)
 {
 	t_inst		*tmp;
 	int			size;

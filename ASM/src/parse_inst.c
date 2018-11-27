@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/07 19:33:21 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:13:23 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int			get_inst_sub(char *line, t_inst *inst)
 	return (EXIT_SUCCESS);
 }
 
-static void 		get_inst_annex(t_inst *new, t_inst *tmp, t_inst **inst)
+static void			get_inst_annex(t_inst *new, t_inst *tmp, t_inst **inst)
 {
 	if (!tmp)
 		*inst = new;
@@ -85,14 +85,9 @@ int					get_inst(char *line, t_inst **inst, t_header *head)
 		return (get_prog_name(line, &flag, head));
 	else if (ft_is_special_line(line))
 		exit(ERROR_MSG("Lexical error\n"));
-	DEBUG ? ft_printf("HERE_0\n") : DEBUG;
-	//DEBUG ? ft_printf("tmp : %p\n", tmp) : DEBUG;
-	//DEBUG ? ft_printf("tmp->n : %p\n", tmp->n) : DEBUG;
-	DEBUG ? prt_inst(*inst) : DEBUG;
 	if (tmp && tmp->n)
 		while (tmp->n)
 			tmp = tmp->n;
-	DEBUG ? ft_printf("HERE_1\n") : DEBUG;
 	new = ft_new_inst(line);
 	get_inst_annex(new, tmp, inst);
 	return (get_inst_sub(line, new));

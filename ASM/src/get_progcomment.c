@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_progcomment.c                                     :+:      :+:    :+:   */
+/*   get_progcomment.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/07 18:45:15 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:08:06 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-static void 	sub_progcom_lines(char *line, int *flag, t_header *head, char *end)
+static void		sub_progcom_lines(char *line, int *flag, t_header *head,
+									char *end)
 {
 	int len;
 
@@ -30,7 +31,7 @@ static void 	sub_progcom_lines(char *line, int *flag, t_header *head, char *end)
 	}
 }
 
-static void 	progcom_oneln(char *st, char *end, int *flag, t_header *head)
+static void		progcom_oneln(char *st, char *end, int *flag, t_header *head)
 {
 	DEBUG ? ft_printf("launching progcom_oneln ...\n") : DEBUG;
 	if (*(end + 1) && *(end + 1) != '#')
@@ -42,7 +43,7 @@ static void 	progcom_oneln(char *st, char *end, int *flag, t_header *head)
 	*flag += FL_COMMENT;
 }
 
-static void 	progcom_multiln(char *st, int *flag, t_header *head)
+static void		progcom_multiln(char *st, int *flag, t_header *head)
 {
 	DEBUG ? ft_printf("launching progcom_multiln ...\n") : DEBUG;
 	ft_strcpy(head->comment, st + 1);
@@ -51,7 +52,7 @@ static void 	progcom_multiln(char *st, int *flag, t_header *head)
 	*flag += FL_COMMENT;
 }
 
-int 	get_prog_comment(char *line, int *flag, t_header *head)
+int				get_prog_comment(char *line, int *flag, t_header *head)
 {
 	char *st;
 	char *end;
