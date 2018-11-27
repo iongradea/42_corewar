@@ -27,7 +27,7 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 		if (tmp->label && !ft_strcmp(arg + st, tmp->label))
 			return (add);
 		tmp = tmp->p;
-		tmp ? add -= tmp->size : true;
+		tmp && tmp->size != UNDEFINED ? add -= tmp->size : true;
 	}
 	add = 0;
 	tmp = inst;
@@ -35,7 +35,7 @@ static int		calc_lab_value(char *arg, t_inst *inst)
 	{
 		if (tmp->label && !ft_strcmp(arg + st, tmp->label))
 			return (add);
-		add += tmp->size;
+		tmp->size != UNDEFINED ? add += tmp->size : true;
 		tmp = tmp->n;
 	}
 	exit(ERROR_MSG("calc_lab_value error\n"));

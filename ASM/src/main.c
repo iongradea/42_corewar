@@ -45,6 +45,7 @@ static void		create_file(char *av, t_inst *inst, t_header *head, int size)
 	out_all_inst(fd, inst);
 	close(fd);
 	free(new);
+	DEBUG ? prt_inst(inst) : DEBUG;
 	ft_printf("Writing output to .cor file\n");
 }
 

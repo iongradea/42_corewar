@@ -37,7 +37,7 @@ static void 	sub_progname_lines(char *line, int *flag, t_header *head, char *end
 	len = ft_strlen(head->prog_name);
 	if (end)
 	{
-		ft_strncpy(head->prog_name + len, line, end - line);
+		ft_strncpy(head->prog_name + len, line, end - line - 1);
 		*flag -= FL_NAME_LINES;
 	}
 	else
@@ -55,7 +55,7 @@ static void 	progname_oneln(char *st, char *end, int *flag, t_header *head)
 	if (end == st + 1)
 		true;
 	else
-		ft_strncpy(head->prog_name, st + 1, end - st);
+		ft_strncpy(head->prog_name, st + 1, end - st - 1);
 	*flag += FL_NAME;
 }
 

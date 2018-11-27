@@ -20,7 +20,7 @@ static void 	sub_progcom_lines(char *line, int *flag, t_header *head, char *end)
 	len = ft_strlen(head->comment);
 	if (end)
 	{
-		ft_strncpy(head->comment + len, line, end - line + 1);
+		ft_strncpy(head->comment + len, line, end - line - 1);
 		*flag -= FL_COMMENT_LINES;
 	}
 	else
@@ -38,7 +38,7 @@ static void 	progcom_oneln(char *st, char *end, int *flag, t_header *head)
 	if (end == st + 1)
 		true;
 	else
-		ft_strncpy(head->comment, st + 1, end - st + 1);
+		ft_strncpy(head->comment, st + 1, end - st - 1);
 	*flag += FL_COMMENT;
 }
 
