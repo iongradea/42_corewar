@@ -124,7 +124,7 @@ typedef struct		s_ps
 	int				uid;
 	unsigned char	*code;
 	int				code_size;
-	unsigned int	reg[REG_NUMBER];
+	unsigned int	reg[REG_NUMBER + 1];
 	int				pc;
 	int				live;
 	int				op_size;

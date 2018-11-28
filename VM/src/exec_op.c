@@ -41,13 +41,14 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 	DEBUG ? ft_printf("launching cpu_checks ...\n") : DEBUG;
 	//if (vm->check >= vm->cycle_to_die + 1)
 	ft_printf("R CYCLE%d\n CYCLE%d\n", vm->real_cycle, vm->cycle);
-	if (vm->real_cycle % vm->cycle == 0)
+	if (vm->cycle % vm->cycle_to_die == 0)
 	{
 	ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n -- cycles %d\n\n ", ps->playr, ps->live, vm->cycle);
 		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", \
 									vm->check, vm->cycle_to_die) : DEBUG;
 		ft_kill_reset_ps(ps);
-		vm->check = 0;
+		vm->check++;
+		vm->real_cycle = 0;
 	}
 	if (ft_nb_live(ps) > NBR_LIVE)
 	{
@@ -58,7 +59,7 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 		vm->lives = 0;
 		vm->check = 0;
 	}
-	if (vm->check >= MAX_CHECKS)
+	if (vm->check == MAX_CHECKS)
 	{
 		DEBUG ? ft_printf("MAX_CHECKS - vm->check : %d - MAX_CHECKS : %d\n", \
 									vm->check, MAX_CHECKS) : DEBUG;
@@ -67,13 +68,12 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 											vm->cycle_to_die) : g_verbose;
 		vm->check = 0;
 	}
-	vm->check++;
-	vm->real_cycle = 0;
+
 }
 
 int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 {
-	while (lst_ps && lst_ps->cyc_len >= 0)
+	while (lst_ps)// && lst_ps->cyc_len >= 0)
 	{
 		if (lst_ps->cyc_len == 0)
 		{

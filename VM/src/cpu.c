@@ -55,10 +55,7 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 	{
 		if (!lst_ps)
 			lst_ps = ps;
-		if (vm->cycle % vm->cycle_to_die == 0)
-			cpu_checks(vm, ps);
-		if (vm->check == vm->ch_decr)
-			vm->check = 0;
+		cpu_checks(vm, ps);
 		display_opt(vm, ps);
 		flag = vm->cycle >= vm->cycle_to_die ? true : false;
 		DEBUG ? ft_printf("\nCPU => lst->playr : %s\ncycle : \
@@ -68,7 +65,7 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 		g_verbose == 3 ? ft_printf("It's now cycle %d\n", vm->cycle) \
 				   : g_verbose;
 		vm->cycle++;
-		vm->real_cycle++;
+		vm->real_cycle++; //???
 	}
 	return (ft_prt_winner(vm, ps));
 }

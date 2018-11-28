@@ -42,7 +42,7 @@ static t_ps		*ft_new_ps(int fd, int uid)
 					* ps->code_size)))
 		exit(ERROR_MSG("ft_new_ps : error heap allocation"));
 	ft_bzero(ps->reg, sizeof(ps->reg));
-	ps->reg[0] = uid;
+	ps->reg[1] = uid;
 	ps->pc = 0;
 	ps->carry = 0;
 	ps->next = NULL;
