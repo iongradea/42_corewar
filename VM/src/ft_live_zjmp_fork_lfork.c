@@ -38,12 +38,12 @@ int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	}
 	DEBUG ? print_memory(vm->mem + ps->pc, OPCODE_SIZE \
 								+ DIR_SIZE(OP_TAB_INDEX(LIVE))) : DEBUG;
+	ps->op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(LIVE));
 	if (lst == NULL)
-		lst = ps;
+		return (ft_next_op(ps, NO_CARRY));
 	lst->live++;
 	//ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n\n", ps->playr, ps->live);
 	vm->last_live = lst->uid;
-	ps->op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(LIVE));
 	return (ft_next_op(ps, NO_CARRY));
 }
 
