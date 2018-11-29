@@ -73,6 +73,7 @@ int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode)
 	return (ft_next_op(ps, CARRY_TRUE));
 }
 
+// ENLEVER IDX_MOD (pas dans le sujet 42)
 int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 {
 	unsigned int	arg0;

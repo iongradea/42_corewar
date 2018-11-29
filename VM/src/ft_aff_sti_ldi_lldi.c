@@ -61,6 +61,8 @@ int					ft_sti(t_vm_mem *vm, t_ps *ps, int opcode)
 	return (ft_next_op(ps, NO_CARRY));
 }
 
+
+// ENLEVER LE IDX_MOD de cette fonction (pas dans le sujet 42)
 int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode)
 {
 	unsigned int	arg0;

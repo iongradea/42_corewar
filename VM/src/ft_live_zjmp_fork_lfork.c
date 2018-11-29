@@ -42,7 +42,7 @@ int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	if (lst == NULL)
 		return (ft_next_op(ps, NO_CARRY));
 	lst->live++;
-	//ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n\n", ps->playr, ps->live);
+	ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n\n", ps->playr, ps->live);
 	vm->last_live = lst->uid;
 	return (ft_next_op(ps, NO_CARRY));
 }
@@ -59,7 +59,7 @@ int					ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode)
 	while (++i < DIR_SIZE(OP_TAB_INDEX(ZJMP)) && ((arg0 = arg0 << 8) || true))
 		arg0 += *(vm->mem + MEM_CIR_POS(ps->pc + OPCODE_SIZE + i));
 	if (ps->carry == CARRY_TRUE)
-		ps->pc = MEM_CIR_POS(ps->pc + (arg0 % IDX_MOD));
+		ps->pc = MEM_CIR_POS(ps->pc + arg0);
 	return (EXIT_SUCCESS);
 }
 

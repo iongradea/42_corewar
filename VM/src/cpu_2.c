@@ -62,8 +62,8 @@ int			ft_one_live_ps(t_ps *ps)
 	{
 		if (ps->live != PS_DEAD)
 		{
-			g_verbose == 2 ? ft_printf("Le joueur %d(%s) est en vie \
-								...\n", ps->uid, ps->playr) : g_verbose;
+		//	g_verbose == 2 ? ft_printf("Le joueur %d(%s) est en vie \
+			//					...\n", ps->uid, ps->playr) : g_verbose;
 			return (true);
 		}
 		ps = ps->next;

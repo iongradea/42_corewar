@@ -43,7 +43,7 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 	DEBUG ? ft_printf("R CYCLE%d\n CYCLE%d\n", vm->real_cycle, vm->cycle) : DEBUG;
 	if (vm->cycle % vm->cycle_to_die == 0)
 	{
-	ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n -- cycles %d\n\n ", ps->playr, ps->live, vm->cycle);
+	//ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n -- cycles %d\n\n ", ps->playr, ps->live, vm->cycle);
 		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", \
 									vm->check, vm->cycle_to_die) : DEBUG;
 		ft_kill_reset_ps(ps);
@@ -88,8 +88,8 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 			{
 				if (!ft_strcmp("live", op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
 					vm->lives++;
-				g_verbose == 4 ? ft_printf("%s\n", \
-					op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
+				g_verbose == 4 ? ft_printf("uid : %d - op : %s\n", \
+					lst_ps->uid, op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
 				op_tab[OP_TAB_INDEX(lst_ps->opcode)].fun(vm, lst_ps, \
 														lst_ps->opcode);
 			}
