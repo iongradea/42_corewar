@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:40:36 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/07 20:42:23 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/11/29 16:11:46 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static unsigned int	ft_get_color(t_vm_mem *vm, t_ps *ps, int index)
 		while (lst->pc != index)
 			lst = lst->next;
 		vm->mem_uid[index] = lst->uid;
+		vm->a[index].color = 12;
 		return (lst->color);
 	}
 	while (lst)

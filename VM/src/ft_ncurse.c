@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/11/09 18:57:18 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/29 18:13:57 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_parsing(t_vm_mem *vm, t_ps *ps)
 	{
 		k = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
 		ps->inst_len = k;
+		//ps = ps->next;
 	}
 }
 
@@ -30,14 +31,15 @@ void	ft_player_to_arena(t_vm_mem *vm, t_ps *ps, int i, int *k)
 	int		count;
 
 	count = 0;
-	while (ps && count < ps->inst_len)
+	while (count < ps->inst_len)
 	{
-		vm->a[*k].hex = 0xFF & ps->inst[count];
+		//vm->a[*k].hex = vm->mem[count];
+		//vm->a[*k].hex = 0xFF & vm->mem[count];
+		//vm->a[*k].hex = 0;
 		vm->a[*k].color = 1 + (i % 6);
 		vm->a[*k].prevcolor = 1 + (i % 6);
 		*k += 1;
 		count++;
-		ps = ps->next;
 	}
 }
 
@@ -48,10 +50,10 @@ void	ft_build_arena(t_vm_mem *vm, t_ps *ps)
 
 	i = -1;
 	k = 0;
+	//while (ps) //++i < vm->nb_players)
 	while (++i < vm->nb_players)
-	{
+	{	
 		ps->index_start = (MEM_SIZE / vm->nb_players) * i;
-		ps->live = 4;
 		k = (MEM_SIZE / vm->nb_players) * i;
 		ft_player_to_arena(vm, ps, i, &k);
 	}
@@ -90,6 +92,8 @@ void	ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
 	refresh();
 }
 
+
+
 void	ft_print_arena(t_vm_mem *vm, t_ps *ps)
 {
 	int i;
@@ -99,10 +103,13 @@ void	ft_print_arena(t_vm_mem *vm, t_ps *ps)
 	while (i < MEM_SIZE)
 	{
 		if (vm->a[i].new_color_count > 0)
-			attron(A_BOLD);
-		attron(COLOR_PAIR(vm->a[i].color));
-		printw("%02x", 0xFF & vm->a[i].hex);
-		attroff(COLOR_PAIR(vm->a[i].color));
+			attron(A_BOLD);i
+		//
+		// ** Where the color is set. Need to link it whith the player uid.
+		//
+		//attron(COLOR_PAIR(vm->a[i].color));
+		printw("%02x", 0xFF & vm->mem[i]);
+		//attroff(COLOR_PAIR(vm->a[i].color));
 		if (vm->a[i].new_color_count > 0)
 		{
 			attroff(A_BOLD);

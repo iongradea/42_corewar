@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/09 15:48:55 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/29 16:46:01 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,8 @@ int				main(int ac, char **av)
 
 	cpu(vm, ps);
 	//prt_vm(vm);
+	
 	if (vm->opt & NCURSE)
-	{
-		//endwin();
-	//	refresh();
 		while(42);
-	}
 	exit(EXIT_SUCCESS);
 }
