@@ -42,7 +42,7 @@ int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	if (lst == NULL)
 		return (ft_next_op(ps, NO_CARRY));
 	lst->live++;
-	ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n\n", ps->playr, ps->live);
+	g_verbose == 2 ? ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n\n", ps->playr, ps->live) : g_verbose;
 	vm->last_live = lst->uid;
 	return (ft_next_op(ps, NO_CARRY));
 }

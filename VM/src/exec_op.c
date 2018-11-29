@@ -88,7 +88,7 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 			{
 				if (!ft_strcmp("live", op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
 					vm->lives++;
-				g_verbose == 4 ? ft_printf("uid : %d - op : %s\n", \
+				g_verbose == 4 ? ft_printf("P  %d | %s\n\n", \
 					lst_ps->uid, op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
 				op_tab[OP_TAB_INDEX(lst_ps->opcode)].fun(vm, lst_ps, \
 														lst_ps->opcode);
