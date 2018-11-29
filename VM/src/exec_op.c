@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/29 14:40:11 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/29 17:53:18 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 			{
 				if (!ft_strcmp("live", op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
 					vm->lives++;
-				g_verbose == 4 ? ft_printf("P  %d | %s\n\n", \
+				g_verbose == 4 ? ft_printf("P  %d | %s\n", \
 					lst_ps->uid, op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
 				op_tab[OP_TAB_INDEX(lst_ps->opcode)].fun(vm, lst_ps, \
 														lst_ps->opcode);
