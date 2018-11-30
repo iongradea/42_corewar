@@ -71,7 +71,7 @@ static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 	}
 	else
 		exit(ERROR_MSG(ft_strjoin("Can't read given file : ", av)));
-	if (nb_playr > 4)
+	if (nb_playr > MAX_PLAYERS)
 		exit(ERROR_MSG("too many players"));
 }
 
