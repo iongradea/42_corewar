@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/11/29 18:13:57 by romontei         ###   ########.fr       */
+/*   Updated: 2018/11/30 15:06:34 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	ft_print_arena(t_vm_mem *vm, t_ps *ps)
 	while (i < MEM_SIZE)
 	{
 		if (vm->a[i].new_color_count > 0)
-			attron(A_BOLD);i
+			attron(A_BOLD);
 		//
 		// ** Where the color is set. Need to link it whith the player uid.
 		//
