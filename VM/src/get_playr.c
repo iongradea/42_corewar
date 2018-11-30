@@ -60,6 +60,7 @@ static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 	unsigned char 	buf[4];
 
 	DEBUG ? ft_printf("launching ft_get_ps_data ...\n") : DEBUG;
+	ft_bzero(buf, 4);
 	if ((fd = open(av, O_RDONLY)) >= 0)
 	{
 		*ps = ft_new_ps(fd, uid);
