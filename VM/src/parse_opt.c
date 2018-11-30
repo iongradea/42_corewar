@@ -94,6 +94,7 @@ int				ft_usage(void)
 	- 3		: show cyles\n\
 	- 4		: show operations\n\
 	- 5		: show deaths\n\
+-N 			: advanced graphical mode using ncurse library\n\
 -g nbr_cycles		: graphic mode, displays memory on console\n\
 -dump N			: dumps the memory after N cycles\n\
 -n nbr			: set \"nbr\" as number for the player\n");
