@@ -17,6 +17,7 @@ static int		ft_get_dist(t_ps *ps)
 	int			code_size;
 	int			nb_ps;
 
+	DEBUG ? ft_printf("launching ft_get_dist ...\n") : DEBUG;
 	code_size = 0;
 	nb_ps = 0;
 	while (ps)
@@ -37,6 +38,7 @@ static void		ft_cpy_code(t_vm_mem *vm, t_ps *ps, int *j)
 	int			i;
 
 	i = -1;
+	DEBUG ? ft_printf("launching ft_cpy_code ...\n") : DEBUG;
 	while (*j % MEM_LINE_LENGTH)
 		(*j)--;
 	ps->pc = MEM_CIR_POS(*j);
@@ -53,6 +55,7 @@ void			ft_set_colors(t_vm_mem *vm)
 	int			i;
 
 	i = 0;
+	DEBUG ? ft_printf("launching ft_set_colors ...\n") : DEBUG;
 	while (i < MEM_SIZE)
 	{
 		vm->a[i].hex = 0;
@@ -68,6 +71,7 @@ t_vm_mem		*ft_new_mem(void)
 {
 	t_vm_mem	*vm;
 
+	DEBUG ? ft_printf("launching ft_new_mem ...\n") : DEBUG;
 	if (!(vm = (t_vm_mem*)ft_memalloc(sizeof(t_vm_mem))))
 		exit(ERROR_MSG("ft_new_mem : error heap allocation"));
 	ft_bzero(vm->mem, MEM_SIZE);
@@ -85,7 +89,6 @@ t_vm_mem		*ft_new_mem(void)
 	vm->mem_color_size = 0;
 	vm->mem_color_ind = 0;
 	vm->last_live = NO_PLAYR;
-	//ft_set_colors(vm);
 	return (vm);
 }
 
@@ -94,6 +97,7 @@ void			add_data_vm(t_vm_mem *vm, t_ps *ps)
 	int			j;
 	int			dist;
 
+	DEBUG ? ft_printf("launching add_data_vm ...\n") : DEBUG;
 	j = 0;
 	vm->nb_players = 1;
 	dist = ft_get_dist(ps);
@@ -107,4 +111,5 @@ void			add_data_vm(t_vm_mem *vm, t_ps *ps)
 		ps = ps->next;
 		vm->nb_players++;
 	}
+
 }
