@@ -56,14 +56,14 @@ int					ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode)
 	i = -1;
 	arg0 = 0;
 	DEBUG ? ft_printf("launching ft_zjmp ...\n") : DEBUG;
-	ft_printf("ps->pc 1: %d\n", ps->pc);
+	//ft_printf("ps->pc 1: %d\n", ps->pc);
 	while (++i < DIR_SIZE(OP_TAB_INDEX(ZJMP)) && ((arg0 = arg0 << 8) || true))
 		arg0 += *(vm->mem + MEM_CIR_POS(ps->pc + OPCODE_SIZE + i));
-	ft_printf("arg0 : %d\n", arg0);
-	ft_printf("arg0 hex : %#x\n", arg0);
+	//ft_printf("arg0 : %d\n", arg0);
+	//ft_printf("arg0 hex : %#x\n", arg0);
 	if (ps->carry == CARRY_TRUE)
 		ps->pc = MEM_CIR_POS(ps->pc + arg0 % IDX_MOD);
-	ft_printf("ps->pc 2: %d\n", ps->pc);
+	//ft_printf("ps->pc 2: %d\n", ps->pc);
 	return (EXIT_SUCCESS);
 }
 
