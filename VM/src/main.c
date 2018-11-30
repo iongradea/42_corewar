@@ -34,15 +34,9 @@ int				main(int ac, char **av)
 	ft_parse_opt(ac, av, vm);
 	get_playr(fd, &ps, ac, av);
 	add_data_vm(vm, ps);
-
-	if (vm->opt & NCURSE)
-		ft_init_ncurses();
-	ft_parsing(vm, ps);
-	ft_build_arena(vm, ps);
-
 	cpu(vm, ps);
 	//prt_vm(vm);
-	
+
 	if (vm->opt & NCURSE)
 		while(42);
 	exit(EXIT_SUCCESS);

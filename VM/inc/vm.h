@@ -134,7 +134,6 @@ typedef struct		s_ps
 	int				carry;
 	int				cyc_len;
 	int				index_start;
-	int				inst_len;
 	char			string[TOTAL_SIZE + 1];
 	char			inst[CHAMP_MAX_SIZE + 1];
 	struct s_ps		*next;
@@ -143,6 +142,7 @@ typedef struct		s_ps
 typedef struct		s_arena
 {
 	char			hex;
+	int 			playr_uid;
 	int				color;
 	int				prevcolor;
 	int				occupied;
@@ -293,17 +293,6 @@ int					ft_main_debug(t_vm_mem *vm, t_ps *ps);
 */
 
 void		ft_ncurse(t_vm_mem *vm, t_ps *ps);
-void 		ft_init_ncurses(void);
-void		ft_init_arena(t_vm_mem *vm);
-void		ft_print_arena(t_vm_mem *vm, t_ps *ps);
-void		ft_print_test(void);
-void		ft_print_game_stats(t_vm_mem *vm, t_ps *ps);
-
-void		ft_parsing(t_vm_mem *vm, t_ps *ps);
-void		ft_build_arena(t_vm_mem *vm, t_ps *ps);
-void		ft_player_to_arena(t_vm_mem *vm, t_ps *ps, int i, int *k);
-
-void		ft_print_lives(t_vm_mem *vm, t_ps *ps, int i);
 
 /*
 ** Global variable
