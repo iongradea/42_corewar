@@ -81,13 +81,15 @@ t_vm_mem		*ft_new_mem(void)
 	vm->ch_decr = 0;
 	vm->check = 0;
 	vm->opt = 0x00;
-	vm->display = 0;
 	vm->dump = 0;
-	vm->lives = 0;
+	vm->display = 0;
 	ft_memset(vm->mem_uid, NO_PLAYR, sizeof(vm->mem_uid));
 	ft_bzero(vm->mem_color, sizeof(vm->mem_color));
 	vm->mem_color_size = 0;
 	vm->mem_color_ind = 0;
+	ft_bzero(vm->playr_uid, sizeof(vm->playr_uid));
+	vm->nb_players = 0;
+	vm->lives = 0;
 	vm->last_live = NO_PLAYR;
 	return (vm);
 }
@@ -96,8 +98,10 @@ void			add_data_vm(t_vm_mem *vm, t_ps *ps)
 {
 	int			j;
 	int			dist;
+	t_ps 		*lst;
 
 	DEBUG ? ft_printf("launching add_data_vm ...\n") : DEBUG;
+	lst = ps;
 	j = 0;
 	vm->nb_players = 1;
 	dist = ft_get_dist(ps);
@@ -111,5 +115,11 @@ void			add_data_vm(t_vm_mem *vm, t_ps *ps)
 		ps = ps->next;
 		vm->nb_players++;
 	}
-
+	j = -1;
+	while (lst)
+	{
+		vm->playr_uid[++j] = lst->uid;
+		lst = lst->next;
+	}
+	//print_memory(vm->playr_uid, sizeof(vm->playr_uid));
 }

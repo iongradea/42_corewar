@@ -170,9 +170,10 @@ typedef struct		s_vm_mem
 	unsigned char	mem_color[MEM_SIZE * 1000];
 	int				mem_color_size;
 	int				mem_color_ind;
-	int				last_live;
+	int 			playr_uid[MAX_PLAYERS + 1];
 	int				nb_players;
 	int				lives;
+	int				last_live;
 	t_arena			a[MEM_SIZE];
 	t_ps			ps[MAX_NB_PLAYR + 1];
 }					t_vm_mem;
