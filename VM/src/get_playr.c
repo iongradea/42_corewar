@@ -56,7 +56,7 @@ static t_ps		*ft_new_ps(int fd, int uid)
 
 static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 {
-	static int	nb_playr = 0;
+	static int		nb_playr = 0;
 
 	DEBUG ? ft_printf("launching ft_get_ps_data ...\n") : DEBUG;
 	if ((fd = open(av, O_RDONLY)) >= 0)
@@ -65,6 +65,7 @@ static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 		lseek(fd, 4, SEEK_SET);
 		read(fd, (*ps)->playr, PROG_NAME_LENGTH);
 		lseek(fd, sizeof(t_header), SEEK_SET);
+		!((*ps)->code_size) ? exit(ERROR_MSG("Error: no playr code")) : true;
 		read(fd, (*ps)->code, (*ps)->code_size);
 		close(fd);
 		nb_playr++;

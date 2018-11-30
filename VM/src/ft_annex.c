@@ -55,20 +55,21 @@ int				ft_get_code_size(int fd)
 	lseek(fd, sizeof(t_header), SEEK_SET);
 	while (read(fd, &c, 1) > 0)
 		size++;
-	lseek(fd, sizeof(t_header), SEEK_SET);
 	return (size);
 }
 
 int				ft_prt_winner(t_vm_mem *vm, t_ps *ps)
 {
-	DEBUG > 0 ? ft_printf("launching ft_prt_winner ...\n") : DEBUG;
-	DEBUG > 0 ? prt_vm(vm) : DEBUG;
+	DEBUG ? ft_printf("launching ft_prt_winner ...\n") : DEBUG;
 	while (ps)
 	{
 		if (ps->uid == vm->last_live)
 			break ;
 		ps = ps->next;
 	}
-	ft_printf("le joueur %d(%s) a gagne\n", vm->last_live, ps->playr);
+	if (ps)
+		ft_printf("le joueur %d(%s) a gagne\n", vm->last_live, ps->playr);
+	else
+		exit(ERROR_MSG("Error: aucun joueur valide\n"));
 	return (EXIT_SUCCESS);
 }
