@@ -57,11 +57,17 @@ static t_ps		*ft_new_ps(int fd, int uid)
 static void		ft_get_ps_data(int fd, t_ps **ps, int uid, char *av)
 {
 	static int		nb_playr = 0;
+	unsigned char 	buf[4];
 
 	DEBUG ? ft_printf("launching ft_get_ps_data ...\n") : DEBUG;
 	if ((fd = open(av, O_RDONLY)) >= 0)
 	{
 		*ps = ft_new_ps(fd, uid);
+		read(fd, buf, 4);
+		buf[0] != 0x00 ? exit(ERROR_MSG("Error: wrong exec magic\n")) : true;
+		buf[1] != 0xea ? exit(ERROR_MSG("Error: wrong exec magic\n")) : true;
+		buf[2] != 0x83 ? exit(ERROR_MSG("Error: wrong exec magic\n")) : true;
+		buf[3] != 0xf3 ? exit(ERROR_MSG("Error: wrong exec magic\n")) : true;
 		lseek(fd, 4, SEEK_SET);
 		read(fd, (*ps)->playr, PROG_NAME_LENGTH);
 		lseek(fd, sizeof(t_header), SEEK_SET);

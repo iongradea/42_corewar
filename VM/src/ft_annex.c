@@ -55,6 +55,7 @@ int				ft_get_code_size(int fd)
 	lseek(fd, sizeof(t_header), SEEK_SET);
 	while (read(fd, &c, 1) > 0)
 		size++;
+	lseek(fd, 0, SEEK_SET);
 	return (size);
 }
 
