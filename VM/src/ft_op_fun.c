@@ -86,4 +86,24 @@ int		ft_get_val(t_ps *ps, t_vm_mem *vm, int arg,\
 	return (val);
 }
 
-//int 	ft_get_ind(t_ps *ps, t_vm_mem *vm, )
+int 	ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, int idx_mod)
+{
+	int val;
+
+	DEBUG ? ft_printf("launching ft_get_ind ...\n") : DEBUG;
+	val = 0;
+	if (idx_mod == true)
+	{
+		val = *(vm->mem + MEM_CIR_POS(ps->pc + arg % IDX_MOD));
+		val = val << 8;
+		val += *(vm->mem + MEM_CIR_POS(ps->pc + arg % IDX_MOD + 1));
+		return ((short)val);
+	}
+	else
+	{
+		val = *(vm->mem + MEM_CIR_POS(ps->pc + arg));
+		val = val << 8;
+		val += *(vm->mem + MEM_CIR_POS(ps->pc + arg + 1));
+		return ((short)val);
+	}
+}

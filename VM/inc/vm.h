@@ -84,6 +84,8 @@
 # define IND_SIZE 2
 # define DIR_SIZE(op) (op_tab[op].dir_size)
 
+# define IND_SIZE_MEM 2
+
 /*
 ** carry
 */
@@ -249,6 +251,7 @@ int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
 int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
 int		ft_get_val(t_ps *ps, t_vm_mem *vm, \
 								int arg, int arg_i);
+int 	ft_get_ind(t_ps *ps, t_vm_mem *mem, int arg, int idx_mod);
 unsigned char		ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
 int					check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
 t_ps				*ft_cpy_playr(t_ps *ps);

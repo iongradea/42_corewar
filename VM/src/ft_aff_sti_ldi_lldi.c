@@ -65,7 +65,7 @@ int					ft_sti(t_vm_mem *vm, t_ps *ps, int opcode)
 // ENLEVER LE IDX_MOD de cette fonction (pas dans le sujet 42)
 int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode)
 {
-	unsigned int	arg0;
+	int				arg0;
 	unsigned int	arg1;
 	unsigned int	arg2;
 	unsigned int	sum;
@@ -84,7 +84,7 @@ int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode)
 	if (IS_INVALID_REG(vm, ps, 2, arg2) || IS_INVALID_REG(vm, ps, 0, arg0)
 			|| IS_INVALID_REG(vm, ps, 1, arg1))
 		return (ft_next_op(ps, NO_CARRY));
-	sum = ft_is_type(vm, ps, 1, T_REG) ? ps->pc + (ps->reg[arg0] % IDX_MOD) :
+	sum = ft_is_type(vm, ps, 0, T_REG) ? ps->pc + (ps->reg[arg0] % IDX_MOD) :
 		ps->pc + (arg0 % IDX_MOD);
 	sum += ft_is_type(vm, ps, 1, T_REG) ? ps->reg[arg1] : arg1;
 	while (++i < (int)sizeof(unsigned int) && ((ps->reg[arg2] <<= 8) || true))
@@ -117,7 +117,7 @@ int					ft_lldi(t_vm_mem *vm, t_ps *ps, int opcode)
 	if (IS_INVALID_REG(vm, ps, 2, arg2) || IS_INVALID_REG(vm, ps, 0, arg0)
 			|| IS_INVALID_REG(vm, ps, 1, arg1))
 		return (ft_next_op(ps, CARRY_FALSE));
-	sum = ft_is_type(vm, ps, 1, T_REG) ? ps->pc + ps->reg[arg0] :
+	sum = ft_is_type(vm, ps, 0, T_REG) ? ps->pc + ps->reg[arg0] :
 		ps->pc + arg0;
 	sum += ft_is_type(vm, ps, 1, T_REG) ? ps->reg[arg1] : arg1;
 	while (++i < (int)sizeof(unsigned int) && ((ps->reg[arg2] <<= 8) || true))

@@ -51,6 +51,10 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 	flag = false;
 	lst_ps = NULL;
 	DEBUG ? ft_printf("launching cpu ...\n") : DEBUG;
+	/*prt_ps(ps);
+	ft_printf("pc 0 : %d\n", ft_is_pc(ps, 0));
+	ft_printf("pc 2048 : %d\n", ft_is_pc(ps, 2048));
+	exit(0);*/
 	while ((flag == false ? true : ft_one_live_ps(ps)) && vm->cycle_to_die > 0)
 	{
 		if (!lst_ps)

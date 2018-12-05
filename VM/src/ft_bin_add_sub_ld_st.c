@@ -76,7 +76,7 @@ int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode)
 // ENLEVER IDX_MOD (pas dans le sujet 42)
 int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 {
-	unsigned int	arg0;
+	int				arg0;
 	unsigned int	arg1;
 	unsigned int	arg_ind;
 	int				i;
@@ -85,14 +85,15 @@ int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 	i = -1;
 	if (!check_ocp_fmt(vm, ps, 2) && ((++ps->op_size) || true))
 		return (ft_next_op(ps, CARRY_FALSE));
-	arg0 = ft_get_arg(vm, ps, 0);
+	arg0 = ft_is_type(vm, ps, 0, T_IND) ? (short)ft_get_arg(vm, ps, 0) : \
+											ft_get_arg(vm, ps, 0);
 	arg1 = ft_get_arg(vm, ps, 1);
 	arg_ind = opcode == LD ? (arg0 % IDX_MOD) : arg0;
 	ps->op_size = ft_op_size(vm, ps, 2);
 	if (IS_INVALID_REG(vm, ps, 1, arg1))
 		return (ft_next_op(ps, CARRY_FALSE));
 	if (ft_is_type(vm, ps, 0, T_DIR))
-		ps->reg[arg1] = arg0;
+		ps->reg[arg1] = arg_ind;
 	else if (ft_is_type(vm, ps, 0, T_IND))
 		while (++i < (int)sizeof(unsigned int) && ((*(ps->reg \
 											+ arg1) <<= 8) || true))
@@ -103,7 +104,7 @@ int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
 {
 	unsigned int	arg0;
-	unsigned int	arg1;
+	int				arg1;
 	int				i;
 
 	(void)opcode;
@@ -112,7 +113,8 @@ int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
 	if (!check_ocp_fmt(vm, ps, 2) && ((++ps->op_size) || true))
 		return (ft_next_op(ps, NO_CARRY));
 	arg0 = ft_get_arg(vm, ps, 0);
-	arg1 = ft_get_arg(vm, ps, 1);
+	arg1 = ft_is_type(vm, ps, 1, T_IND) ? (short)ft_get_arg(vm, ps, 1) : \
+											ft_get_arg(vm, ps, 1);
 	ps->op_size = ft_op_size(vm, ps, 2);
 	if (IS_INVALID_REG(vm, ps, 0, arg0) || IS_INVALID_REG(vm, ps, 1, arg1))
 		return (ft_next_op(ps, NO_CARRY));
