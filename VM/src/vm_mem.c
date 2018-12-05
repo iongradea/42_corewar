@@ -59,10 +59,9 @@ void			ft_set_colors(t_vm_mem *vm)
 	while (i < MEM_SIZE)
 	{
 		vm->a[i].hex = 0;
-		vm->a[i].color = 12;
-		vm->a[i].prevcolor = 12;
-		vm->a[i].occupied = 0;
-		vm->a[i].new_color_count = 0;
+		vm->a[i].playr_uid = UNDEFINED;
+		vm->a[i].color = 0;
+		vm->a[i].color_pc = 0;
 		i++;
 	}
 }

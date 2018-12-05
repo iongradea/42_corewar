@@ -144,9 +144,7 @@ typedef struct		s_arena
 	char			hex;
 	int 			playr_uid;
 	int				color;
-	int				prevcolor;
-	int				occupied;
-	int				new_color_count;
+	int 			color_pc;
 }					t_arena;
 
 /*
@@ -175,7 +173,6 @@ typedef struct		s_vm_mem
 	int				lives;
 	int				last_live;
 	t_arena			a[MEM_SIZE];
-	t_ps			ps[MAX_NB_PLAYR + 1];
 }					t_vm_mem;
 
 /*
@@ -268,6 +265,7 @@ void				ft_hex(t_vm_mem *vm, unsigned char c);
 void				add_bot_mem(t_vm_mem *vm);
 void				add_top_mem(t_vm_mem *vm);
 int					ft_add_c_mem(t_vm_mem *vm, char *str);
+int			ft_is_pc(t_ps *ps, int index);
 
 /*
 ** Annex functions

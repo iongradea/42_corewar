@@ -27,7 +27,7 @@ int					ft_add_c_mem(t_vm_mem *vm, char *str)
 	return (EXIT_SUCCESS);
 }
 
-static int			ft_is_pc(t_ps *ps, int index)
+int			ft_is_pc(t_ps *ps, int index)
 {
 	t_ps			*lst;
 
@@ -51,7 +51,6 @@ static unsigned int	ft_get_color(t_vm_mem *vm, t_ps *ps, int index)
 	{
 		while (lst->pc != index)
 			lst = lst->next;
-		vm->mem_uid[index] = lst->uid;
 		vm->a[index].color = 12;
 		return (lst->color);
 	}
