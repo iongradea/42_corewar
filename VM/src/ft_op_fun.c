@@ -41,10 +41,10 @@ int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg)
 	return (op_size);
 }
 
-unsigned int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
+int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
 {
 	int				offset;
-	unsigned int	arg;
+	int				arg;
 	int				i;
 
 	DEBUG ? ft_printf("launching ft_get_arg ...\n") : DEBUG;
@@ -68,7 +68,7 @@ unsigned int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
 ** and, or and xor
 */
 
-unsigned int		ft_get_val(t_ps *ps, t_vm_mem *vm, unsigned int arg,\
+int		ft_get_val(t_ps *ps, t_vm_mem *vm, int arg,\
 																int arg_i)
 {
 	int	val;
@@ -80,8 +80,9 @@ unsigned int		ft_get_val(t_ps *ps, t_vm_mem *vm, unsigned int arg,\
 	else if (ft_is_type(vm, ps, arg_i, T_IND))
 	{
 		val = *(vm->mem + MEM_CIR_POS(ps->pc + arg));
-		val <= *(vm->mem + MEM_CIR_POS(ps->pc + arg + 1));
-		return ((short)val); 
+		val = val << 8;
+		val +=  *(vm->mem + MEM_CIR_POS(ps->pc + arg + 1));
+		return ((short)val);
 	}
 	else if (ft_is_type(vm, ps, arg_i, T_DIR))
 		val = arg;
@@ -89,3 +90,5 @@ unsigned int		ft_get_val(t_ps *ps, t_vm_mem *vm, unsigned int arg,\
 		exit(ERROR_MSG("ft_get_val : error unknown parameter type"));
 	return (val);
 }
+
+//int 	ft_get_ind(t_ps *ps, t_vm_mem *vm, )

@@ -246,9 +246,9 @@ int					ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, \
 		unsigned int type);
 int					ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i);
 int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
-unsigned int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
-unsigned int		ft_get_val(t_ps *ps, t_vm_mem *vm, \
-		unsigned int arg, int arg_i);
+int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
+int		ft_get_val(t_ps *ps, t_vm_mem *vm, \
+								int arg, int arg_i);
 unsigned char		ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
 int					check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
 t_ps				*ft_cpy_playr(t_ps *ps);
