@@ -63,17 +63,26 @@ unsigned int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
 	return (arg);
 }
 
+/*
+** ft_get_val is only used for binary operation functions :
+** and, or and xor
+*/
+
 unsigned int		ft_get_val(t_ps *ps, t_vm_mem *vm, unsigned int arg,\
 																int arg_i)
 {
-	unsigned int	val;
+	int	val;
 
 	val = 0;
 	DEBUG ? ft_printf("launching ft_get_val ...\n") : DEBUG;
 	if (ft_is_type(vm, ps, arg_i, T_REG))
 		val = ps->reg[arg];
 	else if (ft_is_type(vm, ps, arg_i, T_IND))
+	{
 		val = *(vm->mem + MEM_CIR_POS(ps->pc + arg));
+		val <= *(vm->mem + MEM_CIR_POS(ps->pc + arg + 1));
+		return ((short)val); 
+	}
 	else if (ft_is_type(vm, ps, arg_i, T_DIR))
 		val = arg;
 	else
