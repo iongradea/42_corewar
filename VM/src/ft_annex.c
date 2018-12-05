@@ -71,6 +71,6 @@ int				ft_prt_winner(t_vm_mem *vm, t_ps *ps)
 	if (ps)
 		ft_printf("le joueur %d(%s) a gagne\n", vm->last_live, ps->playr);
 	else
-		exit(ERROR_MSG("Error: aucun joueur valide\n"));
+		exit(ERROR_MSG("aucun joueur valide erreur ou aucun gagnant\n"));
 	return (EXIT_SUCCESS);
 }
