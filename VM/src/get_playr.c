@@ -23,6 +23,8 @@ static int		ft_get_playr_index(int ac, char **av, int *index)
 		(*index += 2) < ac ? res = ft_atoi(*(av + 1)) : exit(ft_usage());
 	else
 		res = --i;
+	if (res == UNDEFINED)
+		exit(ERROR_MSG("Error : player number can't be -1\n"));
 	return (res);
 }
 
