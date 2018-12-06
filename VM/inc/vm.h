@@ -124,7 +124,7 @@ typedef struct		s_ps
 	int				uid;
 	unsigned char	*code;
 	int				code_size;
-	unsigned int	reg[REG_NUMBER + 1];
+	int				reg[REG_NUMBER + 1];
 	int				pc;
 	int				live;
 	int				op_size;
@@ -242,7 +242,7 @@ int					ft_fork(t_vm_mem *vm, t_ps *ps, int opcode);
 ** CPU Operations functions
 ** ft_get_arg : used to get the argument from the operations
 ** ft_get_val : used to get the value to be processed for the binary op
-** ft_get_ind : used to get the value pointed by the index / indirect
+** ft_get_ind : used to get the value pointed by the indirect
 */
 
 int					ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, \

@@ -14,7 +14,7 @@
 
 int					ft_aff(t_vm_mem *vm, t_ps *ps, int opcode)
 {
-	unsigned int	arg0;
+	int	arg0;
 
 	(void)opcode;
 	DEBUG ? ft_printf("launching ft_aff ...\n") : DEBUG;
