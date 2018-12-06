@@ -84,8 +84,6 @@
 # define IND_SIZE 2
 # define DIR_SIZE(op) (op_tab[op].dir_size)
 
-# define IND_SIZE_MEM 2
-
 /*
 ** carry
 */
@@ -242,6 +240,9 @@ int					ft_fork(t_vm_mem *vm, t_ps *ps, int opcode);
 
 /*
 ** CPU Operations functions
+** ft_get_arg : used to get the argument from the operations
+** ft_get_val : used to get the value to be processed for the binary op
+** ft_get_ind : used to get the value pointed by the index / indirect
 */
 
 int					ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, \
@@ -251,12 +252,12 @@ int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
 int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
 int		ft_get_val(t_ps *ps, t_vm_mem *vm, \
 								int arg, int arg_i);
-int 	ft_get_ind(t_ps *ps, t_vm_mem *mem, int arg, int idx_mod);
 unsigned char		ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
 int					check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
 t_ps				*ft_cpy_playr(t_ps *ps);
 void				ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, \
 		int size);
+int 	ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, int idx_mod);
 
 /*
 ** Print memory to console functions

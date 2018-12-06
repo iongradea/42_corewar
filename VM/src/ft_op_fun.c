@@ -66,6 +66,7 @@ int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
 /*
 ** ft_get_val is only used for binary operation functions :
 ** and, or and xor
+** the indirect value is considered 2 bytes (as in the op.h file)
 */
 
 int		ft_get_val(t_ps *ps, t_vm_mem *vm, int arg,\
@@ -78,7 +79,11 @@ int		ft_get_val(t_ps *ps, t_vm_mem *vm, int arg,\
 	if (ft_is_type(vm, ps, arg_i, T_REG))
 		val = ps->reg[arg];
 	else if (ft_is_type(vm, ps, arg_i, T_IND))
+	{
 		val = *(vm->mem + MEM_CIR_POS(ps->pc + arg));
+		val <<= 8;
+		val += *(vm->mem + MEM_CIR_POS(ps->pc + arg + 1));
+	}
 	else if (ft_is_type(vm, ps, arg_i, T_DIR))
 		val = arg;
 	else
@@ -94,9 +99,9 @@ int 	ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, int idx_mod)
 	val = 0;
 	if (idx_mod == true)
 	{
-		val = *(vm->mem + MEM_CIR_POS(ps->pc + arg % IDX_MOD));
+		val = *(vm->mem + MEM_CIR_POS(ps->pc + (arg % IDX_MOD)));
 		val = val << 8;
-		val += *(vm->mem + MEM_CIR_POS(ps->pc + arg % IDX_MOD + 1));
+		val += *(vm->mem + MEM_CIR_POS(ps->pc + (arg % IDX_MOD) + 1));
 		return ((short)val);
 	}
 	else
