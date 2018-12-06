@@ -31,9 +31,12 @@ static int		ft_cycle_len(int opcode)
 	while (++i < NB_OP)
 	{
 		if (opcode == op_tab[i].opcode)
+		{
+			ft_printf("opcode : %#04x - cycle : %d\n", opcode, op_tab[i].cycle);
 			return (op_tab[i].cycle);
+		}
 	}
-	return (1);
+	exit(ERROR_MSG("Error : wrong cycle count for operation\n"));
 }
 
 void			cpu_checks(t_vm_mem *vm, t_ps *ps)
@@ -47,7 +50,7 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", \
 									vm->check, vm->cycle_to_die) : DEBUG;
 
-		ft_nb_live(ps) > NBR_LIVE ? vm->cycle_to_die -= CYCLE_DELTA : true; 
+		ft_nb_live(ps) > NBR_LIVE ? vm->cycle_to_die -= CYCLE_DELTA : true;
 		vm->lives = 0;
 
 		ft_kill_reset_ps(ps);
@@ -68,12 +71,20 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 
 int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 {
-	while (lst_ps)// && lst_ps->cyc_len >= 0)
+	int i;
+	int j;
+	t_ps *tmp;
+
+	i = 0;
+	j = -1;
+	tmp = lst_ps;
+	while (tmp && (++i || true))
+		tmp = tmp->next;
+	while (lst_ps && (++j < i))// && lst_ps->cyc_len >= 0)
 	{
 		if (lst_ps->cyc_len == 0)
 		{
 			lst_ps->opcode = *(vm->mem + MEM_CIR_POS(lst_ps->pc));
-			lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode);
 			if (!ft_valid_opcode(lst_ps->opcode))
 			{
 				lst_ps->op_size = 1;
@@ -83,11 +94,12 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 			{
 				if (!ft_strcmp("live", op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
 					vm->lives++;
-				g_verbose == 4 ? ft_printf("P  %d | %s\n", \
-					lst_ps->uid, op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
+				g_verbose == 4 ? ft_printf("Player %d | cycle : %d | %s \n", \
+					lst_ps->uid, vm->cycle, op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
 				op_tab[OP_TAB_INDEX(lst_ps->opcode)].fun(vm, lst_ps, \
 														lst_ps->opcode);
 			}
+			lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode);
 		}
 		lst_ps->cyc_len--;
 		lst_ps = lst_ps->next;

@@ -63,13 +63,20 @@ static void	ft_print_lives(t_vm_mem *vm, t_ps *ps, int i)
 static void	ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
 {
 	int i;
+	t_ps *lst;
+
 	i = -1;
+	lst = ps;
 	while (++i < vm->nb_players && ps)
 	{
 		ft_print_lives(vm, ps, i);
 		ps = ps->next;
 	}
+	i = -1;
+	while (lst && (++i || true))
+		lst = lst->next;
 	attron(COLOR_PAIR(9));
+	printw("\n\nNb of processes : %d\n\n", i);
 	printw("\n\nCycle: %-10d Total Number of lives: %d/%-10d \
 			Checks: %d/%d > Decrease cycle to die with: %d     \
 			Cycles to die: %d/%d\n\n", vm->cycle, vm->lives, NBR_LIVE, \

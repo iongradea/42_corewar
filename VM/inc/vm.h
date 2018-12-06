@@ -122,6 +122,7 @@ typedef struct		s_ps
 {
 	char			*playr;
 	int				uid;
+	int				ps_iud;
 	unsigned char	*code;
 	int				code_size;
 	int				reg[REG_NUMBER + 1];
