@@ -24,7 +24,7 @@ int					ft_aff(t_vm_mem *vm, t_ps *ps, int opcode)
 	ps->op_size = ft_op_size(vm, ps, 1);
 	if (IS_INVALID_REG(vm, ps, 0, arg0))
 		return (ft_next_op(ps, NO_CARRY));
-	ft_printf("%c", ps->reg[arg0] % 256);
+	ft_printf("%c\n", ps->reg[arg0] % 256);
 	return (ft_next_op(ps, NO_CARRY));
 }
 
