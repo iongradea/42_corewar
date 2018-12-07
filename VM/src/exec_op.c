@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/29 17:53:18 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/07 18:23:32 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 	if (vm->cycle % vm->cycle_to_die == 0)
 	{
 	//ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n -- cycles %d\n\n ", ps->playr, ps->live, vm->cycle);
-		1 ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", \
+		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", \
 									vm->check, vm->cycle_to_die) : DEBUG;
 
 		ft_nb_live(ps) > NBR_LIVE ? vm->cycle_to_die -= CYCLE_DELTA : true;
@@ -59,7 +59,7 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 	}
 	if (vm->check == MAX_CHECKS)
 	{
-		1 ? ft_printf("MAX_CHECKS - vm->check : %d - MAX_CHECKS : %d\n", \
+		DEBUG ? ft_printf("MAX_CHECKS - vm->check : %d - MAX_CHECKS : %d\n", \
 									vm->check, MAX_CHECKS) : DEBUG;
 		vm->cycle_to_die -= CYCLE_DELTA;
 		g_verbose == 3 ? ft_printf("Cycle to die is now at %d\n", \
