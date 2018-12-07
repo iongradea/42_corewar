@@ -74,7 +74,7 @@ t_vm_mem		*ft_new_mem(void)
 	if (!(vm = (t_vm_mem*)ft_memalloc(sizeof(t_vm_mem))))
 		exit(ERROR_MSG("ft_new_mem : error heap allocation"));
 	ft_bzero(vm->mem, MEM_SIZE);
-	vm->cycle = 0;
+	vm->cycle = 1;
 	vm->real_cycle = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->ch_decr = 0;

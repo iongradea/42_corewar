@@ -36,8 +36,10 @@ int				main(int ac, char **av)
 	add_data_vm(vm, ps);
 	cpu(vm, ps);
 	//prt_vm(vm);
-
+	ft_prt_winner(vm, ps);
 	if (vm->opt & NCURSE)
 		while(42);
+	free(vm);
+	ft_free_all_ps(ps);
 	exit(EXIT_SUCCESS);
 }

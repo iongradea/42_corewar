@@ -29,18 +29,28 @@ int			ft_nb_live(t_ps *ps)
 
 void		ft_kill_reset_ps(t_ps *ps)
 {
+	t_ps *tmp;
+
 	DEBUG ? ft_printf("launching ft_kill_reset_ps ...\n") : DEBUG;
 	while (ps)
 	{
+		tmp = NULL;
 		if (ps->live <= 0)
 		{
 			g_verbose == 5 ? ft_printf("Le joueur %d(%s) viens de mourrir \
 									...\n", ps->uid, ps->playr) : g_verbose;
 			ps->live = PS_DEAD;
+			if (ps->prev && ps->next)
+			{
+				tmp = ps->next;
+				ps->next->prev = ps->prev;
+				ps->prev->next = ps->next;
+				ft_free_ps(ps);
+			}
 		}
 		else
 			ps->live = 0;
-		ps = ps->next;
+		ps = tmp == NULL ? ps->next : tmp;
 	}
 }
 

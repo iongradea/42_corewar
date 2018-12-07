@@ -28,8 +28,8 @@ static void			display_opt(t_vm_mem *vm, t_ps *ps)
 	DEBUG ? ft_printf("launching display_opt ...\n") : DEBUG;
 	while (lst && ((i++) || true))
 		lst = lst->next;
-	//if (vm->opt & NCURSE)
-		//ft_ncurse(vm, ps);
+	if (vm->opt & NCURSE)
+		ft_ncurse(vm, ps);
 	if (vm->opt & DUMP && vm->cycle == vm->dump)
 	{
 		ft_prt_mem(vm, ps);
@@ -51,16 +51,11 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 	flag = false;
 	lst_ps = NULL;
 	DEBUG ? ft_printf("launching cpu ...\n") : DEBUG;
-	//prt_ps(ps);
-	ft_printf("pc 0 : %d\n", ft_is_pc(ps, 0));
-	ft_printf("pc 2048 : %d\n", ft_is_pc(ps, 2048));
-	//exit(0);
 	lst_ps = ps;
 	while ((flag == false ? true : ft_one_live_ps(ps)) && vm->cycle_to_die > 0)
 	{
 		//if (!lst_ps)
 		//	lst_ps = ps;
-		cpu_checks(vm, ps);
 		display_opt(vm, ps);
 		flag = vm->cycle >= vm->cycle_to_die ? true : false;
 		DEBUG ? ft_printf("\nCPU => lst->playr : %s\ncycle : \
@@ -69,13 +64,9 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 		exec_op(vm, lst_ps);
 		g_verbose == 3 ? ft_printf("It's now cycle %d\n", vm->cycle) \
 				   : g_verbose;
+		cpu_checks(vm, ps);
 		vm->cycle++;
-		vm->real_cycle++; //???
-		if (vm->cycle == 50)
-		{
-		//	prt_ps(ps);
-			exit(0);
-		}
+		vm->real_cycle++;
 	}
-	return (ft_prt_winner(vm, ps));
+	return (EXIT_SUCCESS);
 }

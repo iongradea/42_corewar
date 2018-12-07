@@ -39,15 +39,18 @@ static t_ps		*ft_new_ps(int fd, int uid)
 					* (PROG_NAME_LENGTH + 1))))
 		exit(ERROR_MSG("ft_new_ps : error heap allocation"));
 	ps->uid = uid;
+	ps->ps_uid = ft_ps_uid();
 	ps->code_size = ft_get_code_size(fd);
 	if (!(ps->code = (unsigned char *)ft_memalloc(sizeof(unsigned char) \
 					* ps->code_size)))
 		exit(ERROR_MSG("ft_new_ps : error heap allocation"));
 	ft_bzero(ps->reg, sizeof(ps->reg));
 	ps->reg[1] = uid;
+	ps->fl = true;
 	ps->pc = 0;
 	ps->carry = 0;
 	ps->next = NULL;
+	ps->prev = NULL;
 	ps->op_size = 0;
 	ps->live = 0;
 	ps->cyc_len = 0;
@@ -89,7 +92,7 @@ t_ps			*ft_cpy_playr(t_ps *ps)
 {
 	t_ps		*new;
 
-	DEBUG ? ft_printf("launching ft_new_ps ...\n") : DEBUG;
+	DEBUG ? ft_printf("launching ft_cpy_playr ...\n") : DEBUG;
 	if (!(new = (t_ps*)ft_memalloc(sizeof(t_ps))))
 		exit(ERROR_MSG("ft_cpy_playr : error heap allocation"));
 	if (!(new->playr = (char *)ft_memalloc(sizeof(char) * (PROG_NAME_LENGTH \
@@ -97,6 +100,7 @@ t_ps			*ft_cpy_playr(t_ps *ps)
 		exit(ERROR_MSG("ft_cpy_playr : error heap allocation"));
 	ft_memcpy(new->playr, ps->playr, PROG_NAME_LENGTH + 1);
 	new->uid = ps->uid;
+	new->ps_uid = ft_ps_uid();
 	new->code_size = ps->code_size;
 	if (!(new->code = (unsigned char*)ft_memalloc(sizeof(char) \
 					* new->code_size)))
@@ -104,13 +108,16 @@ t_ps			*ft_cpy_playr(t_ps *ps)
 	ft_memcpy(new->code, ps->code, new->code_size);
 	ft_bzero(new->reg, sizeof(new->reg));
 	ft_memcpy(new->reg, ps->reg, sizeof(new->reg));
-	new->reg[0] = ps->uid;
+	new->reg[1] = ps->uid;
+	new->fl = true;
 	new->pc = 0;
 	new->carry = ps->carry;
-	ft_add_ps(ps, new);
 	new->op_size = 0;
 	new->live = 0;
 	new->color = ps->color;
+	new->next = NULL;
+	new->prev = NULL;
+	ft_add_ps(ps, new);
 	return (new);
 }
 

@@ -20,10 +20,11 @@ void			ft_add_ps(t_ps *ps, t_ps *new)
 {
 	static int	color = 1;
 
-	DEBUG > 0 ? ft_printf("launching ft_add_ps ...\n") : DEBUG;
+	DEBUG ? ft_printf("launching ft_add_ps ...\n") : DEBUG;
 	new->color = color;
 	while (ps->next)
 		ps = ps->next;
+	new->prev = ps;
 	ps->next = new;
 	color++;
 }
@@ -37,6 +38,7 @@ int				ft_next_op(t_ps *ps, int carry_mod)
 {
 	DEBUG > 0 ? ft_printf("launching ft_next_op ...\n") : DEBUG;
 	ps->pc = MEM_CIR_POS(ps->pc + ps->op_size);
+	//ft_printf("next_op ==> ps->ps_uid : %d - pc : %d - op_size : %d\n", ps->ps_uid, ps->pc, ps->op_size);
 	ps->op_size = 0;
 	if (carry_mod == NO_CARRY)
 		return (EXIT_SUCCESS);
@@ -73,4 +75,12 @@ int				ft_prt_winner(t_vm_mem *vm, t_ps *ps)
 	else
 		exit(ERROR_MSG("aucun joueur valide erreur ou aucun gagnant\n"));
 	return (EXIT_SUCCESS);
+}
+
+int 			ft_ps_uid(void)
+{
+	static int  ps_uid = -1;
+
+	ps_uid++;
+	return (ps_uid);
 }

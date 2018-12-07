@@ -33,13 +33,15 @@ void		prt_ps(t_ps *ps)
 	while (ps)
 	{
 		i = -1;
-		ft_printf("playr : %s\nuid : %d\n", ps->playr, ps->uid);
+		ft_printf("\nplayr : %s\nuid : %d\nps_uid : %d\n", ps->playr, ps->uid, \
+														ps->ps_uid);
 		print_memory(ps->code, ps->code_size);
 		ft_printf("code_size : %d\n", ps->code_size);
 		while (++i < REG_NUMBER)
 			ft_printf("reg[%d] : %d\n", i, ps->reg[i]);
-		ft_printf("pc : %d\ncarry : %d\nop_size : %d\nlive : %d\n\n", \
+		ft_printf("pc : %d\ncarry : %d\nop_size : %d\nlive : %d\n", \
 								ps->pc, ps->carry, ps->op_size, ps->live);
+		ft_printf("ps->next : %p\n\n", ps->next);
 		ps = ps->next;
 	}
 }

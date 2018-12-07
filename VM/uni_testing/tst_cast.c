@@ -3,14 +3,14 @@
 
 int main(void)
 {
-	int a;
-	int b = 0x0000ffff;
+	unsigned int a;
+	unsigned int b = 0x0000ffff;
 	short c;
 	int d;
 
 	a = (short)b;
 	printf("Passing value with short cast\n");
-	printf("a int : %d\nb int : %d\n\n", a, b);
+	printf("a int : %u\nb int : %u\n\n", a, b);
 	c = 0;
 	c = 0xff;
 	c <<= 8;

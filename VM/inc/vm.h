@@ -122,7 +122,7 @@ typedef struct		s_ps
 {
 	char			*playr;
 	int				uid;
-	int				ps_iud;
+	int				ps_uid;
 	unsigned char	*code;
 	int				code_size;
 	int				reg[REG_NUMBER + 1];
@@ -132,12 +132,14 @@ typedef struct		s_ps
 	int				opcode;
 	int				color;
 	int				nolor;
+	int 			fl;
 	int				carry;
 	int				cyc_len;
 	int				index_start;
 	char			string[TOTAL_SIZE + 1];
 	char			inst[CHAMP_MAX_SIZE + 1];
 	struct s_ps		*next;
+	struct s_ps		*prev;
 }					t_ps;
 
 typedef struct		s_arena
@@ -280,6 +282,7 @@ void				ft_add_ps(t_ps *ps, t_ps *tmp);
 int					ft_next_op(t_ps *ps, int carry_mod);
 int					ft_get_code_size(int fd);
 int					ft_prt_winner(t_vm_mem *vm, t_ps *ps);
+int 			ft_ps_uid(void);
 
 /*
 ** Debug functions
@@ -296,6 +299,13 @@ int					ft_main_debug(t_vm_mem *vm, t_ps *ps);
 */
 
 void		ft_ncurse(t_vm_mem *vm, t_ps *ps);
+
+/*
+**
+*/
+
+void		ft_free_ps(t_ps *ps);
+void 		ft_free_all_ps(t_ps *ps);
 
 /*
 ** Global variable
