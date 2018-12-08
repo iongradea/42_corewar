@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:35:08 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/07 20:37:25 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:44:11 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg)
 	return (op_size);
 }
 
-int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
+int					ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
 {
 	int				offset;
 	int				arg;
@@ -69,10 +69,9 @@ int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
 ** the indirect value is considered 2 bytes (as in the op.h file)
 */
 
-int		ft_get_val(t_ps *ps, t_vm_mem *vm, int arg,\
-																int arg_i)
+int					ft_get_val(t_ps *ps, t_vm_mem *vm, int arg, int arg_i)
 {
-	int	val;
+	int				val;
 
 	val = 0;
 	DEBUG ? ft_printf("launching ft_get_val ...\n") : DEBUG;
@@ -92,9 +91,9 @@ int		ft_get_val(t_ps *ps, t_vm_mem *vm, int arg,\
 	return (val);
 }
 
-int 	ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, int idx_mod)
+int					ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, int idx_mod)
 {
-	int val;
+	int				val;
 
 	DEBUG ? ft_printf("launching ft_get_ind ...\n") : DEBUG;
 	val = 0;

@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/12/08 16:00:12 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:43:21 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ static int		ft_get_playr_index(t_vm_mem *vm, int uid)
 
 void			ft_init_arena(t_vm_mem *vm)
 {
-	int 		i;
-	int 		index;
+	int			i;
+	int			index;
 
 	i = -1;
 	while (++i < MEM_SIZE)

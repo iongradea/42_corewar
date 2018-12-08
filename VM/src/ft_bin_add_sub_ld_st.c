@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 19:52:17 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/07 19:57:43 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:48:03 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,15 @@ int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode)
 	return (ft_next_op(ps, CARRY_TRUE));
 }
 
-// ENLEVER IDX_MOD (pas dans le sujet 42)
+/*
+** ENLEVER IDX_MOD (pas dans le sujet 42)
+*/
+
 int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 {
 	int				arg0;
-	int	arg1;
-	int	arg_ind;
+	int				arg1;
+	int				arg_ind;
 	int				i;
 
 	DEBUG ? ft_printf("launching ft_ld ...\n") : DEBUG;
@@ -103,7 +106,7 @@ int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 
 int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
 {
-	int	arg0;
+	int				arg0;
 	int				arg1;
 	int				i;
 

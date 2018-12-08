@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:40:36 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/29 16:11:46 by romontei         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:48:40 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int					ft_add_c_mem(t_vm_mem *vm, char *str)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_is_pc(t_ps *ps, int index)
+int					ft_is_pc(t_ps *ps, int index)
 {
 	t_ps			*lst;
 

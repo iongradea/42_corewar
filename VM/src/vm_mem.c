@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/09 18:44:56 by romontei         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:58:29 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void			add_data_vm(t_vm_mem *vm, t_ps *ps)
 {
 	int			j;
 	int			dist;
-	t_ps 		*lst;
+	t_ps		*lst;
 
 	DEBUG ? ft_printf("launching add_data_vm ...\n") : DEBUG;
 	lst = ps;
@@ -120,5 +120,4 @@ void			add_data_vm(t_vm_mem *vm, t_ps *ps)
 		vm->playr_uid[++j] = lst->uid;
 		lst = lst->next;
 	}
-	//print_memory(vm->playr_uid, sizeof(vm->playr_uid));
 }
