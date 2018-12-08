@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/08 16:02:17 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:14:53 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@
 ** CPU operations
 */
 
-# define MEM_CIR_POS(pos) (((pos) % MEM_SIZE) < 0 ? (((pos) % MEM_SIZE) + MEM_SIZE) : ((pos) % MEM_SIZE))
 # define IS_OP_CODE(i) (i <= 0x10 && i >= 0x01)
 # define OP_TAB_INDEX(opcode) (opcode - 1)
 # define IS_REG(nb) (nb < 16 && nb >= 0)
@@ -220,6 +219,7 @@ int							ft_nb_live(t_ps *ps);
 void						ft_kill_reset_ps(t_ps *ps);
 void						ft_reset_ps(t_ps *ps);
 int							ft_one_live_ps(t_ps *ps);
+int							ft_mem_cir_pos(int pos);
 
 /*
 ** CPU Operations
