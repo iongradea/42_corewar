@@ -39,8 +39,8 @@ static void		ft_cpy_code(t_vm_mem *vm, t_ps *ps, int *j)
 
 	i = -1;
 	DEBUG ? ft_printf("launching ft_cpy_code ...\n") : DEBUG;
-	while (*j % MEM_LINE_LENGTH)
-		(*j)--;
+	//while (*j % MEM_LINE_LENGTH)
+		//(*j)--;
 	ps->pc = MEM_CIR_POS(*j);
 	while (++i < ps->code_size)
 	{
@@ -90,6 +90,8 @@ t_vm_mem		*ft_new_mem(void)
 	vm->nb_players = 0;
 	vm->lives = 0;
 	vm->last_live = NO_PLAYR;
+	ft_bzero(vm->playr_live, sizeof(vm->playr_live));
+	vm->ps_st = NULL;
 	return (vm);
 }
 

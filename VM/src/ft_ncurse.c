@@ -43,21 +43,31 @@ static void	ft_init_ncurses(void)
 	init_pair(7, COLOR_WHITE, COLOR_CYAN);
 	init_pair(8, COLOR_WHITE, COLOR_RED);
 	init_pair(9, COLOR_GREEN, COLOR_BLACK);
+	init_pair(10, COLOR_WHITE, COLOR_YELLOW);
 	curs_set(FALSE);
 }
 
-static void	ft_print_lives(t_vm_mem *vm, t_ps *ps, int i)
+static void	ft_print_lives(t_vm_mem *vm, int i)
 {
 	int k;
 	int cycles;
-	attron(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
-	cycles = (ps->live < 161) ? ps->live : 161;
+	t_ps *ps;
+
+	ps = *(vm->ps_st);
+	while (ps)
+	{
+		if (ps->uid == vm->playr_uid[i])
+			break;
+		ps = ps->next;
+	}
+	attron(COLOR_PAIR(1 + (i % 4)));
+	cycles = (vm->playr_live[i] < 161) ? vm->playr_live[i] : 161;
 	k = -1;
-	printw("\nplayr %s (%d)", ps->playr, ps->uid);
-	printw("\nLives : %-5d", ps->live);
+	printw("\nplayr %s (%d)", ps->playr, vm->playr_uid[i]);
+	printw("\nLives : %-5d", vm->playr_live[i]);
 	while (++k < cycles)
 		addch(ACS_CKBOARD);
-	attroff(COLOR_PAIR(vm->a[MEM_SIZE / vm->nb_players * i].color));
+	attroff(COLOR_PAIR(1 + (i % 4)));
 }
 
 static void	ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
@@ -67,14 +77,15 @@ static void	ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
 
 	i = -1;
 	lst = ps;
-	while (++i < vm->nb_players && ps)
+	while (++i < MAX_PLAYERS)
+		if (vm->playr_uid[i])
+			ft_print_lives(vm, i);
+	i = 0;
+	while (lst)
 	{
-		ft_print_lives(vm, ps, i);
-		ps = ps->next;
-	}
-	i = -1;
-	while (lst && (++i || true))
+		lst->live != PS_DEAD ? i++ : true;
 		lst = lst->next;
+	}
 	attron(COLOR_PAIR(9));
 	printw("\n\nNb of processes : %d\n\n", i);
 	printw("\n\nCycle: %-10d Total Number of lives: %d/%-10d \
@@ -112,7 +123,7 @@ static void 	ft_init_arena(t_vm_mem *vm)
 		index = ft_get_playr_index(vm, vm->mem_uid[i]);
 		vm->a[i].color = index != UNDEFINED ? 1 + (index % 4) : UNDEFINED;
 		vm->a[i].color_pc = index != UNDEFINED ? \
-						1 + (index % 4) + 4 : UNDEFINED;
+						1 + (index % 4) + 4 : 10;
 	}
 }
 
@@ -127,23 +138,23 @@ static void	ft_print_arena(t_vm_mem *vm, t_ps *ps)
 	{
 		if (ft_is_pc(ps, i))
 		{
-			vm->a[i].color != UNDEFINED ? \
-								attron(COLOR_PAIR(vm->a[i].color_pc)) : true;
+			attron(COLOR_PAIR(vm->a[i].color_pc));
 			printw("%02x", 0xFF & vm->mem[i]);
-			vm->a[i].color != UNDEFINED ? \
-								attroff(COLOR_PAIR(vm->a[i].color_pc)) : true;
+			attroff(COLOR_PAIR(vm->a[i].color_pc));
 		}
 		else
 		{
-			vm->a[i].color != UNDEFINED ? attron(COLOR_PAIR(vm->a[i].color)) : true;
+			vm->a[i].color != UNDEFINED ? attron(COLOR_PAIR(vm->a[i].color)) \
+										: true;
 			printw("%02x", 0xFF & vm->mem[i]);
-			vm->a[i].color != UNDEFINED ? attroff(COLOR_PAIR(vm->a[i].color)) : \
-											true;
+			vm->a[i].color != UNDEFINED ? attroff(COLOR_PAIR(vm->a[i].color)) \
+										: true;
 		}
 		printw(" ");
 		if ((i + 1) % MEM_LINE_LENGTH == 0)
 			printw("\n");
 		i++;
+		//usleep(1);
 	}
 	ft_print_game_stats(vm, ps);
 }

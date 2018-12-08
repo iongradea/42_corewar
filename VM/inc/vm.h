@@ -176,6 +176,8 @@ typedef struct		s_vm_mem
 	int				lives;
 	int				last_live;
 	t_arena			a[MEM_SIZE];
+	int 			playr_live[MAX_PLAYERS + 1];
+	t_ps 			**ps_st;
 }					t_vm_mem;
 
 /*
@@ -216,8 +218,7 @@ void				cpu_checks(t_vm_mem *vm, t_ps *ps);
 int					cpu(t_vm_mem *vm, t_ps *ps);
 int					exec_op(t_vm_mem *vm, t_ps *lst);
 int					ft_nb_live(t_ps *ps);
-void				ft_kill_reset_ps(t_ps *ps);
-void				ft_reset_ps(t_ps *ps);
+void		ft_kill_reset_ps(t_vm_mem *vm);
 int					ft_one_live_ps(t_ps *ps);
 
 /*

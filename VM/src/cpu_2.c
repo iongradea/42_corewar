@@ -27,11 +27,17 @@ int			ft_nb_live(t_ps *ps)
 	return (nb_live);
 }
 
-void		ft_kill_reset_ps(t_ps *ps)
+void		ft_kill_reset_ps(t_vm_mem *vm)
 {
 	t_ps *tmp;
+	t_ps *ps;
 
 	DEBUG ? ft_printf("launching ft_kill_reset_ps ...\n") : DEBUG;
+	ps = *(vm->ps_st);
+	vm->playr_live[0] = 0;
+	vm->playr_live[1] = 0;
+	vm->playr_live[2] = 0;
+	vm->playr_live[3] = 0;
 	while (ps)
 	{
 		tmp = NULL;
@@ -40,7 +46,8 @@ void		ft_kill_reset_ps(t_ps *ps)
 			g_verbose == 5 ? ft_printf("Le joueur %d(%s) viens de mourrir \
 									...\n", ps->uid, ps->playr) : g_verbose;
 			ps->live = PS_DEAD;
-			if (ps->prev && ps->next)
+			if (ps->prev && ps->next && ps->prev->prev && ps->prev->prev->prev \
+				&& ps->prev->prev->prev->prev)
 			{
 				tmp = ps->next;
 				ps->next->prev = ps->prev;
@@ -51,17 +58,6 @@ void		ft_kill_reset_ps(t_ps *ps)
 		else
 			ps->live = 0;
 		ps = tmp == NULL ? ps->next : tmp;
-	}
-}
-
-void		ft_reset_ps(t_ps *ps)
-{
-	DEBUG ? ft_printf("launching ft_reset_ps ...\n") : DEBUG;
-	while (ps)
-	{
-		if (ps->live != PS_DEAD)
-			ps->live = 0;
-		ps = ps->next;
 	}
 }
 

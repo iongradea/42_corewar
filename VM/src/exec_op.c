@@ -53,7 +53,7 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 		ft_nb_live(ps) > NBR_LIVE ? vm->cycle_to_die -= CYCLE_DELTA : true;
 		vm->lives = 0;
 
-		ft_kill_reset_ps(ps);
+		ft_kill_reset_ps(vm);
 		vm->check++;
 		vm->real_cycle = 0;
 	}
@@ -96,7 +96,7 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 			lst_ps->fl = true;
 			if (!ft_valid_opcode(lst_ps->opcode))
 			{
-				lst_ps->op_size = 1;
+				lst_ps->op_size = 2;
 				ft_next_op(lst_ps, NO_CARRY);
 			}
 			else

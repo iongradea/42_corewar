@@ -30,7 +30,8 @@ int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	DEBUG ? ft_printf("launching ft_live ...\n") : DEBUG;
 	while (++i < DIR_SIZE(OP_TAB_INDEX(LIVE)) && ((arg0 = arg0 << 8) || true))
 		arg0 += *(vm->mem + MEM_CIR_POS(ps->pc + OPCODE_SIZE + i));
-	lst = ps;
+	ps->live++;
+	lst = *(vm->ps_st);
 	while (lst)
 	{
 		if (lst->uid == arg0)
@@ -42,7 +43,11 @@ int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	ps->op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(LIVE));
 	if (lst == NULL)
 		return (ft_next_op(ps, NO_CARRY));
-	lst->live++;
+	i = -1;
+	while (++i < MAX_PLAYERS)
+		if (vm->playr_uid[i] == ps->uid)
+			break;
+	(vm->playr_live[i])++;
 	g_verbose == 2 ? ft_printf("ps->playr = %s\nJe suis en vie !\nps->live = %d\n\n", ps->playr, ps->live) : g_verbose;
 	vm->last_live = lst->uid;
 	return (ft_next_op(ps, NO_CARRY));
@@ -61,6 +66,11 @@ int					ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode)
 		arg0 += *(vm->mem + MEM_CIR_POS(ps->pc + OPCODE_SIZE + i));
 	if (ps->carry == CARRY_TRUE)
 		ps->pc = MEM_CIR_POS(ps->pc + arg0 % IDX_MOD);
+	else
+	{
+		ps->op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(ZJMP));
+		return (ft_next_op(ps, NO_CARRY));
+	}
 	return (EXIT_SUCCESS);
 }
 

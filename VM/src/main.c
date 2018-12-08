@@ -31,6 +31,7 @@ int				main(int ac, char **av)
 	if (ac < 2)
 		exit(ft_usage());
 	vm = ft_new_mem();
+	vm->ps_st = &ps;
 	ft_parse_opt(ac, av, vm);
 	get_playr(fd, &ps, ac, av);
 	add_data_vm(vm, ps);

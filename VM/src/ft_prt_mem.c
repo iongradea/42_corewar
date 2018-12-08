@@ -34,7 +34,7 @@ int			ft_is_pc(t_ps *ps, int index)
 	lst = ps;
 	while (lst)
 	{
-		if (lst->pc == index)
+		if (lst->pc == index && lst->live != PS_DEAD)
 			return (true);
 		lst = lst->next;
 	}
