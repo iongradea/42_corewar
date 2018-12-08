@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/09 18:46:05 by romontei         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:02:17 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,128 +118,132 @@
 ** Process structure
 */
 
-typedef struct		s_ps
+typedef struct				s_ps
 {
-	char			*playr;
-	int				uid;
-	int				ps_uid;
-	unsigned char	*code;
-	int				code_size;
-	int				reg[REG_NUMBER + 1];
-	int				pc;
-	int				live;
-	int				op_size;
-	int				opcode;
-	int				color;
-	int				nolor;
-	int 			fl;
-	int				carry;
-	int				cyc_len;
-	int				index_start;
-	char			string[TOTAL_SIZE + 1];
-	char			inst[CHAMP_MAX_SIZE + 1];
-	struct s_ps		*next;
-	struct s_ps		*prev;
-}					t_ps;
+	char					*playr;
+	int						uid;
+	int						ps_uid;
+	unsigned char			*code;
+	int						code_size;
+	int						reg[REG_NUMBER + 1];
+	int						pc;
+	int						live;
+	int						op_size;
+	int						opcode;
+	int						color;
+	int						nolor;
+	int						fl;
+	int						carry;
+	int						cyc_len;
+	int						index_start;
+	char					string[TOTAL_SIZE + 1];
+	char					inst[CHAMP_MAX_SIZE + 1];
+	struct s_ps				*next;
+	struct s_ps				*prev;
+}							t_ps;
 
-typedef struct		s_arena
+typedef struct				s_arena
 {
-	char			hex;
-	int 			playr_uid;
-	int				color;
-	int 			color_pc;
-}					t_arena;
+	char					hex;
+	int						playr_uid;
+	int						color;
+	int						color_pc;
+}							t_arena;
 
 /*
 ** Virtual machine memory
 */
 
-typedef struct		s_vm_mem
+typedef struct				s_vm_mem
 {
-	unsigned char	mem[MEM_SIZE];
-	int				cycle;
-	int				real_cycle;
-	int				cycle_to_die;
-	int				ch_decr;
-	int				check;
-	int				opt;
-	int				dump;
-	int				display;
-	int				ncurse;
-	int				verbose;
-	int				mem_uid[MEM_SIZE];
-	unsigned char	mem_color[MEM_SIZE * 1000];
-	int				mem_color_size;
-	int				mem_color_ind;
-	int 			playr_uid[MAX_PLAYERS + 1];
-	int				nb_players;
-	int				lives;
-	int				last_live;
-	t_arena			a[MEM_SIZE];
-}					t_vm_mem;
+	unsigned char			mem[MEM_SIZE];
+	int						cycle;
+	int						real_cycle;
+	int						cycle_to_die;
+	int						ch_decr;
+	int						check;
+	int						opt;
+	int						dump;
+	int						display;
+	int						ncurse;
+	int						verbose;
+	int						mem_uid[MEM_SIZE];
+	unsigned char			mem_color[MEM_SIZE * 1000];
+	int						mem_color_size;
+	int						mem_color_ind;
+	int						playr_uid[MAX_PLAYERS + 1];
+	int						nb_players;
+	int						lives;
+	int						last_live;
+	t_arena					a[MEM_SIZE];
+}							t_vm_mem;
 
 /*
 ** Operations structure
 */
 
-typedef struct		s_op
+typedef struct				s_op
 {
-	int				opcode;
-	char			*mmemo;
-	int				nb_param;
-	int				param[3];
-	int				cycle;
-	char			*desc;
-	int				set_carry;
-	int				ocp_param;
-	int				dir_size;
-	int				(*fun)(t_vm_mem *, t_ps *, int);
-}					t_op;
+	int						opcode;
+	char					*mmemo;
+	int						nb_param;
+	int						param[3];
+	int						cycle;
+	char					*desc;
+	int						set_carry;
+	int						ocp_param;
+	int						dir_size;
+	int						(*fun)(t_vm_mem *, t_ps *, int);
+}							t_op;
 
 /*
 ** Parsing functions & initialization functions
 */
 
-int					get_playr(int fd, t_ps **ps, int ac, char **av);
-void				add_data_vm(t_vm_mem *vm, t_ps *ps);
-t_vm_mem			*ft_new_mem(void);
-int					ft_parse_opt(int ac, char **av, t_vm_mem *vm);
-int					ft_usage(void);
-void				ft_jmp_opt(int ac, char **av, int *i);
-int					ft_check_ps_uid(t_ps *ps, int uid);
-void				cpu_checks(t_vm_mem *vm, t_ps *ps);
+int							get_playr(int fd, t_ps **ps, int ac, char **av);
+void						add_data_vm(t_vm_mem *vm, t_ps *ps);
+t_vm_mem					*ft_new_mem(void);
+int							ft_parse_opt(int ac, char **av, t_vm_mem *vm);
+int							ft_usage(void);
+void						ft_jmp_opt(int ac, char **av, int *i);
+int							ft_check_ps_uid(t_ps *ps, int uid);
+void						cpu_checks(t_vm_mem *vm, t_ps *ps);
 
 /*
 ** CPU architecture
 */
 
-int					cpu(t_vm_mem *vm, t_ps *ps);
-int					exec_op(t_vm_mem *vm, t_ps *lst);
-int					ft_nb_live(t_ps *ps);
-void				ft_kill_reset_ps(t_ps *ps);
-void				ft_reset_ps(t_ps *ps);
-int					ft_one_live_ps(t_ps *ps);
+int							cpu(t_vm_mem *vm, t_ps *ps);
+int							exec_op(t_vm_mem *vm, t_ps *lst);
+void						exec_op_2(t_ps *lst, t_vm_mem *vm, t_ps *tmp);
+int							ft_nb_live(t_ps *ps);
+void						ft_kill_reset_ps(t_ps *ps);
+void						ft_reset_ps(t_ps *ps);
+int							ft_one_live_ps(t_ps *ps);
 
 /*
 ** CPU Operations
 */
 
-int					ft_bin(t_vm_mem *vm, t_ps *ps, int opcode);
-int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode);
-int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode);
-int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode);
-int					ft_aff(t_vm_mem *vm, t_ps *ps, int opcode);
-int					ft_sti(t_vm_mem *vm, t_ps *ps, int opcode);
-int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode);
-int					ft_lldi(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_bin(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_ld(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_st(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_aff(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_sti(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_sti_2(t_vm_mem *vm, t_ps *ps, int arg1, int arg2);
+int							ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_ldi_2(t_vm_mem *vm, t_ps *ps, int arg0, int arg1);
+int							ft_lldi(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_lldi_2(t_vm_mem *vm, t_ps *ps, int arg0, int arg1);
 
 /*
 ** CPU operations no ocp
 */
 
-int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode);
-int					ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode);
-int					ft_fork(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_live(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode);
+int							ft_fork(t_vm_mem *vm, t_ps *ps, int opcode);
 
 /*
 ** CPU Operations functions
@@ -248,64 +252,71 @@ int					ft_fork(t_vm_mem *vm, t_ps *ps, int opcode);
 ** ft_get_ind : used to get the value pointed by the indirect
 */
 
-int					ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, \
-		unsigned int type);
-int					ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i);
-int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
-int		ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
-int		ft_get_val(t_ps *ps, t_vm_mem *vm, \
-								int arg, int arg_i);
-unsigned char		ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
-int					check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
-t_ps				*ft_cpy_playr(t_ps *ps);
-void				ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, \
-		int size);
-int 	ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, int idx_mod);
+int							ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, \
+															unsigned int type);
+int							ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i);
+int							ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
+int							ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
+int							ft_get_val(t_ps *ps, t_vm_mem *vm, int arg, \
+																int arg_i);
+unsigned char				ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
+int							check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
+t_ps						*ft_cpy_playr(t_ps *ps);
+void						ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, \
+														int pos, int size);
+int							ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, \
+																int idx_mod);
 
 /*
 ** Print memory to console functions
 */
 
-void				ft_prt_mem(t_vm_mem *vm, t_ps *ps);
-void				ft_byte(t_vm_mem *vm, unsigned char c);
-void				ft_hex(t_vm_mem *vm, unsigned char c);
-void				add_bot_mem(t_vm_mem *vm);
-void				add_top_mem(t_vm_mem *vm);
-int					ft_add_c_mem(t_vm_mem *vm, char *str);
-int			ft_is_pc(t_ps *ps, int index);
+void						ft_prt_mem(t_vm_mem *vm, t_ps *ps);
+void						ft_byte(t_vm_mem *vm, unsigned char c);
+void						ft_hex(t_vm_mem *vm, unsigned char c);
+void						add_bot_mem(t_vm_mem *vm);
+void						add_top_mem(t_vm_mem *vm);
+int							ft_add_c_mem(t_vm_mem *vm, char *str);
+int							ft_is_pc(t_ps *ps, int index);
 
 /*
 ** Annex functions
 */
 
-void				ft_add_ps(t_ps *ps, t_ps *tmp);
-int					ft_next_op(t_ps *ps, int carry_mod);
-int					ft_get_code_size(int fd);
-int					ft_prt_winner(t_vm_mem *vm, t_ps *ps);
-int 			ft_ps_uid(void);
+void						ft_add_ps(t_ps *ps, t_ps *tmp);
+int							ft_next_op(t_ps *ps, int carry_mod);
+int							ft_get_code_size(int fd);
+int							ft_prt_winner(t_vm_mem *vm, t_ps *ps);
+int							ft_ps_uid(void);
 
 /*
 ** Debug functions
 */
 
-void				prt_op(void);
-void				prt_ps(t_ps *ps);
-void				prt_vm(t_vm_mem *vm);
-void				prt_mem_uid(t_vm_mem *vm);
-int					ft_main_debug(t_vm_mem *vm, t_ps *ps);
+void						prt_op(void);
+void						prt_ps(t_ps *ps);
+void						prt_vm(t_vm_mem *vm);
+void						prt_mem_uid(t_vm_mem *vm);
+int							ft_main_debug(t_vm_mem *vm, t_ps *ps);
 
 /*
 ** Ncurse functions
 */
 
-void		ft_ncurse(t_vm_mem *vm, t_ps *ps);
+void						ft_ncurse(t_vm_mem *vm, t_ps *ps);
+void						ft_print_arena(t_vm_mem *vm, t_ps *ps);
+void						ft_print_arena_2(t_vm_mem *vm, int i);
+void						ft_init_ncurses(void);
+void						ft_init_arena(t_vm_mem *vm);
+void						ft_print_lives(t_vm_mem *vm, t_ps *ps, int i);
+void						ft_print_game_stats(t_vm_mem *vm, t_ps *ps);
 
 /*
-**
+** Free functions
 */
 
-void		ft_free_ps(t_ps *ps);
-void 		ft_free_all_ps(t_ps *ps);
+void						ft_free_ps(t_ps *ps);
+void						ft_free_all_ps(t_ps *ps);
 
 /*
 ** Global variable

@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 19:40:42 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/07 19:41:13 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/08 14:14:36 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int			ft_one_live_ps(t_ps *ps)
 	{
 		if (ps->live != PS_DEAD)
 		{
-		//	g_verbose == 2 ? ft_printf("Le joueur %d(%s) est en vie \
-			//					...\n", ps->uid, ps->playr) : g_verbose;
+			g_verbose == 2 ? ft_printf("Le joueur %d(%s) est en vie \
+								...\n", ps->uid, ps->playr) : g_verbose;
 			return (true);
 		}
 		ps = ps->next;
