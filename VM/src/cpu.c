@@ -33,7 +33,7 @@ static void			display_opt(t_vm_mem *vm, t_ps *ps)
 	if (vm->opt & DUMP && vm->cycle == vm->dump)
 	{
 		ft_prt_mem(vm, ps);
-		exit(ft_prt_winner(vm, ps));
+		exit(0);
 	}
 	if (vm->opt & GRAPHIC && !(vm->cycle % vm->display))
 	{
