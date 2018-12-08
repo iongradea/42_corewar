@@ -30,7 +30,7 @@ int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	i = -1;
 	arg0 = 0;
 	while (++i < DIR_SIZE(OP_TAB_INDEX(LIVE)) && ((arg0 = arg0 << 8) || true))
-		arg0 += *(vm->mem + MEM_CIR_POS(ps->pc + OPCODE_SIZE + i));
+		arg0 += *(vm->mem + ft_mem_cir_pos(ps->pc + OPCODE_SIZE + i));
 	lst = ps;
 	while (lst)
 	{
@@ -58,9 +58,9 @@ int					ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode)
 	arg0 = 0;
 	DEBUG ? ft_printf("launching ft_zjmp ...\n") : DEBUG;
 	while (++i < DIR_SIZE(OP_TAB_INDEX(ZJMP)) && ((arg0 = arg0 << 8) || true))
-		arg0 += *(vm->mem + MEM_CIR_POS(ps->pc + OPCODE_SIZE + i));
+		arg0 += *(vm->mem + ft_mem_cir_pos(ps->pc + OPCODE_SIZE + i));
 	if (ps->carry == CARRY_TRUE)
-		ps->pc = MEM_CIR_POS(ps->pc + arg0 % IDX_MOD);
+		ps->pc = ft_mem_cir_pos(ps->pc + arg0 % IDX_MOD);
 	return (EXIT_SUCCESS);
 }
 
@@ -76,12 +76,12 @@ int					ft_fork(t_vm_mem *vm, t_ps *lst_ps, int opcode)
 	ps = lst_ps;
 	DEBUG ? ft_printf("launching ft_fork ...\n") : DEBUG;
 	while (++i < DIR_SIZE(OP_TAB_INDEX(FORK)) && ((arg0 = arg0 << 8) || true))
-		arg0 += *(vm->mem + MEM_CIR_POS(ps->pc + OPCODE_SIZE + i));
+		arg0 += *(vm->mem + ft_mem_cir_pos(ps->pc + OPCODE_SIZE + i));
 	new = ft_cpy_playr(ps);
 	if (opcode == FORK)
-		new->pc = MEM_CIR_POS(ps->pc + (arg0 % IDX_MOD));
+		new->pc = ft_mem_cir_pos(ps->pc + (arg0 % IDX_MOD));
 	else if (opcode == LFORK)
-		new->pc = MEM_CIR_POS(ps->pc + arg0);
+		new->pc = ft_mem_cir_pos(ps->pc + arg0);
 	ps->op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(FORK));
 	return (ft_next_op(lst_ps, NO_CARRY));
 }

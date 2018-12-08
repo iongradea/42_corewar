@@ -37,7 +37,7 @@ void			ft_add_ps(t_ps *ps, t_ps *new)
 int				ft_next_op(t_ps *ps, int carry_mod)
 {
 	DEBUG > 0 ? ft_printf("launching ft_next_op ...\n") : DEBUG;
-	ps->pc = MEM_CIR_POS(ps->pc + ps->op_size);
+	ps->pc = ft_mem_cir_pos(ps->pc + ps->op_size);
 	ps->op_size = 0;
 	if (carry_mod == NO_CARRY)
 		return (EXIT_SUCCESS);

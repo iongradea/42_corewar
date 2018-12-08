@@ -18,7 +18,7 @@ int					ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i)
 	if (ft_is_type(vm, ps, arg_i, T_REG))
 		return (REG_SIZE);
 	if (ft_is_type(vm, ps, arg_i, T_DIR))
-		return (DIR_SIZE(OP_TAB_INDEX(*(vm->mem + MEM_CIR_POS(ps->pc)))));
+		return (DIR_SIZE(OP_TAB_INDEX(*(vm->mem + ft_mem_cir_pos(ps->pc)))));
 	if (ft_is_type(vm, ps, arg_i, T_IND))
 		return (IND_SIZE);
 	exit(ERROR_MSG("ft_arg_size : error unknown type"));
@@ -59,7 +59,7 @@ int					ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
 		offset = OPCODE_SIZE + OCP_SIZE + ft_arg_size(vm, ps, 0) \
 											+ ft_arg_size(vm, ps, 1);
 	while (++i < ft_arg_size(vm, ps, arg_i) && ((arg = arg << 8) || true))
-		arg += *(vm->mem + MEM_CIR_POS(ps->pc + offset + i));
+		arg += *(vm->mem + ft_mem_cir_pos(ps->pc + offset + i));
 	return (arg);
 }
 
@@ -79,9 +79,9 @@ int					ft_get_val(t_ps *ps, t_vm_mem *vm, int arg, int arg_i)
 		val = ps->reg[arg];
 	else if (ft_is_type(vm, ps, arg_i, T_IND))
 	{
-		val = (unsigned char)*(vm->mem + MEM_CIR_POS(ps->pc + arg));
+		val = (unsigned char)*(vm->mem + ft_mem_cir_pos(ps->pc + arg));
 		val <<= 8;
-		val += (unsigned char)*(vm->mem + MEM_CIR_POS(ps->pc + arg + 1));
+		val += (unsigned char)*(vm->mem + ft_mem_cir_pos(ps->pc + arg + 1));
 		return ((short)val);
 	}
 	else if (ft_is_type(vm, ps, arg_i, T_DIR))
@@ -99,16 +99,16 @@ int					ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, int idx_mod)
 	val = 0;
 	if (idx_mod == true)
 	{
-		val = *(vm->mem + MEM_CIR_POS(ps->pc + (arg % IDX_MOD)));
+		val = *(vm->mem + ft_mem_cir_pos(ps->pc + (arg % IDX_MOD)));
 		val = val << 8;
-		val += *(vm->mem + MEM_CIR_POS(ps->pc + (arg % IDX_MOD) + 1));
+		val += *(vm->mem + ft_mem_cir_pos(ps->pc + (arg % IDX_MOD) + 1));
 		return ((short)val);
 	}
 	else
 	{
-		val = *(vm->mem + MEM_CIR_POS(ps->pc + arg));
+		val = *(vm->mem + ft_mem_cir_pos(ps->pc + arg));
 		val = val << 8;
-		val += *(vm->mem + MEM_CIR_POS(ps->pc + arg + 1));
+		val += *(vm->mem + ft_mem_cir_pos(ps->pc + arg + 1));
 		return ((short)val);
 	}
 }

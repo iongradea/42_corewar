@@ -41,7 +41,7 @@ static void		ft_cpy_code(t_vm_mem *vm, t_ps *ps, int *j)
 	DEBUG ? ft_printf("launching ft_cpy_code ...\n") : DEBUG;
 	while (*j % MEM_LINE_LENGTH)
 		(*j)--;
-	ps->pc = MEM_CIR_POS(*j);
+	ps->pc = ft_mem_cir_pos(*j);
 	while (++i < ps->code_size)
 	{
 		vm->mem_uid[(*j)] = ps->uid;

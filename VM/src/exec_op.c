@@ -99,7 +99,7 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 		tmp = lst_ps;
 		if (lst_ps->fl == true)
 		{
-			lst_ps->opcode = *(vm->mem + MEM_CIR_POS(lst_ps->pc));
+			lst_ps->opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
 			lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode) - 1;
 			lst_ps->fl = false;
 		}
