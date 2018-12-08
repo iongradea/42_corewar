@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 19:52:17 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/07 19:57:43 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:48:03 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,15 @@ int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode)
 	return (ft_next_op(ps, CARRY_TRUE));
 }
 
-// ENLEVER IDX_MOD (pas dans le sujet 42)
+/*
+** ENLEVER IDX_MOD (pas dans le sujet 42)
+*/
+
 int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 {
 	int				arg0;
-	int	arg1;
-	int	arg_ind;
+	int				arg1;
+	int				arg_ind;
 	int				i;
 
 	DEBUG ? ft_printf("launching ft_ld ...\n") : DEBUG;
@@ -97,13 +100,13 @@ int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 		ps->reg[arg1] = arg_ind;
 	else if (ft_is_type(vm, ps, 0, T_IND))
 		while (++i < (int)sizeof(int) && ((*(ps->reg + arg1) <<= 8) || true))
-			ps->reg[arg1] += *(vm->mem + MEM_CIR_POS(ps->pc + arg_ind + i));
+			ps->reg[arg1] += *(vm->mem + ft_mem_cir_pos(ps->pc + arg_ind + i));
 	return (ft_next_op(ps, CARRY_TRUE));
 }
 
 int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
 {
-	int	arg0;
+	int				arg0;
 	int				arg1;
 	int				i;
 
@@ -123,7 +126,7 @@ int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
 	else if (ft_is_type(vm, ps, 1, T_IND))
 	{
 		while (++i < (int)sizeof(int))
-			*(vm->mem + MEM_CIR_POS(ps->pc + (arg1 % IDX_MOD) + i)) =
+			*(vm->mem + ft_mem_cir_pos(ps->pc + (arg1 % IDX_MOD) + i)) =
 				(unsigned char)(ps->reg[arg0] >> ((3 - i) * 8));
 		ft_chg_mem_uid(vm, ps, arg1 % IDX_MOD, sizeof(int));
 	}

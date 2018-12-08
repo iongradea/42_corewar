@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/11/07 21:19:59 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/08 15:05:18 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void			ft_add_ps(t_ps *ps, t_ps *new)
 int				ft_next_op(t_ps *ps, int carry_mod)
 {
 	DEBUG > 0 ? ft_printf("launching ft_next_op ...\n") : DEBUG;
-	ps->pc = MEM_CIR_POS(ps->pc + ps->op_size);
-	//ft_printf("next_op ==> ps->ps_uid : %d - pc : %d - op_size : %d\n", ps->ps_uid, ps->pc, ps->op_size);
+	ps->pc = ft_mem_cir_pos(ps->pc + ps->op_size);
 	ps->op_size = 0;
 	if (carry_mod == NO_CARRY)
 		return (EXIT_SUCCESS);
@@ -77,9 +76,9 @@ int				ft_prt_winner(t_vm_mem *vm, t_ps *ps)
 	return (EXIT_SUCCESS);
 }
 
-int 			ft_ps_uid(void)
+int				ft_ps_uid(void)
 {
-	static int  ps_uid = -1;
+	static int	ps_uid = -1;
 
 	ps_uid++;
 	return (ps_uid);

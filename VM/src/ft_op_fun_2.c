@@ -18,7 +18,7 @@ void				ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, int size)
 
 	i = -1;
 	while (++i < size)
-		*(vm->mem_uid + MEM_CIR_POS(ps->pc + pos + i)) = ps->uid;
+		*(vm->mem_uid + ft_mem_cir_pos(ps->pc + pos + i)) = ps->uid;
 }
 
 /*
@@ -44,7 +44,7 @@ unsigned char		ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i)
 	unsigned char	ocp;
 
 	DEBUG ? ft_printf("launching ft_get_ocp ...\n") : DEBUG;
-	ocp = *(vm->mem + MEM_CIR_POS(ps->pc + OCP_SIZE));
+	ocp = *(vm->mem + ft_mem_cir_pos(ps->pc + OCP_SIZE));
 	ocp = (ocp >> ((3 - arg_i) * 2));
 	ocp = ocp & 0b11;
 	return (ocp);
