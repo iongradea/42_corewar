@@ -18,7 +18,7 @@ static int		ft_valid_opcode(int opcode)
 
 	i = -1;
 	while (++i < NB_OP)
-		if (opcode == op_tab[i].opcode)
+		if (opcode == g_op_tab[i].opcode)
 			return (true);
 	return (false);
 }
@@ -30,9 +30,9 @@ static int		ft_cycle_len(int opcode)
 	i = -1;
 	while (++i < NB_OP)
 	{
-		if (opcode == op_tab[i].opcode)
+		if (opcode == g_op_tab[i].opcode)
 		{
-			return (op_tab[i].cycle);
+			return (g_op_tab[i].cycle);
 		}
 	}
 	return (2);
@@ -78,12 +78,12 @@ void			exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 	}
 	else
 	{
-		if (!ft_strcmp("live", op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
+		if (!ft_strcmp("live", g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
 			vm->lives++;
 		g_verbose == 4 ? ft_printf("cycle : %d | player %d | ps_uid : %d | \
 			ps->pc : %d | %s\n", vm->cycle, lst_ps->uid, lst_ps->ps_uid, \
-			lst_ps->pc, op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
-		op_tab[OP_TAB_INDEX(tmp->opcode)].fun(vm, tmp, tmp->opcode);
+			lst_ps->pc, g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
+		g_op_tab[OP_TAB_INDEX(tmp->opcode)].fun(vm, tmp, tmp->opcode);
 	}
 }
 

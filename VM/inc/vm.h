@@ -82,7 +82,7 @@
 # define OCP_SIZE 1
 # define REG_SIZE 1
 # define IND_SIZE 2
-# define DIR_SIZE(op) (op_tab[op].dir_size)
+# define DIR_SIZE(op) (g_op_tab[op].dir_size)
 
 /*
 ** carry
@@ -325,7 +325,7 @@ void						ft_free_all_ps(t_ps *ps);
 ** static means it can only be used inside the .c file where it is defined
 */
 
-extern const t_op			op_tab[17];
+extern const t_op			g_op_tab[17];
 extern const unsigned char	g_color[6][10];
 extern const unsigned char	g_colorpc[6][10];
 extern unsigned int			g_verbose;
