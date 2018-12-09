@@ -95,7 +95,7 @@ void			calc_all_arg(t_inst *inst)
 	while (tmp)
 	{
 		if (ft_is_valid_opcode(tmp->opcode) &&
-				op_tab[OP_TAB_INDEX(tmp->opcode)].ocp_param)
+				g_op_tab[OP_TAB_INDEX(tmp->opcode)].ocp_param)
 			tmp->ocp = calc_ocp(tmp);
 		while (++i < NB_ARG_MAX)
 		{

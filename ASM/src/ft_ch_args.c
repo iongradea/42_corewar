@@ -102,19 +102,19 @@ int					ch_one_inst(t_inst *tmp, t_inst *inst)
 
 	i = -1;
 	DEBUG ? ft_printf("launching ch_one_inst ...\n") : DEBUG;
-	while (op_tab[OP_TAB_INDEX(tmp->opcode)].param[++i])
+	while (g_op_tab[OP_TAB_INDEX(tmp->opcode)].param[++i])
 	{
-		if ((op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_DIR)
+		if ((g_op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_DIR)
 				&& tmp->args[ARG_INDEX(i)]
 				&& (ft_is_valid_lab(tmp->args[ARG_INDEX(i)], inst, T_DIR)
 				|| ft_is_dir_arg(tmp->args[ARG_INDEX(i)])))
 			true;
-		else if ((op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_IND)
+		else if ((g_op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_IND)
 				&& tmp->args[ARG_INDEX(i)]
 				&& (ft_is_valid_lab(tmp->args[ARG_INDEX(i)], inst, T_IND)
 				|| ft_is_ind_arg(tmp->args[ARG_INDEX(i)])))
 			true;
-		else if ((op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_REG)
+		else if ((g_op_tab[OP_TAB_INDEX(tmp->opcode)].param[i] & T_REG)
 				&& tmp->args[ARG_INDEX(i)]
 				&& ft_is_valid_reg(tmp->args[ARG_INDEX(i)]))
 			true;

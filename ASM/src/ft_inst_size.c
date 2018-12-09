@@ -60,7 +60,7 @@ int			calc_one_inst_size(t_inst *tmp)
 	if (!ft_is_valid_opcode(tmp->opcode))
 		return (UNDEFINED);
 	size++;
-	if (op_tab[OP_TAB_INDEX(tmp->opcode)].ocp_param)
+	if (g_op_tab[OP_TAB_INDEX(tmp->opcode)].ocp_param)
 		size++;
 	if (tmp->args[ARG_INDEX(0)])
 		size += ft_arg_size(tmp->args[ARG_INDEX(0)], tmp->opcode);

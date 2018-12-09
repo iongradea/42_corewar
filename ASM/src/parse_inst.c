@@ -44,9 +44,9 @@ static int			get_inst_sub(char *line, t_inst *inst)
 	if (ft_arrlen(tab) > 1)
 	{
 		!ft_ch_opcode(tab[index]) ? exit(error_msg("syntax error\n")) : true;
-		inst->opcode = op_tab[ft_ret_opcode(tab[index])].opcode;
+		inst->opcode = g_op_tab[ft_ret_opcode(tab[index])].opcode;
 		if (ft_arrlen(tab) - index !=
-			OPCODE + op_tab[ft_ret_opcode(tab[index])].nb_max_par)
+			OPCODE + g_op_tab[ft_ret_opcode(tab[index])].nb_max_par)
 			exit(error_msg("Error, wrong number of parameters\n"));
 		while (((++i + index) < ft_arrlen(tab)) && tab[i + index])
 			inst->args[i] = ft_strtrim(tab[i + index]);

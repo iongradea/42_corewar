@@ -12,7 +12,7 @@
 
 #include "../inc/asm.h"
 
-const t_op	op_tab[17] =
+const t_op	g_op_tab[17] =
 {
 	{LIVE, "live", 1, {T_DIR, 0, 0, 0}, 10, "alive", false, false, 4, 1},
 	{LD, "ld", 2, {T_DIR | T_IND, T_REG, 0, 0}, 5, "load", true, true, 4, 2},

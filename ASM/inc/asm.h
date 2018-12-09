@@ -45,7 +45,7 @@
 
 # define REG_SIZE 1
 # define IND_SIZE 2
-# define DIR_SIZE(opcode) (op_tab[OP_TAB_INDEX(opcode)].dir_size)
+# define DIR_SIZE(opcode) (g_op_tab[OP_TAB_INDEX(opcode)].dir_size)
 
 # define FL_STANDARD 0
 # define FL_NAME 0b1
@@ -182,6 +182,6 @@ void				prt_inst(t_inst *inst);
 void				prt_tab(char **tab);
 void				prt_one_inst(t_inst *inst);
 
-extern const t_op	op_tab[17];
+extern const t_op	g_op_tab[17];
 
 #endif

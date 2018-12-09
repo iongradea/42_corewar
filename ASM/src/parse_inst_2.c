@@ -20,7 +20,7 @@ int			ft_ch_opcode(char *str)
 	DEBUG ? ft_printf("launching ft_ch_opcode ...\n") : DEBUG;
 	while (++i < NB_OP)
 	{
-		if (!ft_strcmp(str, op_tab[i].mmemo))
+		if (!ft_strcmp(str, g_op_tab[i].mmemo))
 			return (true);
 	}
 	return (false);
@@ -34,7 +34,7 @@ int			ft_ret_opcode(char *str)
 	DEBUG ? ft_printf("launching ft_ret_opcode ...\n") : DEBUG;
 	while (++i < NB_OP)
 	{
-		if (!ft_strcmp(str, op_tab[i].mmemo))
+		if (!ft_strcmp(str, g_op_tab[i].mmemo))
 			return (i);
 	}
 	return (ERROR);

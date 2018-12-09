@@ -40,7 +40,7 @@ static void			out_one_inst(int fd, t_inst *inst)
 	if (ft_is_valid_opcode(inst->opcode))
 	{
 		ft_putchar_fd((unsigned char)inst->opcode, fd);
-		if (op_tab[OP_TAB_INDEX(inst->opcode)].ocp_param)
+		if (g_op_tab[OP_TAB_INDEX(inst->opcode)].ocp_param)
 			ft_putchar_fd((unsigned char)inst->ocp, fd);
 		while (++i < NB_ARG_MAX)
 		{
