@@ -9,6 +9,7 @@ ASM/src/.*
 ASM/asm
 ASM/asm.dSYM
 ASM/tests/*/
+ASM/tests/res_tst
 
 ASM_tst/*/
 
