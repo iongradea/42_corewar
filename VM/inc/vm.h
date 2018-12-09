@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/09 16:03:20 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/09 16:47:21 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,9 @@ typedef struct				s_ps
 	int						op_size;
 	int						opcode;
 	int						color;
-	int						nolor;
 	int						fl;
 	int						carry;
 	int						cyc_len;
-	int						index_start;
-	char					string[TOTAL_SIZE + 1];
-	char					inst[CHAMP_MAX_SIZE + 1];
 	struct s_ps				*next;
 	struct s_ps				*prev;
 }							t_ps;
@@ -293,6 +289,7 @@ int							ft_ps_uid(void);
 int							is_invalid_reg(t_vm_mem *vm, t_ps *ps, \
 											int arg_i, int arg);
 int							error_msg(char *str);
+void						ft_new_ps_sub(t_ps *ps);
 
 /*
 ** Debug functions

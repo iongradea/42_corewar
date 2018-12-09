@@ -43,22 +43,15 @@ static t_ps			*ft_new_ps(int fd, int uid)
 		exit(error_msg("ft_new_ps : error heap allocation"));
 	ps->uid = uid;
 	ps->ps_uid = ft_ps_uid();
-	ps->code_size = ft_get_code_size(fd);
 	if (!(ps->code = (unsigned char *)ft_memalloc(sizeof(unsigned char) \
 					* ps->code_size)))
 		exit(error_msg("ft_new_ps : error heap allocation"));
+	ps->code_size = ft_get_code_size(fd);
 	ft_bzero(ps->reg, sizeof(ps->reg));
 	ps->reg[1] = uid;
-	ps->fl = true;
-	ps->pc = 0;
-	ps->carry = 0;
-	ps->next = NULL;
-	ps->prev = NULL;
-	ps->op_size = 0;
-	ps->live = 0;
-	ps->cyc_len = 0;
-	ps->opcode = 0;
+	ft_new_ps_sub(ps);
 	ps->color = UNDEFINED;
+	ps->carry = 0;
 	return (ps);
 }
 
@@ -114,15 +107,9 @@ t_ps				*ft_cpy_playr(t_ps *ps)
 	ft_memcpy(new->code, ps->code, new->code_size);
 	ft_bzero(new->reg, sizeof(new->reg));
 	ft_memcpy(new->reg, ps->reg, sizeof(new->reg));
-	new->reg[1] = ps->uid;
-	new->fl = true;
-	new->pc = 0;
-	new->carry = ps->carry;
-	new->op_size = 0;
-	new->live = 0;
+	ft_new_ps_sub(new);
 	new->color = ps->color;
-	new->next = NULL;
-	new->prev = NULL;
+	new->carry = ps->carry;
 	ft_add_ps(ps, new);
 	return (new);
 }

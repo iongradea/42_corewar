@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:31:38 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/09 15:18:35 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/09 16:46:27 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@
 ** DEBUG ? print_memory(vm->mem + ps->pc, OPCODE_SIZE \
 ** + DIR_SIZE(OP_TAB_INDEX(LIVE))) : DEBUG;
 */
+
+static void			ft_live_sub(t_vm_mem *vm, t_ps *ps, t_ps *lst)
+{
+	int i;
+
+	i = -1;
+	while (++i < MAX_PLAYERS)
+		if (vm->playr_uid[i] == ps->uid)
+			break ;
+	(vm->playr_live[i])++;
+	g_verbose == 2 ? ft_printf("ps->playr = %s\nJe suis en vie !\nps->live \
+							= %d\n\n", ps->playr, ps->live) : g_verbose;
+	vm->last_live = lst->uid;
+}
 
 int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 {
@@ -42,14 +56,7 @@ int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	ps->op_size = OPCODE_SIZE + DIR_SIZE(OP_TAB_INDEX(LIVE));
 	if (lst == NULL)
 		return (ft_next_op(ps, NO_CARRY));
-	i = -1;
-	while (++i < MAX_PLAYERS)
-		if (vm->playr_uid[i] == ps->uid)
-			break ;
-	(vm->playr_live[i])++;
-	g_verbose == 2 ? ft_printf("ps->playr = %s\nJe suis en vie !\nps->live \
-							= %d\n\n", ps->playr, ps->live) : g_verbose;
-	vm->last_live = lst->uid;
+	ft_live_sub(vm, ps, lst);
 	return (ft_next_op(ps, NO_CARRY));
 }
 

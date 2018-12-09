@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 19:40:42 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/08 17:13:08 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/09 16:45:32 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,21 @@ int			ft_nb_live(t_ps *ps)
 	return (nb_live);
 }
 
+static void	ft_kill_reset_ps_sub(t_ps *ps, t_ps **tmp)
+{
+	g_verbose == 5 ? ft_printf("Le joueur %d(%s) viens de mourrir \
+							...\n", ps->uid, ps->playr) : g_verbose;
+	ps->live = PS_DEAD;
+	if (ps->prev && ps->next && ps->prev->prev && ps->prev->prev->prev \
+		&& ps->prev->prev->prev->prev)
+	{
+		*tmp = ps->next;
+		ps->next->prev = ps->prev;
+		ps->prev->next = ps->next;
+		ft_free_ps(ps);
+	}
+}
+
 void		ft_kill_reset_ps(t_vm_mem *vm)
 {
 	t_ps *tmp;
@@ -42,19 +57,7 @@ void		ft_kill_reset_ps(t_vm_mem *vm)
 	{
 		tmp = NULL;
 		if (ps->live <= 0)
-		{
-			g_verbose == 5 ? ft_printf("Le joueur %d(%s) viens de mourrir \
-									...\n", ps->uid, ps->playr) : g_verbose;
-			ps->live = PS_DEAD;
-			if (ps->prev && ps->next && ps->prev->prev && ps->prev->prev->prev \
-				&& ps->prev->prev->prev->prev)
-			{
-				tmp = ps->next;
-				ps->next->prev = ps->prev;
-				ps->prev->next = ps->next;
-				ft_free_ps(ps);
-			}
-		}
+			ft_kill_reset_ps_sub(ps, &tmp);
 		else
 			ps->live = 0;
 		ps = tmp == NULL ? ps->next : tmp;
