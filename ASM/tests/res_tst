@@ -7,14 +7,14 @@ ION |dst_ion/Octobre_Rouge_V4.2.s| : Writing output to .cor file
 ION |dst_ion/Survivor.s| : syntax error
 ION |dst_ion/Torpille.s| : Lexical error
 ION |dst_ion/barriere.s| : Writing output to .cor file
-ION |dst_ion/bee_gees.s| : Lexical error, too many parameters
+ION |dst_ion/bee_gees.s| : Error, wrong number of parameters
 ION |dst_ion/bigzork.s| : Writing output to .cor file
 ION |dst_ion/ex.s| : Writing output to .cor file
 ION |dst_ion/fluttershy.s| : Writing output to .cor file
 ION |dst_ion/helltrain.s| : Writing output to .cor file
 ION |dst_ion/jumper.s| : Writing output to .cor file
 ION |dst_ion/lde.s| : Writing output to .cor file
-ION |dst_ion/leeloo.s| : Lexical error, too many parameters
+ION |dst_ion/leeloo.s| : Error, wrong number of parameters
 ION |dst_ion/mat.s| : Lexical error
 ION |dst_ion/maxidef.s| : Writing output to .cor file
 ION |dst_ion/mortel.s| : Writing output to .cor file

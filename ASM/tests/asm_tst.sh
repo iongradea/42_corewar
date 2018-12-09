@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ASM="asm"
-EXEC_PATH="../ASM"
-EXEC_PATH_ZAZ="../vm_champs"
-SRC="../vm_champs/champs"
+EXEC_PATH=".."
+EXEC_PATH_ZAZ="../../vm_champs"
+SRC="../../vm_champs/champs"
 DEST="src"
 DEST_ION="dst_ion"
 DEST_ZAZ="dst_zaz"

@@ -8,6 +8,7 @@ ASM/bin/*.o
 ASM/src/.*
 ASM/asm
 ASM/asm.dSYM
+ASM/tests/*/
 
 ASM_tst/*/
 
