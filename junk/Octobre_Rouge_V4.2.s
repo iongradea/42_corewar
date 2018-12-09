@@ -36,10 +36,7 @@ zork4:		live	%42
 		ld	%0,r15
 zork4_:		live	%42
 		zjmp	%-5		
-#5
-#51 * 5
-#6	
-#266
+			
 back_wall:      live	%42	
 		st	r8,-400
 		st	r8,-400
@@ -126,7 +123,7 @@ torp2:		live	%42
 		zjmp	%:launch
 
 torp3:		st	r1,r3	
-		ld	%251883526,r6  #0F 03 70 06
+		ld	%251883526,r6
 		ld	%0,r15
 		ld	%0,r15
 		ld	%0,r15
