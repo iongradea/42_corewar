@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 19:44:20 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/07 19:44:37 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/09 15:13:13 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void		prt_op(void)
 	ft_printf("T_DIR : %03b\nT_IND : %03b\nT_REG : %03b\n", T_DIR, T_IND, \
 																	T_REG);
 	while (++i < 16)
-		ft_printf("%- 6s : %d => [%03b, %03b, %03b]\n", g_op_tab[i].mmemo,
-				g_op_tab[i].nb_param, g_op_tab[i].param[0], g_op_tab[i].param[1],
-				g_op_tab[i].param[2]);
+		ft_printf("%- 6s : %d => [%03b, %03b, %03b]\n", g_op_tab[i].mmemo, \
+				g_op_tab[i].nb_param, g_op_tab[i].param[0], \
+				g_op_tab[i].param[1], g_op_tab[i].param[2]);
 }
 
 void		prt_ps(t_ps *ps)

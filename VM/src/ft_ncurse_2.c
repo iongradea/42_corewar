@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 15:56:06 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/08 16:46:15 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/09 15:17:50 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			ft_print_arena(t_vm_mem *vm, t_ps *ps)
 	{
 		if (ft_is_pc(ps, i))
 		{
-            attron(COLOR_PAIR(vm->a[i].color_pc));
+			attron(COLOR_PAIR(vm->a[i].color_pc));
 			printw("%02x", 0xFF & vm->mem[i]);
 			attroff(COLOR_PAIR(vm->a[i].color_pc));
 		}
@@ -39,11 +39,11 @@ void			ft_print_arena(t_vm_mem *vm, t_ps *ps)
 
 void			ft_print_arena_2(t_vm_mem *vm, int i)
 {
-    vm->a[i].color != UNDEFINED ? attron(COLOR_PAIR(vm->a[i].color)) \
-                                : true;
-    printw("%02x", 0xFF & vm->mem[i]);
-    vm->a[i].color != UNDEFINED ? attroff(COLOR_PAIR(vm->a[i].color)) \
-                                : true;
+	vm->a[i].color != UNDEFINED ? attron(COLOR_PAIR(vm->a[i].color)) \
+								: true;
+	printw("%02x", 0xFF & vm->mem[i]);
+	vm->a[i].color != UNDEFINED ? attroff(COLOR_PAIR(vm->a[i].color)) \
+								: true;
 }
 
 void			ft_ncurse(t_vm_mem *vm, t_ps *ps)

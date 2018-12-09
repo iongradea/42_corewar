@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/08 15:15:19 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/09 15:16:11 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 									vm->check, vm->cycle_to_die) : DEBUG;
 		ft_nb_live(ps) > NBR_LIVE ? vm->cycle_to_die -= CYCLE_DELTA : true;
 		vm->lives = 0;
-
 		ft_kill_reset_ps(vm);
 		vm->check++;
 		vm->real_cycle = 0;
@@ -82,7 +81,8 @@ void			exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 			vm->lives++;
 		g_verbose == 4 ? ft_printf("cycle : %d | player %d | ps_uid : %d | \
 			ps->pc : %d | %s\n", vm->cycle, lst_ps->uid, lst_ps->ps_uid, \
-			lst_ps->pc, g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
+			lst_ps->pc, g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : \
+			g_verbose;
 		g_op_tab[OP_TAB_INDEX(tmp->opcode)].fun(vm, tmp, tmp->opcode);
 	}
 }

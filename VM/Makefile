@@ -29,7 +29,7 @@ SRC = main.c op.c debug.c get_playr.c ft_annex.c vm_mem.c \
 			ft_aff_sti_ldi_lldi.c \
 			ft_aff_sti_ldi_lldi_2.c \
 			ft_live_zjmp_fork_lfork.c \
-			ft_ncurse.c ft_ncurse_2.c ft_free.c
+			ft_ncurse.c ft_ncurse_2.c ft_free.c ft_annex_2.c
 
 
 SRCS = $(addprefix ./$(SRC_DIR)/, $(SRC))

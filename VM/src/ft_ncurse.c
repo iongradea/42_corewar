@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/12/08 16:43:21 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/09 15:15:36 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ void			ft_init_ncurses(void)
 	curs_set(FALSE);
 }
 
-void	ft_print_lives(t_vm_mem *vm, int i)
+void			ft_print_lives(t_vm_mem *vm, int i)
 {
-	int k;
-	int cycles;
-	t_ps *ps;
+	int			k;
+	int			cycles;
+	t_ps		*ps;
 
 	ps = *(vm->ps_st);
 	while (ps)
 	{
 		if (ps->uid == vm->playr_uid[i])
-			break;
+			break ;
 		ps = ps->next;
 	}
 	attron(COLOR_PAIR(1 + (i % 4)));

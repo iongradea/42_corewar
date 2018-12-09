@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:31:38 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/08 15:47:21 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/09 15:18:35 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)
 	i = -1;
 	while (++i < MAX_PLAYERS)
 		if (vm->playr_uid[i] == ps->uid)
-			break;
+			break ;
 	(vm->playr_live[i])++;
 	g_verbose == 2 ? ft_printf("ps->playr = %s\nJe suis en vie !\nps->live \
-                                = %d\n\n", ps->playr, ps->live) : g_verbose;
+							= %d\n\n", ps->playr, ps->live) : g_verbose;
 	vm->last_live = lst->uid;
 	return (ft_next_op(ps, NO_CARRY));
 }

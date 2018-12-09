@@ -70,7 +70,7 @@ t_vm_mem		*ft_new_mem(void)
 
 	DEBUG ? ft_printf("launching ft_new_mem ...\n") : DEBUG;
 	if (!(vm = (t_vm_mem*)ft_memalloc(sizeof(t_vm_mem))))
-		exit(ERROR_MSG("ft_new_mem : error heap allocation"));
+		exit(error_msg("ft_new_mem : error heap allocation"));
 	ft_bzero(vm->mem, MEM_SIZE);
 	vm->cycle = 1;
 	vm->real_cycle = 0;

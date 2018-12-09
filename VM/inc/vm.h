@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/08 17:14:53 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/09 16:03:20 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@
 */
 
 # define DEBUG 0
-# define ERROR_MSG(str) (ft_printf("%s\n", str))
 
 /*
 ** Operation codes
@@ -107,7 +106,6 @@
 # define IS_OP_CODE(i) (i <= 0x10 && i >= 0x01)
 # define OP_TAB_INDEX(opcode) (opcode - 1)
 # define IS_REG(nb) (nb < 16 && nb >= 0)
-# define IS_INVALID_REG(vm, ps, arg_i, arg) (ft_is_type(vm, ps, arg_i, T_REG) && !IS_REG(arg))
 # define PARAM_OCP_CODE(op, arg_i) (((op) >> ((3 - arg_i) * 2)) & 0b11)
 # define VALID_OCP_PART(ocp) (ocp == 0b01 || ocp == 0b10 || ocp == 0b11)
 # define CHECK_OCP_END_00(ocp) (ocp & 0b11)
@@ -170,14 +168,14 @@ typedef struct				s_vm_mem
 	unsigned char	mem_color[MEM_SIZE * 1000];
 	int				mem_color_size;
 	int				mem_color_ind;
-	int 			playr_uid[MAX_PLAYERS + 1];
+	int				playr_uid[MAX_PLAYERS + 1];
 	int				nb_players;
 	int				lives;
 	int				last_live;
 	t_arena			a[MEM_SIZE];
-	int 			playr_live[MAX_PLAYERS + 1];
-	t_ps 			**ps_st;
-}					t_vm_mem;
+	int				playr_live[MAX_PLAYERS + 1];
+	t_ps			**ps_st;
+}							t_vm_mem;
 
 /*
 ** Operations structure
@@ -218,7 +216,7 @@ int							cpu(t_vm_mem *vm, t_ps *ps);
 int							exec_op(t_vm_mem *vm, t_ps *lst);
 void						exec_op_2(t_ps *lst, t_vm_mem *vm, t_ps *tmp);
 int							ft_nb_live(t_ps *ps);
-void                        ft_kill_reset_ps(t_vm_mem *vm);
+void						ft_kill_reset_ps(t_vm_mem *vm);
 int							ft_one_live_ps(t_ps *ps);
 int							ft_mem_cir_pos(int pos);
 
@@ -232,11 +230,14 @@ int							ft_ld(t_vm_mem *vm, t_ps *ps, int opcode);
 int							ft_st(t_vm_mem *vm, t_ps *ps, int opcode);
 int							ft_aff(t_vm_mem *vm, t_ps *ps, int opcode);
 int							ft_sti(t_vm_mem *vm, t_ps *ps, int opcode);
-int							ft_sti_2(t_vm_mem *vm, t_ps *ps, int arg1, int arg2);
+int							ft_sti_2(t_vm_mem *vm, t_ps *ps, int arg1, \
+									int arg2);
 int							ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode);
-int							ft_ldi_2(t_vm_mem *vm, t_ps *ps, int arg0, int arg1);
+int							ft_ldi_2(t_vm_mem *vm, t_ps *ps, int arg0, \
+									int arg1);
 int							ft_lldi(t_vm_mem *vm, t_ps *ps, int opcode);
-int							ft_lldi_2(t_vm_mem *vm, t_ps *ps, int arg0, int arg1);
+int							ft_lldi_2(t_vm_mem *vm, t_ps *ps, int arg0, \
+									int arg1);
 
 /*
 ** CPU operations no ocp
@@ -289,6 +290,9 @@ int							ft_next_op(t_ps *ps, int carry_mod);
 int							ft_get_code_size(int fd);
 int							ft_prt_winner(t_vm_mem *vm, t_ps *ps);
 int							ft_ps_uid(void);
+int							is_invalid_reg(t_vm_mem *vm, t_ps *ps, \
+											int arg_i, int arg);
+int							error_msg(char *str);
 
 /*
 ** Debug functions

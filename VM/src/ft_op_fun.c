@@ -21,7 +21,7 @@ int					ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i)
 		return (DIR_SIZE(OP_TAB_INDEX(*(vm->mem + ft_mem_cir_pos(ps->pc)))));
 	if (ft_is_type(vm, ps, arg_i, T_IND))
 		return (IND_SIZE);
-	exit(ERROR_MSG("ft_arg_size : error unknown type"));
+	exit(error_msg("ft_arg_size : error unknown type"));
 }
 
 int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg)
@@ -37,7 +37,7 @@ int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg)
 		op_size = OPCODE_SIZE + OCP_SIZE + ft_arg_size(vm, ps, 0)
 			+ ft_arg_size(vm, ps, 1) + ft_arg_size(vm, ps, 2);
 	else
-		exit(ERROR_MSG("ft_get_op_size : error wrong nb_arg"));
+		exit(error_msg("ft_get_op_size : error wrong nb_arg"));
 	return (op_size);
 }
 
@@ -87,7 +87,7 @@ int					ft_get_val(t_ps *ps, t_vm_mem *vm, int arg, int arg_i)
 	else if (ft_is_type(vm, ps, arg_i, T_DIR))
 		val = arg;
 	else
-		exit(ERROR_MSG("ft_get_val : error unknown parameter type"));
+		exit(error_msg("ft_get_val : error unknown parameter type"));
 	return (val);
 }
 

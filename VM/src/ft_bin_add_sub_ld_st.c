@@ -31,8 +31,8 @@ int					ft_bin(t_vm_mem *vm, t_ps *ps, int opcode)
 	arg1 = ft_get_arg(vm, ps, 1);
 	arg2 = ft_get_arg(vm, ps, 2);
 	ps->op_size = ft_op_size(vm, ps, 3);
-	if (IS_INVALID_REG(vm, ps, 2, arg2) || IS_INVALID_REG(vm, ps, 0, arg0)
-			|| IS_INVALID_REG(vm, ps, 1, arg1))
+	if (is_invalid_reg(vm, ps, 2, arg2) || is_invalid_reg(vm, ps, 0, arg0)
+			|| is_invalid_reg(vm, ps, 1, arg1))
 		return (ft_next_op(ps, CARRY_FALSE));
 	if (opcode == AND)
 		ps->reg[arg2] = ft_get_val(ps, vm, arg0, 0) & ft_get_val(ps, vm, \
@@ -44,7 +44,7 @@ int					ft_bin(t_vm_mem *vm, t_ps *ps, int opcode)
 		ps->reg[arg2] = ft_get_val(ps, vm, arg0, 0) ^ ft_get_val(ps, vm, \
 																arg1, 1);
 	else
-		exit(ERROR_MSG("ft_bin : error wrong opcode"));
+		exit(error_msg("ft_bin : error wrong opcode"));
 	return (ft_next_op(ps, CARRY_TRUE));
 }
 
@@ -61,15 +61,15 @@ int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode)
 	arg1 = ft_get_arg(vm, ps, 1);
 	arg2 = ft_get_arg(vm, ps, 2);
 	ps->op_size = ft_op_size(vm, ps, 3);
-	if (IS_INVALID_REG(vm, ps, 0, arg0) || IS_INVALID_REG(vm, ps, 1, arg1)
-			|| IS_INVALID_REG(vm, ps, 2, arg2))
+	if (is_invalid_reg(vm, ps, 0, arg0) || is_invalid_reg(vm, ps, 1, arg1)
+			|| is_invalid_reg(vm, ps, 2, arg2))
 		return (ft_next_op(ps, CARRY_FALSE));
 	if (opcode == ADD)
 		ps->reg[arg2] = ps->reg[arg0] + ps->reg[arg1];
 	else if (opcode == SUB)
 		ps->reg[arg2] = ps->reg[arg0] - ps->reg[arg1];
 	else
-		exit(ERROR_MSG("ft_add_sub : error wrong opcode"));
+		exit(error_msg("ft_add_sub : error wrong opcode"));
 	return (ft_next_op(ps, CARRY_TRUE));
 }
 
@@ -94,7 +94,7 @@ int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 	arg_ind = (opcode == LD && ft_is_type(vm, ps, 0, T_IND)) ? \
 												(arg0 % IDX_MOD) : arg0;
 	ps->op_size = ft_op_size(vm, ps, 2);
-	if (IS_INVALID_REG(vm, ps, 1, arg1))
+	if (is_invalid_reg(vm, ps, 1, arg1))
 		return (ft_next_op(ps, CARRY_FALSE));
 	if (ft_is_type(vm, ps, 0, T_DIR))
 		ps->reg[arg1] = arg_ind;
@@ -119,7 +119,7 @@ int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
 	arg1 = ft_is_type(vm, ps, 1, T_IND) ? (short)ft_get_arg(vm, ps, 1) : \
 											ft_get_arg(vm, ps, 1);
 	ps->op_size = ft_op_size(vm, ps, 2);
-	if (IS_INVALID_REG(vm, ps, 0, arg0) || IS_INVALID_REG(vm, ps, 1, arg1))
+	if (is_invalid_reg(vm, ps, 0, arg0) || is_invalid_reg(vm, ps, 1, arg1))
 		return (ft_next_op(ps, NO_CARRY));
 	if (ft_is_type(vm, ps, 1, T_REG))
 		ps->reg[arg1] = ps->reg[arg0];

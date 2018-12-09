@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 19:47:52 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/08 16:46:56 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/09 15:13:52 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int					ft_aff(t_vm_mem *vm, t_ps *ps, int opcode)
 		return (ft_next_op(ps, NO_CARRY));
 	arg0 = ft_get_arg(vm, ps, 0);
 	ps->op_size = ft_op_size(vm, ps, 1);
-	if (IS_INVALID_REG(vm, ps, 0, arg0))
+	if (is_invalid_reg(vm, ps, 0, arg0))
 		return (ft_next_op(ps, NO_CARRY));
 	ft_printf("%c\n", ps->reg[arg0] % 256);
 	return (ft_next_op(ps, NO_CARRY));
@@ -49,8 +49,8 @@ int					ft_sti(t_vm_mem *vm, t_ps *ps, int opcode)
 	arg1 = ft_get_arg(vm, ps, 1);
 	arg2 = ft_get_arg(vm, ps, 2);
 	ps->op_size = ft_op_size(vm, ps, 3);
-	if (IS_INVALID_REG(vm, ps, 2, arg2) || IS_INVALID_REG(vm, ps, 0, arg0)
-			|| IS_INVALID_REG(vm, ps, 1, arg1))
+	if (is_invalid_reg(vm, ps, 2, arg2) || is_invalid_reg(vm, ps, 0, arg0)
+			|| is_invalid_reg(vm, ps, 1, arg1))
 		return (ft_next_op(ps, NO_CARRY));
 	sum = ft_sti_2(vm, ps, arg1, arg2);
 	while (++i < (int)sizeof(int))
@@ -82,12 +82,13 @@ int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode)
 	arg1 = ft_get_arg(vm, ps, 1);
 	arg2 = ft_get_arg(vm, ps, 2);
 	ps->op_size = ft_op_size(vm, ps, 3);
-	if (IS_INVALID_REG(vm, ps, 2, arg2) || IS_INVALID_REG(vm, ps, 0, arg0)
-			|| IS_INVALID_REG(vm, ps, 1, arg1))
+	if (is_invalid_reg(vm, ps, 2, arg2) || is_invalid_reg(vm, ps, 0, arg0)
+			|| is_invalid_reg(vm, ps, 1, arg1))
 		return (ft_next_op(ps, NO_CARRY));
 	sum = ft_ldi_2(vm, ps, arg1, arg2);
 	while (++i < (int)sizeof(int) && ((ps->reg[arg2] <<= 8) || true))
-		ps->reg[arg2] += *(vm->mem + ft_mem_cir_pos(ps->pc + (sum % IDX_MOD) + i));
+		ps->reg[arg2] += *(vm->mem + ft_mem_cir_pos(ps->pc \
+					+ (sum % IDX_MOD) + i));
 	return (ft_next_op(ps, NO_CARRY));
 }
 
@@ -113,8 +114,8 @@ int					ft_lldi(t_vm_mem *vm, t_ps *ps, int opcode)
 	arg1 = ft_get_arg(vm, ps, 1);
 	arg2 = ft_get_arg(vm, ps, 2);
 	ps->op_size = ft_op_size(vm, ps, 3);
-	if (IS_INVALID_REG(vm, ps, 2, arg2) || IS_INVALID_REG(vm, ps, 0, arg0)
-			|| IS_INVALID_REG(vm, ps, 1, arg1))
+	if (is_invalid_reg(vm, ps, 2, arg2) || is_invalid_reg(vm, ps, 0, arg0)
+			|| is_invalid_reg(vm, ps, 1, arg1))
 		return (ft_next_op(ps, CARRY_FALSE));
 	sum = ft_lldi_2(vm, ps, arg1, arg2);
 	while (++i < (int)sizeof(int) && ((ps->reg[arg2] <<= 8) || true))
