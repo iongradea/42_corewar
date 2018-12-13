@@ -6,20 +6,15 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/09 16:47:21 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:27:09 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
-# include <sys/types.h>
 # include <stdbool.h>
-# include <limits.h>
 # include <ncurses.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
 # include "../../libft/inc/libft.h"
 # include "../../libft/inc/get_next_line.h"
 # include "../../libft/inc/ft_printf.h"
