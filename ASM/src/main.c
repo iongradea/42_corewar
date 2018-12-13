@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/27 17:12:28 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/13 10:41:42 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ static void		parse_input(char *str, t_inst **inst, t_header *head)
 {
 	int			fd;
 	char		*line;
+	int			flag;
 
 	DEBUG ? ft_printf("launching parse_input ...\n") : DEBUG;
+	flag = FL_STANDARD;
 	line = NULL;
 	if ((fd = open(str, O_RDONLY)) < 1)
 		exit(error_msg("error opening file\n"));
@@ -26,9 +28,11 @@ static void		parse_input(char *str, t_inst **inst, t_header *head)
 	{
 		DEBUG ? ft_printf("gnl - line : %s\n", line) : DEBUG;
 		DEBUG ? prt_inst(*inst) : DEBUG;
-		get_inst(line, inst, head);
+		get_inst(line, inst, head, &flag);
 		free(line);
 	}
+	if (!(flag & FL_NAME) || !(flag & FL_COMMENT))
+		exit(error_msg("error missing .name or .comment line\n"));
 	close(fd);
 }
 

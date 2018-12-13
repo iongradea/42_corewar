@@ -66,23 +66,21 @@ static void			get_inst_annex(t_inst *new, t_inst *tmp, t_inst **inst)
 	}
 }
 
-int					get_inst(char *line, t_inst **inst, t_header *head)
+int					get_inst(char *line, t_inst **inst, t_header *head, int *fl)
 {
 	t_inst			*new;
 	t_inst			*tmp;
-	static int		flag = FL_STANDARD;
 
 	tmp = *inst;
-	DEBUG ? ft_printf("tmp : %p\n", tmp) : DEBUG;
 	DEBUG ? ft_printf("launching get_inst ...\n") : DEBUG;
 	if (ft_is_empty_line(line))
 		return (EXIT_SUCCESS);
-	else if ((is_comment_line(line) && !(flag & FL_COMMENT))
-			|| (FL_COMMENT_LINES & flag))
-		return (get_prog_comment(line, &flag, head));
-	else if ((is_name_line(line) && !(flag & FL_NAME))
-			|| (FL_NAME_LINES & flag))
-		return (get_prog_name(line, &flag, head));
+	else if ((is_comment_line(line) && !(*fl & FL_COMMENT))
+			|| (FL_COMMENT_LINES & *fl))
+		return (get_prog_comment(line, fl, head));
+	else if ((is_name_line(line) && !(*fl & FL_NAME))
+			|| (FL_NAME_LINES & *fl))
+		return (get_prog_name(line, fl, head));
 	else if (ft_is_special_line(line))
 		exit(error_msg("Lexical error\n"));
 	if (tmp && tmp->n)

@@ -116,7 +116,8 @@ typedef struct		s_op
 ** parsing instructions
 */
 
-int					get_inst(char *line, t_inst **inst, t_header *head);
+int					get_inst(char *line, t_inst **inst, t_header *head, \
+								int *fl);
 int					ft_ch_opcode(char *str);
 int					ft_ret_opcode(char *str);
 int					ft_ch_err_lab(char *str);
