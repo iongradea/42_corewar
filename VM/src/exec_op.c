@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/09 15:16:11 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/13 13:13:59 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 
 	i = 0;
 	j = -1;
+	while (lst_ps->next)
+		lst_ps = lst_ps->next;
 	while (lst_ps)
 	{
 		tmp = lst_ps;
@@ -107,7 +109,7 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 		if (lst_ps->cyc_len == 0)
 			exec_op_2(lst_ps, vm, tmp);
 		lst_ps->cyc_len--;
-		lst_ps = lst_ps->next;
+		lst_ps = lst_ps->prev;
 	}
 	return (EXIT_SUCCESS);
 }
