@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/31 17:09:29 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/08 14:17:38 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/13 13:14:08 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,16 @@ static void			display_opt(t_vm_mem *vm, t_ps *ps)
 
 int					cpu(t_vm_mem *vm, t_ps *ps)
 {
-	t_ps			*lst_ps;
 	int				flag;
 
 	flag = false;
-	lst_ps = NULL;
 	DEBUG ? ft_printf("launching cpu ...\n") : DEBUG;
-	lst_ps = ps;
 	while ((flag == false ? true : ft_one_live_ps(ps)) \
 						&& vm->cycle_to_die > 0)
 	{
 		display_opt(vm, ps);
 		flag = vm->cycle >= vm->cycle_to_die ? true : false;
-		DEBUG ? ft_printf("\nCPU => lst->playr : %s\ncycle : \
-			%d\ncycle_to_die : %d\n", lst_ps->playr, vm->cycle, \
-						vm->cycle_to_die) : DEBUG;
-		exec_op(vm, lst_ps);
+		exec_op(vm, *(vm->ps_st));
 		g_verbose == 3 ? ft_printf("It's now cycle %d\n", vm->cycle) \
 								: g_verbose;
 		cpu_checks(vm, ps);
