@@ -1,7 +1,0 @@
-TODO :
-1- live checks only living processes starting from the living one
-=> run separately this instruction starting from the beginning and not with
-the ptr of functions
-
-2- for every loop, only one instruction (operation) launched, check if that 
-is ok, sapinos launches all processes at every loop
