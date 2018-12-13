@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 16:21:07 by igradea           #+#    #+#             */
-/*   Updated: 2017/09/07 05:28:49 by iongradea        ###   ########.fr       */
+/*   Updated: 2018/12/13 13:34:50 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <stdlib.h>
 
 /*
- * general functions
- */
+** general functions
+*/
+
 int					ft_isspace(char c);
 int					ft_isupper(int c);
 int					ft_islower(int c);
@@ -37,8 +38,9 @@ int					ft_abs(int nb);
 void				print_memory(const void *addr, size_t size);
 
 /*
- * memory functions
- */
+** memory functions
+*/
+
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -50,8 +52,9 @@ void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
 
 /*
- * string functions
- */
+** string functions
+*/
+
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(char *src);
 char				*ft_strndup(char const *s1, size_t n);
@@ -78,7 +81,7 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strnjoin(char const *s1, char const *s2, 
+char				*ft_strnjoin(char const *s1, char const *s2, \
 								size_t n1, size_t n2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit_c(char const *s, char c);
@@ -100,8 +103,9 @@ void				ft_free_tab(char **tab);
 void				ft_free_tab_int(int **tab);
 
 /*
- * list structure and functions
- */
+** list structure and functions
+*/
+
 typedef struct		s_list
 {
 	void			*content;

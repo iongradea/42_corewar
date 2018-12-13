@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                             :+:      :+:    :+:   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/07 23:23:53 by igradea           #+#    #+#             */
-/*   Updated: 2016/11/09 12:56:05 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/13 13:42:09 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
-#include <stdlib.h>
-
 
 int			ft_iswhite(char c)
 {
 	return ((c == ' ') || (c == '\n') || (c == '\t'));
 }
 
-static	int	number_of_words(char *str)
+static int	number_of_words(char *str)
 {
 	int		n;
 

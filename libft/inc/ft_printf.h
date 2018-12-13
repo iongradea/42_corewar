@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 13:34:22 by igradea           #+#    #+#             */
-/*   Updated: 2017/09/07 10:58:07 by iongradea        ###   ########.fr       */
+/*   Updated: 2018/12/13 13:31:35 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,36 @@
 # define WCHAR_ERR -3
 # define N_OPTION -4
 
-#define EOC "\033[0m"
-#define BOLD "\033[1m"
-#define ITALICS "\033[3m"
-#define UNDERLINE "\033[4m"
+# define EOC "\033[0m"
+# define BOLD "\033[1m"
+# define ITALICS "\033[3m"
+# define UNDERLINE "\033[4m"
 
-#define BLACK "\033[30m"
-#define RED "\033[31m"
-#define GREEN "\033[32m"
-#define YELLOW "\033[33m"
-#define BLUE "\033[34m"
-#define PURPLE "\033[35m"
-#define CYAN "\033[36m"
-#define WHITE "\033[37m"
+# define BLACK "\033[30m"
+# define RED "\033[31m"
+# define GREEN "\033[32m"
+# define YELLOW "\033[33m"
+# define BLUE "\033[34m"
+# define PURPLE "\033[35m"
+# define CYAN "\033[36m"
+# define WHITE "\033[37m"
 
-#define BLACK_BKG "\033[40m"
-#define RED_BKG "\033[41m"
-#define GREEN_BKG "\033[42m"
-#define YELLOW_BKG "\033[43m"
-#define BLUE_BKG "\033[44m"
-#define PURPLE_BKG "\033[45m"
-#define CYAN_BKG "\033[46m"
-#define WHITE_BKG "\033[47m"
+# define BLACK_BKG "\033[40m"
+# define RED_BKG "\033[41m"
+# define GREEN_BKG "\033[42m"
+# define YELLOW_BKG "\033[43m"
+# define BLUE_BKG "\033[44m"
+# define PURPLE_BKG "\033[45m"
+# define CYAN_BKG "\033[46m"
+# define WHITE_BKG "\033[47m"
 
-#define GREY "\033[90m"
-#define RED_B "\033[91m"
-#define GREEN_B "\033[92m"
-#define YELLOW_B "\033[93m"
-#define BLUE_B "\033[94m"
-#define PURPLE_B "\033[95m"
-#define CYAN_B "\033[96m"
+# define GREY "\033[90m"
+# define RED_B "\033[91m"
+# define GREEN_B "\033[92m"
+# define YELLOW_B "\033[93m"
+# define BLUE_B "\033[94m"
+# define PURPLE_B "\033[95m"
+# define CYAN_B "\033[96m"
 
 typedef struct	s_base
 {
@@ -114,9 +114,9 @@ typedef struct	s_format
 int				length_opt_h(const char *fmt, int *i, t_length *len);
 int				length_opt_l(const char *fmt, int *i, t_length *len);
 int				min_width_opt(const char *fmt, int *i, t_format *opt,
-							va_list ap);
+		va_list ap);
 int				precision_opt(const char *fmt, int *i, t_format *opt,
-							va_list ap);
+		va_list ap);
 int				parser(const char *fmt, int *i, t_format *opt, va_list ap);
 
 t_format		*over_comp_diez(t_format *opt);
@@ -142,9 +142,9 @@ int				is_unsigned_conv(t_format opt);
 
 int				ft_atoi_prtf(const char *str, int *i);
 void			ft_itoa_base_intmax(t_pos_size *ps, t_base baz,
-									intmax_t value);
+		intmax_t value);
 void			ft_itoa_base_uintmax(t_pos_size *ps, t_base baz,
-									uintmax_t value);
+		uintmax_t value);
 
 int				d_convert(t_pos_size *ps, t_format opt, va_list ap);
 int				u_convert(t_pos_size *ps, t_format opt, va_list ap);
@@ -153,7 +153,7 @@ int				c_convert(t_pos_size *ps, t_format *opt, va_list ap);
 void			set_pos(t_pos_size *ps, t_format opt);
 void			set_background(t_pos_size *ps, t_format opt);
 int				str_format(const char **fmt, t_format *opt, t_pos_size *ps,
-							va_list ap);
+		va_list ap);
 intmax_t		arg_signed_modifier(va_list ap, t_format opt);
 uintmax_t		arg_unsigned_modifier(va_list ap, t_format opt);
 int				add_format_str(const char **fmt, va_list ap, t_pos_size *ps);
@@ -165,7 +165,7 @@ int				get_wchar_size(wchar_t c);
 void			encode_unicode(wint_t c, int *i, char *s);
 int				ch_wc_val(wchar_t c);
 size_t			ft_strlen_wchar_unicoded(wchar_t *s, t_format opt,
-										t_pos_size *ps);
+		t_pos_size *ps);
 void			set_pos_size_wchar_str(t_pos_size *ps, t_format opt);
 void			set_s_to_null(wchar_t *s);
 
