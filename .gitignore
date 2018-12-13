@@ -8,7 +8,9 @@ ASM/bin/*.o
 ASM/src/.*
 ASM/asm
 ASM/asm.dSYM
-ASM/tests/*/
+ASM/tests/dst_ion
+ASM/tests/dst_zaz
+ASM/tests/src
 ASM/tests/res_tst
 
 ASM_tst/*/
