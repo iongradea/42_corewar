@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 18:44:24 by igradea           #+#    #+#             */
-/*   Updated: 2017/08/30 14:04:49 by iongradea        ###   ########.fr       */
+/*   Updated: 2018/12/13 13:38:21 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,5 @@
 
 void	ft_putstr(char const *s)
 {
-	int	i;
-	int	len;
-
-	i = 0;
-	len = (int)ft_strlen(s); 
-	while (i < len)
-		ft_putchar(s[i++]);
+	write(1, s, ft_strlen(s));
 }
