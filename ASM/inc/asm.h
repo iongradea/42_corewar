@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/27 17:23:26 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:28:40 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 # define ASM_H
 
 # include <stdbool.h>
-# include <limits.h>
-# include <sys/types.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
 # include "op.h"
 # include "../../libft/inc/libft.h"
 # include "../../libft/inc/ft_printf.h"

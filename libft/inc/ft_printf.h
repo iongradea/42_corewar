@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 13:34:22 by igradea           #+#    #+#             */
-/*   Updated: 2018/12/13 13:31:35 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/13 18:00:49 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 
 # include <limits.h>
-# include <stdlib.h>
 # include <stdint.h>
 # include <stdarg.h>
 # include <wchar.h>

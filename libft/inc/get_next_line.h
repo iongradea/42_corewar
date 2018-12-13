@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/30 14:36:43 by igradea           #+#    #+#             */
-/*   Updated: 2017/09/07 10:59:14 by iongradea        ###   ########.fr       */
+/*   Updated: 2018/12/13 16:27:20 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@
 # define ERRGN (-1)
 
 # include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
 # include <fcntl.h>
 
 typedef struct		s_buffer
