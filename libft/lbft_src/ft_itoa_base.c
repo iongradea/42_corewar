@@ -6,11 +6,11 @@
 /*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 10:04:22 by exam              #+#    #+#             */
-/*   Updated: 2017/07/24 14:10:17 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/13 13:53:52 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "../inc/libft.h"
 
 void	init_var(char *tab, int *i, int *index)
 {
