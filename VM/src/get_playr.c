@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:40 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/08 16:57:16 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/13 13:13:16 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ static t_ps			*ft_new_ps(int fd, int uid)
 					* (PROG_NAME_LENGTH + 1))))
 		exit(error_msg("ft_new_ps : error heap allocation"));
 	ps->uid = uid;
+	ps->code_size = ft_get_code_size(fd);
 	ps->ps_uid = ft_ps_uid();
 	if (!(ps->code = (unsigned char *)ft_memalloc(sizeof(unsigned char) \
 					* ps->code_size)))
 		exit(error_msg("ft_new_ps : error heap allocation"));
-	ps->code_size = ft_get_code_size(fd);
 	ft_bzero(ps->reg, sizeof(ps->reg));
 	ps->reg[1] = uid;
 	ft_new_ps_sub(ps);
