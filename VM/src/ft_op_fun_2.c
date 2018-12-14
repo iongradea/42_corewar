@@ -12,13 +12,9 @@
 
 #include "../inc/vm.h"
 
-void				ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, int size)
+void				ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos)
 {
-	int				i;
-
-	i = -1;
-	while (++i < size)
-		*(vm->mem_uid + ft_mem_cir_pos(ps->pc + pos + i)) = ps->uid;
+	vm->mem_uid[ft_mem_cir_pos(ps->pc + pos)] = ps->uid;
 }
 
 /*

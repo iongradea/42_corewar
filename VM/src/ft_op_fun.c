@@ -16,11 +16,11 @@ int					ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i)
 {
 	DEBUG ? ft_printf("launching ft_arg_size ...\n") : DEBUG;
 	if (ft_is_type(vm, ps, arg_i, T_REG))
-		return (REG_SIZE);
+		return (REG_SIZE_P);
 	if (ft_is_type(vm, ps, arg_i, T_DIR))
-		return (DIR_SIZE(OP_TAB_INDEX(*(vm->mem + ft_mem_cir_pos(ps->pc)))));
+		return (DIR_SIZE_P(OP_TAB_INDEX(*(vm->mem + ft_mem_cir_pos(ps->pc)))));
 	if (ft_is_type(vm, ps, arg_i, T_IND))
-		return (IND_SIZE);
+		return (IND_SIZE_P);
 	exit(error_msg("ft_arg_size : error unknown type"));
 }
 
