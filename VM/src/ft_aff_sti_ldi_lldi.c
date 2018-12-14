@@ -18,7 +18,7 @@ int					ft_aff(t_vm_mem *vm, t_ps *ps, int opcode)
 
 	(void)opcode;
 	DEBUG ? ft_printf("launching ft_aff ...\n") : DEBUG;
-	if (!check_ocp_fmt(vm, ps, 1) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 1) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, NO_CARRY));
 	arg0 = ft_get_arg(vm, ps, 0);
 	ps->op_size = ft_op_size(vm, ps, 1);
@@ -43,7 +43,7 @@ int					ft_sti(t_vm_mem *vm, t_ps *ps, int opcode)
 	(void)opcode;
 	i = -1;
 	sum = 0;
-	if (!check_ocp_fmt(vm, ps, 3) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 3) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, NO_CARRY));
 	arg0 = ft_get_arg(vm, ps, 0);
 	arg1 = ft_get_arg(vm, ps, 1);
@@ -76,7 +76,7 @@ int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode)
 	DEBUG ? ft_printf("launching ft_ldi ...\n") : DEBUG;
 	sum = 0;
 	i = -1;
-	if (!check_ocp_fmt(vm, ps, 3) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 3) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, NO_CARRY));
 	arg0 = ft_get_arg(vm, ps, 0);
 	arg1 = ft_get_arg(vm, ps, 1);
@@ -108,7 +108,7 @@ int					ft_lldi(t_vm_mem *vm, t_ps *ps, int opcode)
 	DEBUG ? ft_printf("launching ft_lldi ...\n") : DEBUG;
 	sum = 0;
 	i = -1;
-	if (!check_ocp_fmt(vm, ps, 3) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 3) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, CARRY_FALSE));
 	arg0 = ft_get_arg(vm, ps, 0);
 	arg1 = ft_get_arg(vm, ps, 1);

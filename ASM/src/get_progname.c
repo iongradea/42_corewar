@@ -88,7 +88,7 @@ int				get_prog_name(char *line, int *flag, t_header *head)
 			exit(error_msg("Error last .name line\n"));
 		sub_progname_lines(line, flag, head, end);
 	}
-	else if (is_name_line(line) && st != end && st + 1 != end)
+	else if (is_name_line(line) && st != end)
 		progname_oneln(st, end, flag, head);
 	else if (is_name_line(line) && st == end)
 		progname_multiln(st, flag, head);

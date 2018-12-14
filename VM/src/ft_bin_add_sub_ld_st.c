@@ -25,7 +25,7 @@ int					ft_bin(t_vm_mem *vm, t_ps *ps, int opcode)
 	int	arg1;
 	int	arg2;
 
-	if (!check_ocp_fmt(vm, ps, 3) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 3) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, CARRY_FALSE));
 	arg0 = ft_get_arg(vm, ps, 0);
 	arg1 = ft_get_arg(vm, ps, 1);
@@ -55,7 +55,7 @@ int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode)
 	int	arg2;
 
 	DEBUG ? ft_printf("launching ft_add_sub ...\n") : DEBUG;
-	if (!check_ocp_fmt(vm, ps, 3) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 3) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, CARRY_FALSE));
 	arg0 = ft_get_arg(vm, ps, 0);
 	arg1 = ft_get_arg(vm, ps, 1);
@@ -86,7 +86,7 @@ int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 
 	DEBUG ? ft_printf("launching ft_ld ...\n") : DEBUG;
 	i = -1;
-	if (!check_ocp_fmt(vm, ps, 2) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 2) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, CARRY_FALSE));
 	arg0 = ft_is_type(vm, ps, 0, T_IND) ? (short)ft_get_arg(vm, ps, 0) : \
 											ft_get_arg(vm, ps, 0);
@@ -113,7 +113,7 @@ int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
 	(void)opcode;
 	DEBUG ? ft_printf("launching ft_st ...\n") : DEBUG;
 	i = -1;
-	if (!check_ocp_fmt(vm, ps, 2) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 2) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, NO_CARRY));
 	arg0 = ft_get_arg(vm, ps, 0);
 	arg1 = ft_is_type(vm, ps, 1, T_IND) ? (short)ft_get_arg(vm, ps, 1) : \
