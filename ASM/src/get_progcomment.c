@@ -71,7 +71,7 @@ int				get_prog_comment(char *line, int *flag, t_header *head)
 			exit(error_msg("Error last .comment line\n"));
 		sub_progcom_lines(line, flag, head, end);
 	}
-	else if (is_comment_line(line) && st != end && st + 1 != end)
+	else if (is_comment_line(line) && st != end)
 		progcom_oneln(st, end, flag, head);
 	else if (is_comment_line(line) && st == end)
 		progcom_multiln(st, flag, head);
