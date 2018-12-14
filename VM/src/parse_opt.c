@@ -20,10 +20,10 @@ int				ft_check_ps_uid(t_ps *ps, int uid)
 	while (ps_back)
 	{
 		if (uid == ps_back->uid)
-			return (0);
+			return (false);
 		ps_back = ps_back->next;
 	}
-	return (1);
+	return (true);
 }
 
 static int		ft_check_arg(char **av, int i, int ac, t_vm_mem *vm)

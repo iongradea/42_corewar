@@ -99,7 +99,7 @@ void			ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
 	refresh();
 }
 
-static int		ft_get_playr_index(t_vm_mem *vm, int uid)
+static int		ft_get_playr_index_2(t_vm_mem *vm, int uid)
 {
 	int			i;
 
@@ -122,7 +122,7 @@ void			ft_init_arena(t_vm_mem *vm)
 	{
 		vm->a[i].hex = vm->mem[i];
 		vm->a[i].playr_uid = vm->mem_uid[i];
-		index = ft_get_playr_index(vm, vm->mem_uid[i]);
+		index = ft_get_playr_index_2(vm, vm->mem_uid[i]);
 		vm->a[i].color = index != UNDEFINED ? 1 + (index % 4) : UNDEFINED;
 		vm->a[i].color_pc = index != UNDEFINED ? \
 						1 + (index % 4) + 4 : 10;

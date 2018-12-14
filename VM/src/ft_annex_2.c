@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/12/14 15:41:39 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/14 17:49:59 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void		ft_new_ps_sub(t_ps *ps)
 	ps->prev = NULL;
 }
 
-int					ft_op_size_2(t_vm_mem *vm, t_ps *ps)
+int			ft_op_size_2(t_vm_mem *vm, t_ps *ps)
 {
-	int				op_size;
-	int				nb_arg;
-	int				ocp_size;
+	int		op_size;
+	int		nb_arg;
+	int		ocp_size;
 
 	ocp_size = g_op_tab[ps->opcode].ocp_param;
 	nb_arg = g_op_tab[ps->opcode].nb_param;

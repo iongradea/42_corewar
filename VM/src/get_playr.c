@@ -12,18 +12,16 @@
 
 #include "../inc/vm.h"
 
-static int			ft_get_playr_index(t_ps *ps, int ac, char **av, int *index)
+static int			ft_get_playr_index(int ac, char **av, int *index)
 {
 	static int		i = MAX_NB_PLAYR;
 	int				res;
-	t_ps			*t_ps;
 
 	res = -1;
-	t_ps = ps;
 	DEBUG ? ft_printf("launching ft_get_playr_index ...\n") : DEBUG;
 	if (!ft_strcmp(*av, "-n"))
 	{
-		if (ft_atoi(*(av + 1)) > 0 && ft_atoi(*(av + 1)) < 1000)
+		if ((ft_atoi(*(av + 1)) > 0) && (ft_atoi(*(av + 1)) < 1000))
 			(*index += 2) < ac ? res = ft_atoi(*(av + 1)) : exit(ft_usage());
 		else
 			exit(error_msg("Error : player index must be > 0 and < 1000"));
@@ -31,14 +29,7 @@ static int			ft_get_playr_index(t_ps *ps, int ac, char **av, int *index)
 	else
 		res = --i;
 	if (res == UNDEFINED || res == 0)
-		exit(error_msg("Error : player number can't be -1"));
-	while (t_ps)
-	{
-		if (t_ps->uid == res)
-			exit(error_msg(ft_strjoin(ft_strjoin(ft_strjoin("Error : player ", \
-						t_ps->playr), " as already the uid "), ft_itoa(res))));
-		t_ps = t_ps->next;
-	}
+		exit(error_msg("Error : player number can't be -1 or 0"));
 	return (res);
 }
 
@@ -140,18 +131,18 @@ int					get_playr(int fd, t_ps **ps, int ac, char **av)
 	g_verbose == 1 ? ft_printf("Introducing players ...\n") : g_verbose;
 	while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 		ft_jmp_opt(ac, av, &i);
-	i < ac ? uid = ft_get_playr_index(*ps, ac, av + i, &i) : exit(ft_usage());
+	i < ac ? uid = ft_get_playr_index(ac, av + i, &i) : exit(ft_usage());
 	i < ac ? ft_get_ps_data(fd, ps, uid, *(av + i)) : exit(ft_usage());
 	(*ps)->color = 0;
 	while (++i < ac)
 	{
 		while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 			ft_jmp_opt(ac, av, &i);
-		i < ac ? uid = ft_get_playr_index(*ps, ac, av + i, &i) : exit(ft_usage());
+		i < ac ? uid = ft_get_playr_index(ac, av + i, &i) \
+					: exit(ft_usage());
 		i < ac ? ft_get_ps_data(fd, &new, uid, *(av + i)) : exit(ft_usage());
 		if (!ft_check_ps_uid(*ps, uid))
-			exit(error_msg(ft_strjoin("UID ", ft_strjoin(ft_itoa(uid), \
-								" already exist for another process."))));
+			exit(ft_printf("UID %d already exist for another process\n", uid));
 		ft_add_ps(*ps, new);
 	}
 	return (EXIT_SUCCESS);
