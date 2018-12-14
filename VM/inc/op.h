@@ -18,12 +18,6 @@
 #ifndef OP_H
 # define OP_H
 
-/*
-** #define IND_SIZE				2
-** #define REG_SIZE				4
-** #define DIR_SIZE				REG_SIZE
-*/
-
 # define COMMENT_CHAR			'#'
 # define LABEL_CHAR				':'
 # define DIRECT_CHAR				'%'
@@ -54,6 +48,7 @@
 # define CYCLE_DELTA				50
 # define NBR_LIVE				21
 # define MAX_CHECKS				9
+# define REG_SIZE				4
 
 /*
 ** typedef char	t_arg_type;

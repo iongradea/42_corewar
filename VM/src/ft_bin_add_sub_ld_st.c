@@ -99,7 +99,7 @@ int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 	if (ft_is_type(vm, ps, 0, T_DIR))
 		ps->reg[arg1] = arg_ind;
 	else if (ft_is_type(vm, ps, 0, T_IND))
-		while (++i < (int)sizeof(int) && ((*(ps->reg + arg1) <<= 8) || true))
+		while (++i < REG_SIZE && ((*(ps->reg + arg1) <<= 8) || true))
 			ps->reg[arg1] += *(vm->mem + ft_mem_cir_pos(ps->pc + arg_ind + i));
 	return (ft_next_op(ps, CARRY_TRUE));
 }
@@ -125,10 +125,10 @@ int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
 		ps->reg[arg1] = ps->reg[arg0];
 	else if (ft_is_type(vm, ps, 1, T_IND))
 	{
-		while (++i < (int)sizeof(int))
+		while (++i < REG_SIZE)
 			*(vm->mem + ft_mem_cir_pos(ps->pc + (arg1 % IDX_MOD) + i)) =
 				(unsigned char)(ps->reg[arg0] >> ((3 - i) * 8));
-		ft_chg_mem_uid(vm, ps, arg1 % IDX_MOD, sizeof(int));
+		ft_chg_mem_uid(vm, ps, arg1 % IDX_MOD);
 	}
 	return (ft_next_op(ps, NO_CARRY));
 }

@@ -3,7 +3,7 @@
 
 st r1, 64
 sti r1, %:xxx, %1
-#and r1, %0, r1
+and r1, %0, r1
 sti r1, %:xxx2, %1
 fork %:xxx2
 

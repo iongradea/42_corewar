@@ -53,10 +53,10 @@ int					ft_sti(t_vm_mem *vm, t_ps *ps, int opcode)
 			|| is_invalid_reg(vm, ps, 1, arg1))
 		return (ft_next_op(ps, NO_CARRY));
 	sum = ft_sti_2(vm, ps, arg1, arg2);
-	while (++i < (int)sizeof(int))
+	while (++i < REG_SIZE)
 		*(vm->mem + ft_mem_cir_pos(ps->pc + (sum % IDX_MOD) + i)) =
 			(char)(ps->reg[arg0] >> ((3 - i) * 8));
-	ft_chg_mem_uid(vm, ps, sum, sizeof(int));
+	ft_chg_mem_uid(vm, ps, sum);
 	return (ft_next_op(ps, NO_CARRY));
 }
 
@@ -86,7 +86,7 @@ int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode)
 			|| is_invalid_reg(vm, ps, 1, arg1))
 		return (ft_next_op(ps, NO_CARRY));
 	sum = ft_ldi_2(vm, ps, arg1, arg2);
-	while (++i < (int)sizeof(int) && ((ps->reg[arg2] <<= 8) || true))
+	while (++i < REG_SIZE && ((ps->reg[arg2] <<= 8) || true))
 		ps->reg[arg2] += *(vm->mem + ft_mem_cir_pos(ps->pc \
 					+ (sum % IDX_MOD) + i));
 	return (ft_next_op(ps, NO_CARRY));
@@ -118,7 +118,7 @@ int					ft_lldi(t_vm_mem *vm, t_ps *ps, int opcode)
 			|| is_invalid_reg(vm, ps, 1, arg1))
 		return (ft_next_op(ps, CARRY_FALSE));
 	sum = ft_lldi_2(vm, ps, arg1, arg2);
-	while (++i < (int)sizeof(int) && ((ps->reg[arg2] <<= 8) || true))
+	while (++i < REG_SIZE && ((ps->reg[arg2] <<= 8) || true))
 		ps->reg[arg2] += *(vm->mem + ft_mem_cir_pos(ps->pc + sum + i));
 	return (ft_next_op(ps, CARRY_TRUE));
 }
