@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/09 16:47:21 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/14 15:40:57 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ void						cpu_checks(t_vm_mem *vm, t_ps *ps);
 
 int							cpu(t_vm_mem *vm, t_ps *ps);
 int							exec_op(t_vm_mem *vm, t_ps *lst);
-void						exec_op_2(t_ps *lst, t_vm_mem *vm, t_ps *tmp);
+int							exec_op_2(t_ps *lst, t_vm_mem *vm, t_ps *tmp);
 int							ft_nb_live(t_ps *ps);
 void						ft_kill_reset_ps(t_vm_mem *vm);
 int							ft_one_live_ps(t_ps *ps);
@@ -254,6 +254,7 @@ int							ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, \
 															unsigned int type);
 int							ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i);
 int							ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
+int							ft_op_size_2(t_vm_mem *vm, t_ps *ps);
 int							ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
 int							ft_get_val(t_ps *ps, t_vm_mem *vm, int arg, \
 																int arg_i);
