@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/13 13:13:59 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/14 15:41:08 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,38 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 	}
 }
 
-void			exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
+/*
+**	If opcode after cycles not match with current opcode
+**	need to jump to next op
+*/
+
+int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 {
+	int			cur_opcode;
+
 	lst_ps->fl = true;
+	cur_opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
 	if (!ft_valid_opcode(lst_ps->opcode))
 	{
 		lst_ps->op_size = 2;
-		ft_next_op(lst_ps, NO_CARRY);
+		return ft_next_op(lst_ps, NO_CARRY);
 	}
-	else
+	if (lst_ps->opcode != cur_opcode)
 	{
-		if (!ft_strcmp("live", g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
-			vm->lives++;
-		g_verbose == 4 ? ft_printf("cycle : %d | player %d | ps_uid : %d | \
-			ps->pc : %d | %s\n", vm->cycle, lst_ps->uid, lst_ps->ps_uid, \
-			lst_ps->pc, g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : \
-			g_verbose;
-		g_op_tab[OP_TAB_INDEX(tmp->opcode)].fun(vm, tmp, tmp->opcode);
+		if (!check_ocp_fmt(vm, lst_ps, g_op_tab[lst_ps->opcode].nb_param))
+			lst_ps->op_size = 2;
+		else
+			lst_ps->op_size = ft_op_size_2(vm, lst_ps);
+		return ft_next_op(lst_ps, NO_CARRY);
 	}
+	if (!ft_strcmp("live", g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
+		vm->lives++;
+	g_verbose == 4 ? ft_printf("cycle : %d | player %d | ps_uid : %d | \
+		ps->pc : %d | %s\n", vm->cycle, lst_ps->uid, lst_ps->ps_uid, \
+		lst_ps->pc, g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : \
+		g_verbose;
+	g_op_tab[OP_TAB_INDEX(tmp->opcode)].fun(vm, tmp, tmp->opcode);
+	return (EXIT_SUCCESS);
 }
 
 int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
