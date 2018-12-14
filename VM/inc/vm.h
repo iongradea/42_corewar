@@ -79,9 +79,9 @@
 
 # define OPCODE_SIZE 1
 # define OCP_SIZE 1
-# define REG_SIZE 1
-# define IND_SIZE 2
-# define DIR_SIZE(op) (g_op_tab[op].dir_size)
+# define REG_SIZE_P 1
+# define IND_SIZE_P 2
+# define DIR_SIZE_P(op) (g_op_tab[op].dir_size)
 
 /*
 ** carry
@@ -261,8 +261,7 @@ int							ft_get_val(t_ps *ps, t_vm_mem *vm, int arg, \
 unsigned char				ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
 int							check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
 t_ps						*ft_cpy_playr(t_ps *ps);
-void						ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, \
-														int pos, int size);
+void						ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos);
 int							ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, \
 																int idx_mod);
 

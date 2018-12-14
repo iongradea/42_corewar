@@ -25,7 +25,7 @@ int					ft_bin(t_vm_mem *vm, t_ps *ps, int opcode)
 	int	arg1;
 	int	arg2;
 
-	if (!check_ocp_fmt(vm, ps, 3) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 3) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, CARRY_FALSE));
 	arg0 = ft_get_arg(vm, ps, 0);
 	arg1 = ft_get_arg(vm, ps, 1);
@@ -55,7 +55,7 @@ int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode)
 	int	arg2;
 
 	DEBUG ? ft_printf("launching ft_add_sub ...\n") : DEBUG;
-	if (!check_ocp_fmt(vm, ps, 3) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 3) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, CARRY_FALSE));
 	arg0 = ft_get_arg(vm, ps, 0);
 	arg1 = ft_get_arg(vm, ps, 1);
@@ -86,7 +86,7 @@ int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 
 	DEBUG ? ft_printf("launching ft_ld ...\n") : DEBUG;
 	i = -1;
-	if (!check_ocp_fmt(vm, ps, 2) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 2) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, CARRY_FALSE));
 	arg0 = ft_is_type(vm, ps, 0, T_IND) ? (short)ft_get_arg(vm, ps, 0) : \
 											ft_get_arg(vm, ps, 0);
@@ -99,7 +99,7 @@ int					ft_ld(t_vm_mem *vm, t_ps *ps, int opcode)
 	if (ft_is_type(vm, ps, 0, T_DIR))
 		ps->reg[arg1] = arg_ind;
 	else if (ft_is_type(vm, ps, 0, T_IND))
-		while (++i < (int)sizeof(int) && ((*(ps->reg + arg1) <<= 8) || true))
+		while (++i < REG_SIZE && ((*(ps->reg + arg1) <<= 8) || true))
 			ps->reg[arg1] += *(vm->mem + ft_mem_cir_pos(ps->pc + arg_ind + i));
 	return (ft_next_op(ps, CARRY_TRUE));
 }
@@ -113,7 +113,7 @@ int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
 	(void)opcode;
 	DEBUG ? ft_printf("launching ft_st ...\n") : DEBUG;
 	i = -1;
-	if (!check_ocp_fmt(vm, ps, 2) && ((++ps->op_size) || true))
+	if (!check_ocp_fmt(vm, ps, 2) && ((ps->op_size += 2) || true))
 		return (ft_next_op(ps, NO_CARRY));
 	arg0 = ft_get_arg(vm, ps, 0);
 	arg1 = ft_is_type(vm, ps, 1, T_IND) ? (short)ft_get_arg(vm, ps, 1) : \
@@ -125,10 +125,10 @@ int					ft_st(t_vm_mem *vm, t_ps *ps, int opcode)
 		ps->reg[arg1] = ps->reg[arg0];
 	else if (ft_is_type(vm, ps, 1, T_IND))
 	{
-		while (++i < (int)sizeof(int))
+		while (++i < REG_SIZE)
 			*(vm->mem + ft_mem_cir_pos(ps->pc + (arg1 % IDX_MOD) + i)) =
 				(unsigned char)(ps->reg[arg0] >> ((3 - i) * 8));
-		ft_chg_mem_uid(vm, ps, arg1 % IDX_MOD, sizeof(int));
+		ft_chg_mem_uid(vm, ps, arg1 % IDX_MOD);
 	}
 	return (ft_next_op(ps, NO_CARRY));
 }

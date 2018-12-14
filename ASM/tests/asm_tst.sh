@@ -33,12 +33,22 @@ cp $EXEC_PATH_ZAZ/$ASM $DEST_ZAZ
 rm $FILE_DST 2> /dev/null || true
 touch $FILE_DST
 
-for f in $DEST_ION/*.s ; do
-	printf "`echo "ION |$f| :"` `$DEST_ION/$ASM "$f"`\n" >> $FILE_DST
-done
+chmod 744 $DEST_ION/*
+chmod 744 $DEST_ZAZ/*
 
-for f in $DEST_ZAZ/*.s ; do
-	printf "`echo "ZAZ |$f| :"` `$DEST_ZAZ/$ASM "$f"`\n" >> $FILE_DST
+# for f in $DEST_ION/*.s ; do
+# 	printf "`echo "ION |$f| :"` `$DEST_ION/$ASM "$f"`\n" >> $FILE_DST
+# done
+#
+# for f in $DEST_ZAZ/*.s ; do
+# 	printf "`echo "ZAZ |$f| :"` `$DEST_ZAZ/$ASM "$f"`\n" >> $FILE_DST
+# done
+for f in $DEST_ION/*.s ; do
+    file="$(echo "$f" | rev | cut -d '/' -f 1 | rev)"
+	printf "`echo "ION |$f| :"` `$DEST_ION/$ASM $DEST_ION/$file`\n`echo "ZAZ |$f| :"` `$DEST_ZAZ/$ASM $DEST_ZAZ/$file`\n\n" >> $FILE_DST
+    echo "ION |$f| :" `$DEST_ION/$ASM $DEST_ION/$file`
+    echo "ZAZ |$f| :" `$DEST_ZAZ/$ASM $DEST_ZAZ/$file`
+    echo ""
 done
 
 for f in $DEST_ION/*.cor ; do
