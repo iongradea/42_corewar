@@ -56,6 +56,12 @@ static int			check_ocp_param(t_vm_mem *vm, t_ps *ps, int arg_i)
 
 	DEBUG ? ft_printf("launching check_ocp_param ...\n") : DEBUG;
 	code = ft_get_ocp(vm, ps, arg_i);
+	if (code == T_DIR)
+		return (g_op_tab[OP_TAB_INDEX(ps->opcode)].param[arg_i] & C_DIR);
+	if (code == T_REG)
+		return (g_op_tab[OP_TAB_INDEX(ps->opcode)].param[arg_i] & C_REG);
+	if (code == T_IND)
+		return (g_op_tab[OP_TAB_INDEX(ps->opcode)].param[arg_i] & C_IND);
 	if (!VALID_OCP_PART(code))
 		return (false);
 	return (true);

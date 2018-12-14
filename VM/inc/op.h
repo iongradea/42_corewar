@@ -59,6 +59,9 @@
 # define T_DIR					0b10
 # define T_IND					0b11
 # define T_END					0b00
+# define C_REG					0b01
+# define C_DIR 					0b10
+# define C_IND 					0b100
 
 /*
 ** structure used at the beginning of binary file (a champion)

@@ -107,7 +107,7 @@
 # define OP_TAB_INDEX(opcode) (opcode - 1)
 # define IS_REG(nb) (nb < 16 && nb >= 0)
 # define PARAM_OCP_CODE(op, arg_i) (((op) >> ((3 - arg_i) * 2)) & 0b11)
-# define VALID_OCP_PART(ocp) (ocp == 0b01 || ocp == 0b10 || ocp == 0b11)
+# define VALID_OCP_PART(ocp) (ocp != 0b00)
 # define CHECK_OCP_END_00(ocp) (ocp & 0b11)
 # define TOTAL_SIZE (CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + 4)
 
