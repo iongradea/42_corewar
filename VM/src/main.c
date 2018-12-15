@@ -22,18 +22,16 @@
 
 int				main(int ac, char **av)
 {
-	int			fd;
 	t_ps		*ps;
 	t_vm_mem	*vm;
 
-	fd = 0;
 	ps = NULL;
 	if (ac < 2)
 		exit(ft_usage());
 	vm = ft_new_mem();
 	vm->ps_st = &ps;
 	ft_parse_opt(ac, av, vm);
-	get_playr(fd, &ps, ac, av);
+	get_playr(vm, &ps, ac, av);
 	add_data_vm(vm, ps);
 	cpu(vm, ps);
 	ft_prt_winner(vm, ps);

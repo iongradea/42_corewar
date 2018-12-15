@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/12/14 17:49:59 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/15 18:45:24 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,34 @@ int			ft_op_size_2(t_vm_mem *vm, t_ps *ps)
 	else
 		exit(error_msg("ft_get_op_size_2 : error wrong nb_arg"));
 	return (op_size);
+}
+
+/*
+** DEBUG ? ft_printf("launching ft_cpy_playr ...\n") : DEBUG;
+*/
+
+t_ps		*ft_cpy_playr(t_ps *ps)
+{
+	t_ps			*new;
+
+	if (!(new = (t_ps*)ft_memalloc(sizeof(t_ps))))
+		exit(error_msg("ft_cpy_playr : error heap allocation"));
+	if (!(new->playr = (char *)ft_memalloc(sizeof(char) * (PROG_NAME_LENGTH \
+						+ 1))))
+		exit(error_msg("ft_cpy_playr : error heap allocation"));
+	ft_memcpy(new->playr, ps->playr, PROG_NAME_LENGTH + 1);
+	new->uid = ps->uid;
+	new->ps_uid = ft_ps_uid();
+	new->code_size = ps->code_size;
+	if (!(new->code = (unsigned char*)ft_memalloc(sizeof(char) \
+					* new->code_size)))
+		exit(error_msg("ft_cpy_playr : error heap allocation"));
+	ft_memcpy(new->code, ps->code, new->code_size);
+	ft_bzero(new->reg, sizeof(new->reg));
+	ft_memcpy(new->reg, ps->reg, sizeof(new->reg));
+	ft_new_ps_sub(new);
+	new->color = ps->color;
+	new->carry = ps->carry;
+	ft_add_ps(ps, new);
+	return (new);
 }

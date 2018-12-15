@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/14 17:50:40 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/15 18:44:48 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 # define UNDEFINED -1
 # define PS_DEAD -1
-# define MAX_NB_PLAYR 1000
 
 /*
 ** Debugging and errors
@@ -149,6 +148,7 @@ typedef struct				s_arena
 
 typedef struct				s_vm_mem
 {
+	int				set_uid[MAX_PLAYERS + 1];
 	unsigned char	mem[MEM_SIZE];
 	int				cycle;
 	int				real_cycle;
@@ -195,7 +195,8 @@ typedef struct				s_op
 ** Parsing functions & initialization functions
 */
 
-int							get_playr(int fd, t_ps **ps, int ac, char **av);
+int							get_playr(t_vm_mem *vm, t_ps **ps, int ac, \
+										char **av);
 void						add_data_vm(t_vm_mem *vm, t_ps *ps);
 t_vm_mem					*ft_new_mem(void);
 int							ft_parse_opt(int ac, char **av, t_vm_mem *vm);
