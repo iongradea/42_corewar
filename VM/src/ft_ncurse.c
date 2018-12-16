@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2018/12/09 15:15:36 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/16 15:12:00 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,14 @@ static int		ft_get_playr_index_2(t_vm_mem *vm, int uid)
 	return (uid);
 }
 
-void			ft_init_arena(t_vm_mem *vm)
+void			ft_init_arena(t_vm_mem *vm, t_ps *ps)
 {
 	int			i;
 	int			index;
+	t_ps		*tmp;
 
 	i = -1;
+	tmp = ps;
 	while (++i < MEM_SIZE)
 	{
 		vm->a[i].hex = vm->mem[i];
@@ -126,5 +128,12 @@ void			ft_init_arena(t_vm_mem *vm)
 		vm->a[i].color = index != UNDEFINED ? 1 + (index % 4) : UNDEFINED;
 		vm->a[i].color_pc = index != UNDEFINED ? \
 						1 + (index % 4) + 4 : 10;
+	}
+	while (tmp)
+	{
+		index = ft_get_playr_index_2(vm, tmp->uid);
+		tmp->color_pc = index != UNDEFINED ? \
+						1 + (index % 4) + 4 : 10;
+		tmp = tmp->next;
 	}
 }

@@ -59,6 +59,7 @@ static t_ps			*ft_new_ps(int fd, int uid)
 	ft_new_ps_sub(ps);
 	ps->color = UNDEFINED;
 	ps->carry = 0;
+	ps->color_pc = 10;
 	return (ps);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/15 18:44:48 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/16 15:11:26 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct				s_ps
 	int						fl;
 	int						carry;
 	int						cyc_len;
+	int						color_pc;
 	struct s_ps				*next;
 	struct s_ps				*prev;
 }							t_ps;
@@ -311,7 +312,7 @@ void						ft_ncurse(t_vm_mem *vm, t_ps *ps);
 void						ft_print_arena(t_vm_mem *vm, t_ps *ps);
 void						ft_print_arena_2(t_vm_mem *vm, int i);
 void						ft_init_ncurses(void);
-void						ft_init_arena(t_vm_mem *vm);
+void						ft_init_arena(t_vm_mem *vm, t_ps *ps);
 void						ft_print_lives(t_vm_mem *vm, int i);
 void						ft_print_game_stats(t_vm_mem *vm, t_ps *ps);
 
