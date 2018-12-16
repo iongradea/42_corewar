@@ -26,7 +26,7 @@ static void			ft_live_sub(t_vm_mem *vm, t_ps *ps, t_ps *lst)
 
 	i = -1;
 	while (++i < MAX_PLAYERS)
-		if (vm->playr_uid[i] == ps->uid)
+		if (vm->playr_uid[i] == lst->uid)
 			break ;
 	(vm->playr_live[i])++;
 	g_verbose == 2 ? ft_printf("ps->playr = %s\nJe suis en vie !\nps->live \

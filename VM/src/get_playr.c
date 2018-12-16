@@ -50,6 +50,8 @@ static t_ps			*ft_new_ps(int fd, int uid)
 		exit(error_msg("ft_new_ps : error heap allocation"));
 	ps->uid = uid;
 	ps->code_size = ft_get_code_size(fd);
+	if (ps->code_size > CHAMP_MAX_SIZE)
+		exit(error_msg("champions size too large\n"));
 	ps->ps_uid = ft_ps_uid();
 	if (!(ps->code = (unsigned char *)ft_memalloc(sizeof(unsigned char) \
 					* ps->code_size)))
