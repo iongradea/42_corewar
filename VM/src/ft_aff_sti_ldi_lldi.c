@@ -56,7 +56,7 @@ int					ft_sti(t_vm_mem *vm, t_ps *ps, int opcode)
 	while (++i < REG_SIZE)
 		*(vm->mem + ft_mem_cir_pos(ps->pc + (sum % IDX_MOD) + i)) =
 			(char)(ps->reg[arg0] >> ((3 - i) * 8));
-	ft_chg_mem_uid(vm, ps, sum, REG_SIZE);
+	ft_chg_mem_uid(vm, ps, sum % IDX_MOD, REG_SIZE);
 	return (ft_next_op(ps, NO_CARRY));
 }
 
