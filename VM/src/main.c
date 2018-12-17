@@ -6,11 +6,31 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/12/08 16:50:08 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/17 14:38:39 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
+
+static int		protect_define(void)
+{
+	ft_printf("enter protect_define()\n");
+	if (MEM_SIZE % 1024 != 0 || MEM_SIZE > 101024)
+		return (0);
+	if (REG_NUMBER != 16)
+		return (0);
+	if (REG_SIZE != 4)
+		return (0);
+	if (MAX_PLAYERS != 4)
+		return (0);
+	if (MAX_CHECKS != 9)
+		return (0);
+	if (NBR_LIVE != 21)
+		return (0);
+	if (CYCLE_DELTA < 0 || CYCLE_DELTA > CYCLE_TO_DIE)
+		return (0);
+	return (1);
+}
 
 /*
 ** ft_new_mem	= Instantiate VM
@@ -28,6 +48,8 @@ int				main(int ac, char **av)
 	ps = NULL;
 	if (ac < 2)
 		exit(ft_usage());
+	if (!protect_define())
+		exit(error_msg("Invalid define, please check 'inc/vm.h'"));
 	vm = ft_new_mem();
 	vm->ps_st = &ps;
 	ft_parse_opt(ac, av, vm);

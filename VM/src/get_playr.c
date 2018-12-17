@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:40 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/15 18:46:57 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/17 14:37:39 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static t_ps			*ft_new_ps(int fd, int uid)
 	ps->uid = uid;
 	ps->code_size = ft_get_code_size(fd);
 	if (ps->code_size > CHAMP_MAX_SIZE)
-		exit(error_msg("champions size too large\n"));
+		exit(error_msg("champions size too large"));
 	ps->ps_uid = ft_ps_uid();
 	if (!(ps->code = (unsigned char *)ft_memalloc(sizeof(unsigned char) \
 					* ps->code_size)))
@@ -76,10 +76,10 @@ static void			ft_get_ps_data(t_ps **ps, int uid, char *av)
 	{
 		*ps = ft_new_ps(fd, uid);
 		read(fd, buf, 4);
-		buf[0] != 0x00 ? exit(error_msg("Error: wrong exec magic\n")) : true;
-		buf[1] != 0xea ? exit(error_msg("Error: wrong exec magic\n")) : true;
-		buf[2] != 0x83 ? exit(error_msg("Error: wrong exec magic\n")) : true;
-		buf[3] != 0xf3 ? exit(error_msg("Error: wrong exec magic\n")) : true;
+		buf[0] != 0x00 ? exit(error_msg("Error: wrong exec magic")) : true;
+		buf[1] != 0xea ? exit(error_msg("Error: wrong exec magic")) : true;
+		buf[2] != 0x83 ? exit(error_msg("Error: wrong exec magic")) : true;
+		buf[3] != 0xf3 ? exit(error_msg("Error: wrong exec magic")) : true;
 		lseek(fd, 4, SEEK_SET);
 		read(fd, (*ps)->playr, PROG_NAME_LENGTH);
 		lseek(fd, sizeof(t_header), SEEK_SET);
@@ -110,9 +110,9 @@ static void			get_set_uid(t_vm_mem *vm, int ac, char **av)
 			if (i + 1 >= ac)
 				exit(ft_usage());
 			if (ft_str_not_nb(*(av + i + 1)))
-				exit(error_msg("player uid is not a number\n"));
+				exit(error_msg("player uid is not a number"));
 			if (!ft_valid_int(*(av + i + 1)))
-				exit(error_msg("invalid int for player number\n"));
+				exit(error_msg("invalid int for player number"));
 			res = ft_atoi(*(av + i + 1));
 			if (res == UNDEFINED || res == 0)
 				exit(error_msg("Error : player number can't be -1 or 0"));

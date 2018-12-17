@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/12/08 15:05:18 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/17 14:36:58 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int				ft_prt_winner(t_vm_mem *vm, t_ps *ps)
 	if (ps)
 		ft_printf("le joueur %d(%s) a gagne\n", vm->last_live, ps->playr);
 	else
-		exit(error_msg("aucun joueur valide erreur ou aucun gagnant\n"));
+		exit(error_msg("aucun joueur valide erreur ou aucun gagnant"));
 	return (EXIT_SUCCESS);
 }
 
