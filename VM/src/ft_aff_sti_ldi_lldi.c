@@ -81,6 +81,7 @@ int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode)
 	arg0 = ft_get_arg(vm, ps, 0);
 	arg1 = ft_get_arg(vm, ps, 1);
 	arg2 = ft_get_arg(vm, ps, 2);
+	ft_printf("arg0 : %d - reg[arg0] : %d - arg1 : %d\n", arg0, ps->reg[arg0], arg1);
 	ps->op_size = ft_op_size(vm, ps, 3);
 	if (is_invalid_reg(vm, ps, 2, arg2) || is_invalid_reg(vm, ps, 0, arg0)
 			|| is_invalid_reg(vm, ps, 1, arg1))
@@ -89,6 +90,7 @@ int					ft_ldi(t_vm_mem *vm, t_ps *ps, int opcode)
 	while (++i < REG_SIZE && ((ps->reg[arg2] <<= 8) || true))
 		ps->reg[arg2] += *(vm->mem + ft_mem_cir_pos(ps->pc \
 					+ (sum % IDX_MOD) + i));
+	ft_printf("arg2 : %d - reg[arg2] : %d\n", arg2, ps->reg[arg2]);
 	return (ft_next_op(ps, NO_CARRY));
 }
 

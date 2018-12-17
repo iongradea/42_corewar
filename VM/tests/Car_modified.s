@@ -14,7 +14,7 @@ label04: ld    %4,r2              		# 7,89,192
 	 zjmp  %:label05          		# 3,103,178
 
 label05: ldi   r2,%:label14,r6    		# 6,233,48
-	 ld    %0,r4              		# 7,239,42
+	 ld    %0,r10              		# 7,239,42
 	 live  %1                 		# 5,246,35
 
 label14: sti   r6,r2,r3           		# 5,251,30
