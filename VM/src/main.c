@@ -14,7 +14,7 @@
 
 static int		protect_define(void)
 {
-	ft_printf("enter protect_define()\n");
+	DEBUG ? ft_printf("launching protect_define ...\n") : DEBUG;
 	if (MEM_SIZE % 1024 != 0 || MEM_SIZE > 101024)
 		return (0);
 	if (REG_NUMBER != 16)
