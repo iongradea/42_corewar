@@ -1,11 +1,8 @@
 .name "Car_modified.s"
 .comment ""
 
-	 ld    %-272,r3           		# 7,3,278
 	 live  %0                 		# 5,10,271
-	 fork  %:label01          		# 3,15,266
-
-label01: ld    %-202,r3           		# 7,62,219
+	 ld    %-202,r3           		# 7,62,219
 	 fork  %:label04          		# 3,69,212
 	 ld    %0,r2              		# 7,72,209
 	 zjmp  %:label05          		# 3,86,195
