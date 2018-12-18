@@ -89,6 +89,7 @@
 # define CARRY_TRUE 1
 # define CARRY_FALSE 0
 # define NO_CARRY -1
+# define EMPTY_VAL 0
 
 /*
 ** VM
@@ -285,7 +286,7 @@ int							ft_is_pc(t_ps *ps, int index);
 */
 
 void						ft_add_ps(t_ps *ps, t_ps *tmp);
-int							ft_next_op(t_ps *ps, int carry_mod);
+int							ft_next_op(t_ps *ps, int carry_mod, int val);
 int							ft_get_code_size(int fd);
 int							ft_prt_winner(t_vm_mem *vm, t_ps *ps);
 int							ft_ps_uid(void);

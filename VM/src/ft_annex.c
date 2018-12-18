@@ -34,15 +34,15 @@ void			ft_add_ps(t_ps *ps, t_ps *new)
 ** int are casted to unsigned int during C operations
 */
 
-int				ft_next_op(t_ps *ps, int carry_mod)
+int				ft_next_op(t_ps *ps, int carry_mod, int val)
 {
-	DEBUG > 0 ? ft_printf("launching ft_next_op ...\n") : DEBUG;
-	ps->pc = ft_mem_cir_pos(ps->pc + ps->op_size);
+	DEBUG ? ft_printf("launching ft_next_op ...\n") : DEBUG;
+	if ((ps->opcode == ZJMP && ps->carry == 0) || ps->opcode != ZJMP)
+		ps->pc = ft_mem_cir_pos(ps->pc + ps->op_size);
 	ps->op_size = 0;
-	if (carry_mod == NO_CARRY)
+	if (carry_mod == NO_CARRY || carry_mod == CARRY_FALSE)
 		return (EXIT_SUCCESS);
-	else
-		ps->carry = carry_mod == CARRY_TRUE ? 1 : 0;
+	ps->carry = !val ? 1 : 0;
 	return (EXIT_SUCCESS);
 }
 

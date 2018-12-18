@@ -81,7 +81,7 @@ int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 	if (!ft_valid_opcode(lst_ps->opcode))
 	{
 		lst_ps->op_size = 2;
-		return (ft_next_op(lst_ps, NO_CARRY));
+		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
 	}
 	if (lst_ps->opcode != cur_opcode)
 	{
@@ -89,14 +89,14 @@ int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 			lst_ps->op_size = 2;
 		else
 			lst_ps->op_size = ft_op_size_2(vm, lst_ps);
-		return (ft_next_op(lst_ps, NO_CARRY));
+		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
 	}
 	if (!ft_strcmp("live", g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
 		vm->lives++;
 	g_verbose == 4 ? ft_printf("cycle : %d | player %d | ps_uid : %d | \
-		ps->pc : %d | %s\n", vm->cycle, lst_ps->uid, lst_ps->ps_uid, \
-		lst_ps->pc, g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : \
-		g_verbose;
+		ps->pc : %d | carry : %d | %s\n", vm->cycle, lst_ps->uid, \
+		lst_ps->ps_uid, lst_ps->pc, lst_ps->carry,
+		g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
 	g_op_tab[OP_TAB_INDEX(tmp->opcode)].fun(vm, tmp, tmp->opcode);
 	return (EXIT_SUCCESS);
 }
