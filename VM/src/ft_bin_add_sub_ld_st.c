@@ -43,8 +43,6 @@ int					ft_bin(t_vm_mem *vm, t_ps *ps, int opcode)
 	else if (opcode == XOR)
 		ps->reg[arg2] = ft_get_val(ps, vm, arg0, 0) ^ ft_get_val(ps, vm, \
 																arg1, 1);
-	else
-		exit(error_msg("ft_bin : error wrong opcode"));
 	return (ft_next_op(ps, CARRY_TRUE));
 }
 
@@ -68,8 +66,6 @@ int					ft_add_sub(t_vm_mem *vm, t_ps *ps, int opcode)
 		ps->reg[arg2] = ps->reg[arg0] + ps->reg[arg1];
 	else if (opcode == SUB)
 		ps->reg[arg2] = ps->reg[arg0] - ps->reg[arg1];
-	else
-		exit(error_msg("ft_add_sub : error wrong opcode"));
 	return (ft_next_op(ps, CARRY_TRUE));
 }
 
