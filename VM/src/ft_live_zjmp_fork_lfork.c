@@ -71,6 +71,7 @@ int					ft_zjmp(t_vm_mem *vm, t_ps *ps, int opcode)
 	DEBUG ? ft_printf("launching ft_zjmp ...\n") : DEBUG;
 	while (++i < DIR_SIZE_P(OP_TAB_INDEX(ZJMP)) && ((arg0 = arg0 << 8) || true))
 		arg0 += *(vm->mem + ft_mem_cir_pos(ps->pc + OPCODE_SIZE + i));
+	arg0 = (short)arg0;
 	if (ps->carry == 1)
 	{
 		ps->pc = ft_mem_cir_pos(ps->pc + arg0 % IDX_MOD);
@@ -93,6 +94,7 @@ int					ft_fork(t_vm_mem *vm, t_ps *lst_ps, int opcode)
 	DEBUG ? ft_printf("launching ft_fork ...\n") : DEBUG;
 	while (++i < DIR_SIZE_P(OP_TAB_INDEX(FORK)) && ((arg0 = arg0 << 8) || true))
 		arg0 += *(vm->mem + ft_mem_cir_pos(ps->pc + OPCODE_SIZE + i));
+	arg0 = (short)arg0;
 	new = ft_cpy_playr(ps);
 	if (opcode == FORK)
 		new->pc = ft_mem_cir_pos(ps->pc + (arg0 % IDX_MOD));
