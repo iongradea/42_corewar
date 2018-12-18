@@ -20,7 +20,7 @@ int					ft_sti_2(t_vm_mem *vm, t_ps *ps, int arg1, int arg2)
 	if (ft_is_type(vm, ps, 1, T_REG))
 		sum = ps->reg[arg1];
 	else if (ft_is_type(vm, ps, 1, T_IND))
-		sum = ft_get_ind(ps, vm, arg1, false);
+		sum = ft_get_ind(ps, vm, arg1, true);
 	else
 		sum = arg1;
 	sum += ft_is_type(vm, ps, 2, T_REG) ? ps->reg[arg2] : arg2;

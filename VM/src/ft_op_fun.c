@@ -60,6 +60,8 @@ int					ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i)
 											+ ft_arg_size(vm, ps, 1);
 	while (++i < ft_arg_size(vm, ps, arg_i) && ((arg = arg << 8) || true))
 		arg += *(vm->mem + ft_mem_cir_pos(ps->pc + offset + i));
+	if (ft_arg_size(vm, ps, arg_i) == 2)
+		return ((short)arg);
 	return (arg);
 }
 
