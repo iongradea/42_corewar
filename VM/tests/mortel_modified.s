@@ -15,7 +15,7 @@ live1:
 	sti r1,%:numero1,%1		# 7, 54 - 25, 190
 	sti r1,%:numero2,%1		# 7, 61 - 25, 215
 
-	ldi %:live,%-2,r6		# 7, 68 - 25, 240 / used for numero1
+	ldi %:live,%-2,r6		# 7, 68 - 25, 240 / 0xb8 / used for numero1
 
 fork0:	
 	live %66				# 5, 73 - 10, 250
@@ -32,23 +32,23 @@ fork2:
 master:			#	ldi %:master,%0,r6
 	live %66				# 5, 94 - 10, 1880
 	ld %0,r3				# 7, 101 - 5, 1885
-	ld %16777216,r6			# 7, 108 - 5, 1890
+	ld %16777216,r6			# 7, 108 - 5, 1890 / 0x01000000
 	ld %0,r5				# 7, 115 - 5, 1895
-	zjmp %:ready			# 3, 118 - 20, 1915
+	zjmp %:ready			# 3, 118 - 20, 1915, 45
 
 numero1:		#	ldi %:live,%-2,r6       # put before in live1
 	live %66				# 5, 123 - 10, 1925
 	ld %3,r3				# 7, 130 - 5, 1930
 	ld %1,r2				# 7, 137 - 5, 1935 / useless, only to keep cycle count
 	ld %0,r5				# 7, 144 - 5, 1940
-	zjmp %:ready			# 3, 147 - 20, 1960
+	zjmp %:ready			# 3, 147 - 20, 1960, 45
 
 numero2:		#	ldi %:tampon,%1,r6	
 	live %66				# 5, 152 - 10, 1970
 	ld %6,r3				# 7, 159 - 5, 1975
-	ld %1409680135,r6		# 7, 166 - 5, 1980
+	ld %1409680135,r6		# 7, 166 - 5, 1980 / 0x54060307
 	ld %0,r5				# 7, 173 - 5, 1985
-	zjmp %:ready			# 3, 176 - 20, 2005
+	zjmp %:ready			# 3, 176 - 20, 2005, 45
 
 tampon:	
 	sti r6,r3,r5			# 5, 181 - 25, 2030
