@@ -69,16 +69,24 @@ while true; do
 	MATCH=$(echo $input | grep -Eo '[+-][0-9]{1,}')
 	MATCH_OP=$(echo $input | grep -Eo '[+-]')
 
+	if [ ${#MATCH} -eq 0 ] && [ ${#MATCH_OP} -eq 0 ]; then
+		MATCH_NB=$(echo $input | grep -Eo '[0-9]{1,}')
+	fi
+
 	if [ ${#MATCH} -ne 0 ]; then
 		JUMP=$(echo $MATCH | cut -c 2-)
 		OPERAND=$(echo $MATCH | head -c 1)
 	elif [ ${#MATCH_OP} -ne 0 ]; then
 		OPERAND=$input
+	elif [ ${#MATCH_NB} -ne 0 ]; then
+		CYCLES=$input
 	elif [ ${#OPERAND} -eq 0 ] || [ $CYCLES -eq 1 ]; then
 		OPERAND=+
 	fi
 
-	if [[ $JUMP -gt 0 ]]; then
+	if [ ${#MATCH_NB} -ne 0 ]; then
+		./corewar -dump $CYCLES $CHAMP
+	elif [[ $JUMP -gt 0 ]]; then
 		if [[ $OPERAND = "+" ]]; then
 			CYCLES=$((CYCLES + JUMP))
 		elif [[ $OPERAND = "-" ]]; then
