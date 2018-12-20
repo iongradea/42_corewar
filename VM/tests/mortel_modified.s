@@ -15,7 +15,7 @@ live1:
 	sti r1,%:numero1,%1		# 7, 54 - 25, 190
 	sti r1,%:numero2,%1		# 7, 61 - 25, 215
 
-	ldi %:live,%-2,r6		# 7, 68 - 25, 240 / 0xb8 / used for numero1
+	ldi %:live,%-2,r6		# 7, 68 - 25, 240 / ptr : 184 => 0x03050b54 / used for numero1
 
 fork0:	
 	live %66				# 5, 73 - 10, 250
@@ -64,4 +64,4 @@ wait:
 	zjmp %:ecriture			# 3, 200 - 20, 2110
 
 ecriture: 
-	zjmp %:wait				# 3, 203 - 20, 2130
+	zjmp %:wait				# 3, 203 - 20, 2130, 50
