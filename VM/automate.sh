@@ -50,6 +50,9 @@ fi
 if [ ! -f $2 ]; then
 	echo -e ${RED}"Value '`echo $2`' isn't a valid path"${NC}
 	exit 1
+elif [ $1 -eq 0 ]; then
+	echo -e ${RED}"argument must be positive"${NC}
+	exit 1
 fi
 
 CYCLES=$1
