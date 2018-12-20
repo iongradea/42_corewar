@@ -127,6 +127,7 @@ typedef struct				s_ps
 	int						live;
 	int						op_size;
 	int						opcode;
+	unsigned char 			ocp;
 	int						color;
 	int						fl;
 	int						carry;

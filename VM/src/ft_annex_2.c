@@ -29,6 +29,7 @@ void		ft_new_ps_sub(t_ps *ps)
 	ps->live = 0;
 	ps->op_size = 0;
 	ps->opcode = 0;
+	ps->ocp = 0;
 	ps->fl = true;
 	ps->cyc_len = 0;
 	ps->next = NULL;

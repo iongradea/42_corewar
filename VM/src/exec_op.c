@@ -83,12 +83,14 @@ int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 		lst_ps->op_size = 2;
 		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
 	}
-	if (lst_ps->opcode != cur_opcode)
+	if (g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].ocp_param && !check_ocp_fmt(vm, lst_ps, g_op_tab[lst_ps->opcode].nb_param))
 	{
-		if (!check_ocp_fmt(vm, lst_ps, g_op_tab[lst_ps->opcode].nb_param))
-			lst_ps->op_size = 2;
-		else
-			lst_ps->op_size = ft_op_size_2(vm, lst_ps);
+		lst_ps->op_size = 1;
+		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
+	}
+	if (lst_ps->opcode != cur_opcode) // ocp sauvegarde !
+	{
+		lst_ps->op_size = ft_op_size_2(vm, lst_ps);
 		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
 	}
 	if (!ft_strcmp("live", g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
@@ -117,6 +119,7 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 		if (lst_ps->fl == true)
 		{
 			lst_ps->opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
+			lst_ps->ocp = *(vm->mem + ft_mem_cir_pos(lst_ps->pc + 1));
 			lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode) - 1;
 			lst_ps->fl = false;
 		}
