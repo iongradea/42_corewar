@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/13 13:13:59 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/27 15:08:08 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int		ft_cycle_len(int opcode)
 			return (g_op_tab[i].cycle);
 		}
 	}
-	return (2);
+	return (1);
 }
 
 /*
@@ -67,34 +67,44 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 	}
 }
 
-void			exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
+/*
+**	If opcode after cycles not match with current opcode
+**	need to jump to next op
+*/
+
+int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 {
+	int			cur_opcode;
+	int			cur_ocp;
+
 	lst_ps->fl = true;
-	if (!ft_valid_opcode(lst_ps->opcode))
+	cur_opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
+	cur_ocp = *(vm->mem + ft_mem_cir_pos(lst_ps->pc + 1));
+	if (!ft_valid_opcode(lst_ps->opcode) && (lst_ps->op_size = 2 || true))
+		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
+	if (g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].ocp_param \
+		&& (!check_ocp_fmt(vm, lst_ps, g_op_tab[lst_ps->opcode].nb_param) \
+		|| lst_ps->ocp != cur_ocp) && (lst_ps->op_size = 1 || true))
+		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
+	if (lst_ps->opcode != cur_opcode)
 	{
-		lst_ps->op_size = 2;
-		ft_next_op(lst_ps, NO_CARRY);
+		lst_ps->op_size = ft_op_size_2(vm, lst_ps);
+		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
 	}
-	else
-	{
-		if (!ft_strcmp("live", g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
-			vm->lives++;
-		g_verbose == 4 ? ft_printf("cycle : %d | player %d | ps_uid : %d | \
-			ps->pc : %d | %s\n", vm->cycle, lst_ps->uid, lst_ps->ps_uid, \
-			lst_ps->pc, g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : \
-			g_verbose;
-		g_op_tab[OP_TAB_INDEX(tmp->opcode)].fun(vm, tmp, tmp->opcode);
-	}
+	g_verbose == 4 ? ft_printf("cycle : %d | player %d | ps_uid : %d | \
+		ps->pc : %d | carry : %d | %s\n", vm->cycle, lst_ps->uid, \
+		lst_ps->ps_uid, lst_ps->pc, lst_ps->carry,
+		g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo) : g_verbose;
+	g_op_tab[OP_TAB_INDEX(tmp->opcode)].fun(vm, tmp, tmp->opcode);
+	return (EXIT_SUCCESS);
 }
 
 int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 {
 	int			i;
-	int			j;
 	t_ps		*tmp;
 
 	i = 0;
-	j = -1;
 	while (lst_ps->next)
 		lst_ps = lst_ps->next;
 	while (lst_ps)
@@ -103,10 +113,13 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 		if (lst_ps->fl == true)
 		{
 			lst_ps->opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
+			lst_ps->ocp = *(vm->mem + ft_mem_cir_pos(lst_ps->pc + 1));
 			lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode) - 1;
 			lst_ps->fl = false;
 		}
-		if (lst_ps->cyc_len == 0)
+		if (lst_ps->cyc_len == 0 \
+			|| (g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].ocp_param \
+			&& !check_ocp_fmt(vm, lst_ps, g_op_tab[lst_ps->opcode].nb_param)))
 			exec_op_2(lst_ps, vm, tmp);
 		lst_ps->cyc_len--;
 		lst_ps = lst_ps->prev;

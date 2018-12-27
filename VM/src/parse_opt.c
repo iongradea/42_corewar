@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:36 by bbichero          #+#    #+#             */
-/*   Updated: 2018/11/07 21:13:01 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/27 10:54:17 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int				ft_check_ps_uid(t_ps *ps, int uid)
 	while (ps_back)
 	{
 		if (uid == ps_back->uid)
-			return (0);
+			return (false);
 		ps_back = ps_back->next;
 	}
-	return (1);
+	return (true);
 }
 
 static int		ft_check_arg(char **av, int i, int ac, t_vm_mem *vm)
@@ -87,16 +87,16 @@ void			ft_jmp_opt(int ac, char **av, int *i)
 int				ft_usage(void)
 {
 	DEBUG ? ft_printf("launching ft_usage ...\n") : DEBUG;
-	ft_printf("usage: ./coreware [options] [[-n nbr] champion.cor] ...\n\
--v N			: Verbosity level\n\
+	ft_printf("usage: ./corewar [options] [[-n nbr] champion.cor] ...\n\
+-v <nbr>		: Verbosity level\n\
 	- 1		: show essentials\n\
 	- 2		: show lives\n\
 	- 3		: show cyles\n\
 	- 4		: show operations\n\
 	- 5		: show deaths\n\
 -N 			: advanced graphical mode using ncurse library\n\
--g nbr_cycles		: graphic mode, displays memory on console\n\
--dump N			: dumps the memory after N cycles\n\
--n nbr			: set \"nbr\" as number for the player\n");
+-g <nbr-cycles>	: graphic mode, displays memory on console\n\
+-dump <nbr>		: dumps the memory after N cycles\n\
+-n <nbr>		: set \"nbr\" as number for the player\n");
 	return (EXIT_SUCCESS);
 }
