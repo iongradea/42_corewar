@@ -32,6 +32,7 @@ static void			ft_live_sub(t_vm_mem *vm, t_ps *ps, t_ps *lst)
 	g_verbose == 2 ? ft_printf("ps->playr = %s\nJe suis en vie !\nps->live \
 							= %d\n\n", ps->playr, ps->live) : g_verbose;
 	vm->last_live = lst->uid;
+	vm->lives++;
 }
 
 int					ft_live(t_vm_mem *vm, t_ps *ps, int opcode)

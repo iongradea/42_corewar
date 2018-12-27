@@ -35,7 +35,7 @@ static int		ft_cycle_len(int opcode)
 			return (g_op_tab[i].cycle);
 		}
 	}
-	return (2);
+	return (1);
 }
 
 /*
@@ -83,7 +83,8 @@ int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 		lst_ps->op_size = 2;
 		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
 	}
-	if (g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].ocp_param && !check_ocp_fmt(vm, lst_ps, g_op_tab[lst_ps->opcode].nb_param))
+	if (g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].ocp_param \
+		&& !check_ocp_fmt(vm, lst_ps, g_op_tab[lst_ps->opcode].nb_param))
 	{
 		lst_ps->op_size = 1;
 		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
@@ -93,8 +94,6 @@ int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 		lst_ps->op_size = ft_op_size_2(vm, lst_ps);
 		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
 	}
-	if (!ft_strcmp("live", g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].mmemo))
-		vm->lives++;
 	g_verbose == 4 ? ft_printf("cycle : %d | player %d | ps_uid : %d | \
 		ps->pc : %d | carry : %d | %s\n", vm->cycle, lst_ps->uid, \
 		lst_ps->ps_uid, lst_ps->pc, lst_ps->carry,
@@ -123,7 +122,9 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 			lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode) - 1;
 			lst_ps->fl = false;
 		}
-		if (lst_ps->cyc_len == 0)
+		if (lst_ps->cyc_len == 0 \
+			|| (g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].ocp_param \
+			&& !check_ocp_fmt(vm, lst_ps, g_op_tab[lst_ps->opcode].nb_param)))
 			exec_op_2(lst_ps, vm, tmp);
 		lst_ps->cyc_len--;
 		lst_ps = lst_ps->prev;
