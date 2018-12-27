@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2018/10/27 11:24:11 by bbichero         ###   ########.fr        #
+#    Updated: 2018/12/15 18:07:49 by igradea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LBFT_SRC := ft_realloc.c ft_isspace.c	ft_isupper.c ft_islower.c	\
             ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c \
             ft_sqrt.c ft_abs.c ft_max.c ft_print_memory.c ft_itoa_base.c \
             ft_strnjoin.c ft_min.c ft_strndup.c ft_strsplit_c.c \
-			ft_arrlen.c free.c
+			ft_arrlen.c free.c ft_valid_int.c ft_str_not_nb.c
 
 GNL_SRC := get_next_line.c
 

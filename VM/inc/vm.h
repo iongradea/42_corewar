@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/13 16:27:09 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/27 15:15:34 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 
 # define UNDEFINED -1
 # define PS_DEAD -1
-# define MAX_NB_PLAYR 1000
 
 /*
 ** Debugging and errors
@@ -74,9 +73,9 @@
 
 # define OPCODE_SIZE 1
 # define OCP_SIZE 1
-# define REG_SIZE 1
-# define IND_SIZE 2
-# define DIR_SIZE(op) (g_op_tab[op].dir_size)
+# define REG_SIZE_P 1
+# define IND_SIZE_P 2
+# define DIR_SIZE_P(op) (g_op_tab[op].dir_size)
 
 /*
 ** carry
@@ -85,6 +84,7 @@
 # define CARRY_TRUE 1
 # define CARRY_FALSE 0
 # define NO_CARRY -1
+# define EMPTY_VAL 0
 
 /*
 ** VM
@@ -102,7 +102,7 @@
 # define OP_TAB_INDEX(opcode) (opcode - 1)
 # define IS_REG(nb) (nb < 16 && nb >= 0)
 # define PARAM_OCP_CODE(op, arg_i) (((op) >> ((3 - arg_i) * 2)) & 0b11)
-# define VALID_OCP_PART(ocp) (ocp == 0b01 || ocp == 0b10 || ocp == 0b11)
+# define VALID_OCP_PART(ocp) (ocp != 0b00)
 # define CHECK_OCP_END_00(ocp) (ocp & 0b11)
 # define TOTAL_SIZE (CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + 4)
 
@@ -122,10 +122,12 @@ typedef struct				s_ps
 	int						live;
 	int						op_size;
 	int						opcode;
+	unsigned char			ocp;
 	int						color;
 	int						fl;
 	int						carry;
 	int						cyc_len;
+	int						color_pc;
 	struct s_ps				*next;
 	struct s_ps				*prev;
 }							t_ps;
@@ -144,6 +146,7 @@ typedef struct				s_arena
 
 typedef struct				s_vm_mem
 {
+	int				set_uid[MAX_PLAYERS + 1];
 	unsigned char	mem[MEM_SIZE];
 	int				cycle;
 	int				real_cycle;
@@ -190,7 +193,8 @@ typedef struct				s_op
 ** Parsing functions & initialization functions
 */
 
-int							get_playr(int fd, t_ps **ps, int ac, char **av);
+int							get_playr(t_vm_mem *vm, t_ps **ps, int ac, \
+										char **av);
 void						add_data_vm(t_vm_mem *vm, t_ps *ps);
 t_vm_mem					*ft_new_mem(void);
 int							ft_parse_opt(int ac, char **av, t_vm_mem *vm);
@@ -205,7 +209,7 @@ void						cpu_checks(t_vm_mem *vm, t_ps *ps);
 
 int							cpu(t_vm_mem *vm, t_ps *ps);
 int							exec_op(t_vm_mem *vm, t_ps *lst);
-void						exec_op_2(t_ps *lst, t_vm_mem *vm, t_ps *tmp);
+int							exec_op_2(t_ps *lst, t_vm_mem *vm, t_ps *tmp);
 int							ft_nb_live(t_ps *ps);
 void						ft_kill_reset_ps(t_vm_mem *vm);
 int							ft_one_live_ps(t_ps *ps);
@@ -249,14 +253,15 @@ int							ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, \
 															unsigned int type);
 int							ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i);
 int							ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg);
+int							ft_op_size_2(t_vm_mem *vm, t_ps *ps);
 int							ft_get_arg(t_vm_mem *vm, t_ps *ps, int arg_i);
 int							ft_get_val(t_ps *ps, t_vm_mem *vm, int arg, \
 																int arg_i);
 unsigned char				ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
 int							check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
 t_ps						*ft_cpy_playr(t_ps *ps);
-void						ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, \
-														int pos, int size);
+void						ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, \
+											int size);
 int							ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, \
 																int idx_mod);
 
@@ -277,7 +282,7 @@ int							ft_is_pc(t_ps *ps, int index);
 */
 
 void						ft_add_ps(t_ps *ps, t_ps *tmp);
-int							ft_next_op(t_ps *ps, int carry_mod);
+int							ft_next_op(t_ps *ps, int carry_mod, int val);
 int							ft_get_code_size(int fd);
 int							ft_prt_winner(t_vm_mem *vm, t_ps *ps);
 int							ft_ps_uid(void);
@@ -304,7 +309,7 @@ void						ft_ncurse(t_vm_mem *vm, t_ps *ps);
 void						ft_print_arena(t_vm_mem *vm, t_ps *ps);
 void						ft_print_arena_2(t_vm_mem *vm, int i);
 void						ft_init_ncurses(void);
-void						ft_init_arena(t_vm_mem *vm);
+void						ft_init_arena(t_vm_mem *vm, t_ps *ps);
 void						ft_print_lives(t_vm_mem *vm, int i);
 void						ft_print_game_stats(t_vm_mem *vm, t_ps *ps);
 

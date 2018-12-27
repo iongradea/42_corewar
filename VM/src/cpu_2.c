@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 19:40:42 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/09 16:45:32 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/17 14:38:20 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ static void	ft_kill_reset_ps_sub(t_ps *ps, t_ps **tmp)
 
 void		ft_kill_reset_ps(t_vm_mem *vm)
 {
-	t_ps *tmp;
-	t_ps *ps;
+	t_ps	*tmp;
+	t_ps	*ps;
+	int		i;
 
 	DEBUG ? ft_printf("launching ft_kill_reset_ps ...\n") : DEBUG;
+	i = -1;
 	ps = *(vm->ps_st);
-	vm->playr_live[0] = 0;
-	vm->playr_live[1] = 0;
-	vm->playr_live[2] = 0;
-	vm->playr_live[3] = 0;
+	while (++i < MAX_PLAYERS)
+		vm->playr_live[i] = 0;
 	while (ps)
 	{
 		tmp = NULL;

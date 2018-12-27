@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/11/09 17:04:26 by romontei         ###   ########.fr       */
+/*   Updated: 2018/12/17 14:35:11 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 
 #ifndef OP_H
 # define OP_H
-
-/*
-** #define IND_SIZE				2
-** #define REG_SIZE				4
-** #define DIR_SIZE				REG_SIZE
-*/
 
 # define COMMENT_CHAR			'#'
 # define LABEL_CHAR				':'
@@ -54,6 +48,7 @@
 # define CYCLE_DELTA				50
 # define NBR_LIVE				21
 # define MAX_CHECKS				9
+# define REG_SIZE				4
 
 /*
 ** typedef char	t_arg_type;
@@ -64,6 +59,9 @@
 # define T_DIR					0b10
 # define T_IND					0b11
 # define T_END					0b00
+# define C_REG					0b01
+# define C_DIR 					0b10
+# define C_IND 					0b100
 
 /*
 ** structure used at the beginning of binary file (a champion)

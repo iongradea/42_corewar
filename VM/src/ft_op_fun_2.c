@@ -29,7 +29,19 @@ int					ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, \
 														unsigned int type)
 {
 	DEBUG ? ft_printf("launching ft_is_type ...\n") : DEBUG;
-	if (ft_get_ocp(vm, ps, arg_i) == type)
+	if (!(g_op_tab[OP_TAB_INDEX(ps->opcode)].ocp_param))
+	{
+		if (type == T_DIR)
+			if (g_op_tab[OP_TAB_INDEX(ps->opcode)].param[0] & C_DIR)
+				return (true);
+		if (type == T_REG)
+			if (g_op_tab[OP_TAB_INDEX(ps->opcode)].param[0] & C_REG)
+				return (true);
+		if (type == T_IND)
+			if (g_op_tab[OP_TAB_INDEX(ps->opcode)].param[0] & C_IND)
+				return (true);
+	}
+	else if (ft_get_ocp(vm, ps, arg_i) == type)
 		return (true);
 	return (false);
 }
@@ -44,7 +56,8 @@ unsigned char		ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i)
 	unsigned char	ocp;
 
 	DEBUG ? ft_printf("launching ft_get_ocp ...\n") : DEBUG;
-	ocp = *(vm->mem + ft_mem_cir_pos(ps->pc + OCP_SIZE));
+	(void)vm;
+	ocp = ps->ocp;
 	ocp = (ocp >> ((3 - arg_i) * 2));
 	ocp = ocp & 0b11;
 	return (ocp);
@@ -56,6 +69,12 @@ static int			check_ocp_param(t_vm_mem *vm, t_ps *ps, int arg_i)
 
 	DEBUG ? ft_printf("launching check_ocp_param ...\n") : DEBUG;
 	code = ft_get_ocp(vm, ps, arg_i);
+	if (code == T_DIR)
+		return (g_op_tab[OP_TAB_INDEX(ps->opcode)].param[arg_i] & C_DIR);
+	if (code == T_REG)
+		return (g_op_tab[OP_TAB_INDEX(ps->opcode)].param[arg_i] & C_REG);
+	if (code == T_IND)
+		return (g_op_tab[OP_TAB_INDEX(ps->opcode)].param[arg_i] & C_IND);
 	if (!VALID_OCP_PART(code))
 		return (false);
 	return (true);

@@ -8,6 +8,15 @@ DEST="src"
 DEST_ION="dst_ion"
 DEST_ZAZ="dst_zaz"
 FILE_DST="res_tst"
+DIFF="-diff"
+
+# Colors settings
+ION='\033[1;36m'
+ZAZ='\033[1;32m'
+OK='\033[0;32m'
+KO='\033[0;31m'
+NC='\033[0m'
+
 
 mkdir $DEST 2> /dev/null || true
 mkdir $DEST_ION 2> /dev/null || true
@@ -30,15 +39,20 @@ done
 
 cp $EXEC_PATH/$ASM $DEST_ION
 cp $EXEC_PATH_ZAZ/$ASM $DEST_ZAZ
-rm $FILE_DST 2> /dev/null || true
-touch $FILE_DST
+
+chmod 744 $DEST_ION/*
+chmod 744 $DEST_ZAZ/*
 
 for f in $DEST_ION/*.s ; do
-	printf "`echo "ION |$f| :"` `$DEST_ION/$ASM "$f"`\n" >> $FILE_DST
-done
-
-for f in $DEST_ZAZ/*.s ; do
-	printf "`echo "ZAZ |$f| :"` `$DEST_ZAZ/$ASM "$f"`\n" >> $FILE_DST
+   file="$(echo "$f" | rev | cut -d '/' -f 1 | rev)"
+   if [[ $1 = $DIFF ]]; then
+       echo -e "${ION}ION${NC} |$f| :" `$DEST_ION/$ASM $DEST_ION/$file`
+       echo -e "${ZAZ}ZAZ${NC} |$f| :" `$DEST_ZAZ/$ASM $DEST_ZAZ/$file`
+       echo ""
+   else
+       echo -e "${ION}ION${NC} |$f| :" `$DEST_ION/$ASM $DEST_ION/$file` > /dev/null
+       echo -e "${ZAZ}ZAZ${NC} |$f| :" `$DEST_ZAZ/$ASM $DEST_ZAZ/$file` > /dev/null
+   fi
 done
 
 for f in $DEST_ION/*.cor ; do
@@ -57,5 +71,10 @@ done
 
 for f in $DEST_ION/*.hex ; do
 	spl="$(echo "$f" | rev | cut -d '/' -f 1 | rev)"
-	printf "\n`echo $spl : ` `diff "$f" $DEST_ZAZ/$spl`\n\n"
+    diff=`diff "$f" $DEST_ZAZ/$spl`
+    if [ `echo -n $diff | wc -m` -eq 0 ]; then
+        printf "\n`echo $spl : [${OK}OK${NC}] $diff`\n\n"
+    else
+        printf "\n`echo $spl : [${KO}KO${NC}] $diff`\n\n"
+    fi
 done

@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/12/08 16:58:29 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/15 18:45:52 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ t_vm_mem		*ft_new_mem(void)
 {
 	t_vm_mem	*vm;
 
-	DEBUG ? ft_printf("launching ft_new_mem ...\n") : DEBUG;
 	if (!(vm = (t_vm_mem*)ft_memalloc(sizeof(t_vm_mem))))
 		exit(error_msg("ft_new_mem : error heap allocation"));
 	ft_bzero(vm->mem, MEM_SIZE);
+	ft_bzero(vm->set_uid, sizeof(vm->set_uid));
 	vm->cycle = 1;
 	vm->real_cycle = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
