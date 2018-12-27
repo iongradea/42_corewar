@@ -160,3 +160,38 @@ File tree structure details :
 
 ![Alt text](./img/vm_file_struct.png?raw=true "Title")
 
+## Options
+
+1. Verbose: -v <verbosity-number>
+	- 1	: show essentials
+	- 2	: show lives
+	- 3	: show cyles
+	- 4	: show operations
+	- 5	: show deaths
+
+2. Graphical mode (Ncurse library)
+
+3. Simple graphical mode (display memory dump): -g <nbr-cycles>
+
+4. Dump memory after N cycle: -dump <cycle-number>
+A script has been write to use this options easly
+
+5. Set player number: -n <nbr>
+
+## Execution
+
+When a hero has been compiled to .cor, we need to launch `corewar` binary.
+No mandatory options are set.
+`./corewar some-champion.cor`
+
+First the map is charged in memory with `MEM_SIZE` and struct `t_vm_mem` is initialized.
+Then options are parsed and just after players (champions) are saved in `t_ps` struct.
+Max champion number (`MAX_PLAYERS`) is set in `VM/inc/op.h`
+In this situation the champion UID is automaticaly set to 999 (each following champions will have 998, 997 and 996)
+All data player data be now charged in current map.
+Game start now, each operations are read and execute.
+Operations are execute when all the needed cycle have been done, if `ps->opcode` is no more valif when cycle are done, we jump to 2 bytes.
+
+Lives are accepted from :
+ - current process
+ - forked process
