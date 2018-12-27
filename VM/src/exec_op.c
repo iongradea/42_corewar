@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:21:45 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/14 15:41:08 by bbichero         ###   ########.fr       */
+/*   Updated: 2018/12/27 15:08:08 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,18 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 {
 	int			cur_opcode;
-	int 		cur_ocp;
+	int			cur_ocp;
 
 	lst_ps->fl = true;
 	cur_opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
 	cur_ocp = *(vm->mem + ft_mem_cir_pos(lst_ps->pc + 1));
-	if (!ft_valid_opcode(lst_ps->opcode))
-	{
-		lst_ps->op_size = 2;
+	if (!ft_valid_opcode(lst_ps->opcode) && (lst_ps->op_size = 2 || true))
 		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
-	}
 	if (g_op_tab[OP_TAB_INDEX(lst_ps->opcode)].ocp_param \
 		&& (!check_ocp_fmt(vm, lst_ps, g_op_tab[lst_ps->opcode].nb_param) \
-		|| lst_ps->ocp != cur_ocp))
-	{
-		lst_ps->op_size = 1;
+		|| lst_ps->ocp != cur_ocp) && (lst_ps->op_size = 1 || true))
 		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
-	}
-	if (lst_ps->opcode != cur_opcode) 
+	if (lst_ps->opcode != cur_opcode)
 	{
 		lst_ps->op_size = ft_op_size_2(vm, lst_ps);
 		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
@@ -108,11 +102,9 @@ int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 {
 	int			i;
-	int			j;
 	t_ps		*tmp;
 
 	i = 0;
-	j = -1;
 	while (lst_ps->next)
 		lst_ps = lst_ps->next;
 	while (lst_ps)

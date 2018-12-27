@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/16 15:11:26 by igradea          ###   ########.fr       */
+/*   Updated: 2018/12/27 15:08:47 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct				s_ps
 	int						live;
 	int						op_size;
 	int						opcode;
-	unsigned char 			ocp;
+	unsigned char			ocp;
 	int						color;
 	int						fl;
 	int						carry;
