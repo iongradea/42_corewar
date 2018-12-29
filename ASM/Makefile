@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2018/04/23 14:10:39 by igradea          ###   ########.fr        #
+#    Updated: 2018/12/29 16:55:53 by bbichero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,10 @@ SRC = main.c parse_inst.c parse_inst_2.c op.c ft_debug.c ft_ch_args.c \
 			ft_annex.c ft_ch_calc_args.c ft_inst_size.c calc_args.c \
 			create_out_file.c ft_free.c ft_annex_2.c get_progname.c \
 			get_progcomment.c 
+
+CHAMPS_DIR = vm_champs/champs
+CHAMPS = 42.s Car.s Gagnant.s Octobre_Rouge_V4.2.s jumper.s mortel.s
+SRC_CHAMPS = $(addprefix ../$(CHAMPS_DIR)/, $(CHAMPS))
 
 SRCS = $(addprefix ./$(SRC_DIR)/, $(SRC))
 
@@ -80,6 +84,9 @@ clean:
 fclean: clean
 	$(MAKE) -C $(LBFT_DIR) fclean
 	$(RM) -rfv $(NAME)
+
+champions:
+	./$(NAME) $(SRC_CHAMPS)
 
 re: fclean all
 
