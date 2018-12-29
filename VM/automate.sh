@@ -16,8 +16,8 @@ elif [ ${#2} -eq 0 ]; then
 	echo -e ${RED}"you must provide a champion"${NC}
 	echo $USAGE
 	exit 1
-elif [ ${#3} -gt 0 ]; then
-	echo -e ${RED}"you must provide 2 arguments"${NC}
+elif [ ${#6} -gt 0 ]; then
+	echo -e ${RED}"you must provide at max 5 arguments"${NC}
 	echo $USAGE
 	exit 1
 elif [ ! -f "./corewar" ]; then
@@ -50,16 +50,25 @@ fi
 if [ ! -f $2 ]; then
 	echo -e ${RED}"Value '`echo $2`' isn't a valid path"${NC}
 	exit 1
+elif [ ${#3} -gt 0 ] && [ ! -f $3 ]; then
+	echo -e ${RED}"Value '`echo $3`' isn't a valid path"${NC}
+	exit 1
+elif [ ${#4} -gt 0 ] && [ ! -f $4 ]; then
+	echo -e ${RED}"Value '`echo $4`' isn't a valid path"${NC}
+	exit 1
+elif [ ${#5} -gt 0 ] && [ ! -f $5 ]; then
+	echo -e ${RED}"Value '`echo $5`' isn't a valid path"${NC}
+	exit 1
 elif [ $1 -eq 0 ]; then
 	echo -e ${RED}"argument must be positive"${NC}
 	exit 1
 fi
 
 CYCLES=$1
-CHAMP=$2
+CHAMPS="$2 $3 $4 $5"
 
 # Execute corewar binary with dump option
-./corewar -dump $CYCLES $CHAMP
+./corewar -dump $CYCLES $CHAMPS
 
 while true; do
 	echo "Cycle: "$CYCLES
@@ -85,7 +94,7 @@ while true; do
 	fi
 
 	if [ ${#MATCH_NB} -ne 0 ]; then
-		./corewar -dump $CYCLES $CHAMP
+		./corewar -dump $CYCLES $CHAMPS
 	elif [[ $JUMP -gt 0 ]]; then
 		if [[ $OPERAND = "+" ]]; then
 			CYCLES=$((CYCLES + JUMP))
@@ -94,31 +103,31 @@ while true; do
 		fi
 		if [[ $CYCLES -le 0 ]]; then
 			CYCLES=$((1))
-			./corewar -dump $CYCLES $CHAMP
+			./corewar -dump $CYCLES $CHAMPS
 			echo -e ${YEL}"Cycles can't get under 0, cyka blyat..."${NC}
 		else
-			./corewar -dump $CYCLES $CHAMP
+			./corewar -dump $CYCLES $CHAMPS
 		fi
 	else
 		if [[ $input = "+" ]]; then
 			CYCLES=$((CYCLES + 100))
-			./corewar -dump $CYCLES $CHAMP
+			./corewar -dump $CYCLES $CHAMPS
 		fi
 		if [[ $input = "-" ]]; then
 			CYCLES=$((CYCLES - 100))
 			if [[ $CYCLES -le 0 ]]; then
 				CYCLES=$((1))
-				./corewar -dump $CYCLES $CHAMP
+				./corewar -dump $CYCLES $CHAMPS
 				echo -e ${YEL}"Cycles can't get under 0, cyka blyat..."${NC}
 			else
-				./corewar -dump $CYCLES $CHAMP
+				./corewar -dump $CYCLES $CHAMPS
 			fi
 		else
 			if [ ${#JUMP} -eq 0 ]; then
 				JUMP=100
 			fi
 			CYCLES=$(($JUMP $OPERAND $CYCLES))
-			./corewar -dump $CYCLES $CHAMP
+			./corewar -dump $CYCLES $CHAMPS
 		fi
 	fi
 done
