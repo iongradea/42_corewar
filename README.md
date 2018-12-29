@@ -184,13 +184,15 @@ When a hero has been compiled to .cor, we need to launch `corewar` binary.
 No mandatory options are set.
 `./corewar some-champion.cor`
 
-First the map is charged in memory with `MEM_SIZE` and struct `t_vm_mem` is initialized.
-Then options are parsed and just after players (champions) are saved in `t_ps` struct.
-Max champion number (`MAX_PLAYERS`) is set in `VM/inc/op.h`
-In this situation the champion UID is automaticaly set to 999 (each following champions will have 998, 997 and 996)
-All data player data be now charged in current map.
-Game start now, each operations are read and execute.
-Operations are execute when all the needed cycle have been done, if `ps->opcode` is no more valif when cycle are done, we jump to 2 bytes.
+- First the map is charged in memory with `MEM_SIZE` and struct `t_vm_mem` is initialized
+- Options are parsed and just after players (champions) are saved in `t_ps` struct
+- Max champion number (`MAX_PLAYERS`) is set in `VM/inc/op.h`
+
+Champion UID is automaticaly set to 999 (each following champions will have 998, 997 and 996)
+- Player data is now charged in current map
+- Game start, each operations are executed in order they are read
+Operations are execute when all the needed cycle have been done.
+If `ps->opcode` is no more valid when cycle are done, we jump to 2 bytes.
 
 Lives are accepted from :
  - current process
