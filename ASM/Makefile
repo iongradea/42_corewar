@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2018/12/29 16:55:53 by bbichero         ###   ########.fr        #
+#    Updated: 2018/12/29 16:59:02 by bbichero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC = main.c parse_inst.c parse_inst_2.c op.c ft_debug.c ft_ch_args.c \
 CHAMPS_DIR = vm_champs/champs
 CHAMPS = 42.s Car.s Gagnant.s Octobre_Rouge_V4.2.s jumper.s mortel.s
 SRC_CHAMPS = $(addprefix ../$(CHAMPS_DIR)/, $(CHAMPS))
+CHAMPS_COR = $(SRC_CHAMPS:.s=.cor)
 
 SRCS = $(addprefix ./$(SRC_DIR)/, $(SRC))
 
@@ -64,7 +65,7 @@ else
 	CFLAGS = -Wall -Wextra -Werror
 endif
 
-all: $(NAME)
+all: $(NAME) champions
 
 # compiling run binary
 $(NAME): $(OBJS)
@@ -80,6 +81,7 @@ clean:
 	$(MAKE) -C $(LBFT_DIR) clean
 	$(RM) -rfv $(NAME)
 	$(RM) -rfv $(OBJ_DIR) 2> /dev/null || true
+	$(RM) $(CHAMPS_COR)
 
 fclean: clean
 	$(MAKE) -C $(LBFT_DIR) fclean
@@ -88,7 +90,7 @@ fclean: clean
 champions:
 	./$(NAME) $(SRC_CHAMPS)
 
-re: fclean all
+re: fclean all champions
 
 # Non-file targets
 .PHONY: all, re, clean, fclean
