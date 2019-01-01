@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 19:44:20 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/09 15:13:13 by igradea          ###   ########.fr       */
+/*   Updated: 2019/01/01 18:46:43 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		prt_mem_uid(t_vm_mem *vm)
 	}
 }
 
-int		protect_define(void)
+int			protect_define(void)
 {
 	DEBUG ? ft_printf("launching protect_define ...\n") : DEBUG;
 	if (MEM_SIZE % 1024 != 0 || MEM_SIZE > 101024)

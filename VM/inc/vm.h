@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/27 15:15:34 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/01 18:46:18 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,7 +299,7 @@ void						prt_op(void);
 void						prt_ps(t_ps *ps);
 void						prt_vm(t_vm_mem *vm);
 void						prt_mem_uid(t_vm_mem *vm);
-int		protect_define(void);
+int							protect_define(void);
 
 /*
 ** Ncurse functions
