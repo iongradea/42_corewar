@@ -2,7 +2,7 @@
 
 ZAZ_CHAMPS_DIR="../../vm_champs/champs"
 TST_CHAMPS_DIR="../../VM/tests"
-EXEC_PATH="../"
+EXEC_PATH=".."
 EXEC="asm"
 
 for f in $ZAZ_CHAMPS_DIR/*.s ; do
