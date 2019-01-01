@@ -12,26 +12,6 @@
 
 #include "../inc/vm.h"
 
-static int		protect_define(void)
-{
-	DEBUG ? ft_printf("launching protect_define ...\n") : DEBUG;
-	if (MEM_SIZE % 1024 != 0 || MEM_SIZE > 101024)
-		return (0);
-	if (REG_NUMBER != 16)
-		return (0);
-	if (REG_SIZE != 4)
-		return (0);
-	if (MAX_PLAYERS != 4)
-		return (0);
-	if (MAX_CHECKS != 9)
-		return (0);
-	if (NBR_LIVE != 21)
-		return (0);
-	if (CYCLE_DELTA < 0 || CYCLE_DELTA > CYCLE_TO_DIE)
-		return (0);
-	return (1);
-}
-
 /*
 ** ft_new_mem	= Instantiate VM
 ** ft_parse_opt = parse cli arg

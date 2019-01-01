@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:35:08 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/29 15:11:56 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/01 20:10:56 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int					ft_arg_size(t_vm_mem *vm, t_ps *ps, int arg_i)
 		return (DIR_SIZE_P(OP_TAB_INDEX(*(vm->mem + ft_mem_cir_pos(ps->pc)))));
 	if (ft_is_type(vm, ps, arg_i, T_IND))
 		return (IND_SIZE_P);
-//	return (1);
-	exit(error_msg("ft_arg_size : error unknown type"));
+	return (1);
 }
 
 int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg)
 {
 	int				op_size;
 
+	op_size = 1;
 	if (nb_arg == 1)
 		op_size = OPCODE_SIZE + OCP_SIZE + ft_arg_size(vm, ps, 0);
 	else if (nb_arg == 2)
@@ -37,8 +37,6 @@ int					ft_op_size(t_vm_mem *vm, t_ps *ps, int nb_arg)
 	else if (nb_arg == 3)
 		op_size = OPCODE_SIZE + OCP_SIZE + ft_arg_size(vm, ps, 0)
 			+ ft_arg_size(vm, ps, 1) + ft_arg_size(vm, ps, 2);
-	else
-		exit(error_msg("ft_get_op_size : error wrong nb_arg"));
 	return (op_size);
 }
 
@@ -89,8 +87,6 @@ int					ft_get_val(t_ps *ps, t_vm_mem *vm, int arg, int arg_i)
 	}
 	else if (ft_is_type(vm, ps, arg_i, T_DIR))
 		val = arg;
-	else
-		exit(error_msg("ft_get_val : error unknown parameter type"));
 	return (val);
 }
 
