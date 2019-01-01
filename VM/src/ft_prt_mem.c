@@ -61,7 +61,7 @@ static unsigned int	ft_get_color(t_vm_mem *vm, t_ps *ps, int index)
 		lst = lst->next;
 	}
 	if (lst == NULL)
-		exit(error_msg("ft_get_color : uid not found in processes ... weird!"));
+		return (0);
 	return (lst->color);
 }
 

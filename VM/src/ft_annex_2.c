@@ -44,6 +44,7 @@ int			ft_op_size_2(t_vm_mem *vm, t_ps *ps)
 
 	ocp_size = g_op_tab[ps->opcode].ocp_param;
 	nb_arg = g_op_tab[ps->opcode].nb_param;
+	op_size = 1;
 	if (nb_arg == 1)
 		op_size = OPCODE_SIZE + ocp_size + ft_arg_size(vm, ps, 0);
 	else if (nb_arg == 2)
@@ -52,8 +53,6 @@ int			ft_op_size_2(t_vm_mem *vm, t_ps *ps)
 	else if (nb_arg == 3)
 		op_size = OPCODE_SIZE + ocp_size + ft_arg_size(vm, ps, 0)
 			+ ft_arg_size(vm, ps, 1) + ft_arg_size(vm, ps, 2);
-	else
-		exit(error_msg("ft_get_op_size_2 : error wrong nb_arg"));
 	return (op_size);
 }
 

@@ -46,7 +46,7 @@ static int		ft_cycle_len(int opcode)
 
 void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 {
-	if (vm->cycle % vm->cycle_to_die == 0)
+	if (vm->real_cycle == vm->cycle_to_die)
 	{
 		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", \
 									vm->check, vm->cycle_to_die) : DEBUG;
@@ -70,17 +70,14 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 /*
 **	If opcode after cycles not match with current opcode
 **	need to jump to next op
-**  ocp isn't check anymore
 */
 
 int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 {
 	int			cur_opcode;
-	int			cur_ocp;
 
 	lst_ps->fl = true;
 	cur_opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
-	cur_ocp = *(vm->mem + ft_mem_cir_pos(lst_ps->pc + 1));
 	if (!ft_valid_opcode(lst_ps->opcode) && ((lst_ps->op_size = 2) || true))
 		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
 	if (lst_ps->opcode != cur_opcode)
@@ -96,10 +93,6 @@ int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 	return (EXIT_SUCCESS);
 }
 
-/*
-**  ocp isn't check anymore
-*/
-
 int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 {
 	int			i;
@@ -111,16 +104,19 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 	while (lst_ps)
 	{
 		tmp = lst_ps;
-		if (lst_ps->fl == true)
+		if (lst_ps->live > PS_DEAD)
 		{
-			lst_ps->opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
-			lst_ps->ocp = *(vm->mem + ft_mem_cir_pos(lst_ps->pc + 1));
-			lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode) - 1;
-			lst_ps->fl = false;
+			if (lst_ps->fl == true)
+			{
+				lst_ps->opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
+				lst_ps->ocp = *(vm->mem + ft_mem_cir_pos(lst_ps->pc + 1));
+				lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode) - 1;
+				lst_ps->fl = false;
+			}
+			if (lst_ps->cyc_len == 0)
+				exec_op_2(lst_ps, vm, tmp);
+			lst_ps->cyc_len--;
 		}
-		if (lst_ps->cyc_len == 0)
-			exec_op_2(lst_ps, vm, tmp);
-		lst_ps->cyc_len--;
 		lst_ps = lst_ps->prev;
 	}
 	return (EXIT_SUCCESS);
