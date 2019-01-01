@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:39:35 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/29 14:55:07 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/01 20:13:35 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int					ft_is_type(t_vm_mem *vm, t_ps *ps, int arg_i, \
 														unsigned int type)
 {
 	DEBUG ? ft_printf("launching ft_is_type ...\n") : DEBUG;
-	//ft_printf("ps->opcode: %d - arg i: %d - type: %d\n", ps->opcode, arg_i, type);
-	//ft_printf("ft_get_ocp: %d\n", ft_get_ocp(vm, ps, arg_i));
 	if (!(g_op_tab[OP_TAB_INDEX(ps->opcode)].ocp_param))
 	{
 		if (type == T_DIR)
