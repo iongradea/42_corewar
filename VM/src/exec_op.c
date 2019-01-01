@@ -76,11 +76,9 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 {
 	int			cur_opcode;
-	int			cur_ocp;
 
 	lst_ps->fl = true;
 	cur_opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
-	cur_ocp = *(vm->mem + ft_mem_cir_pos(lst_ps->pc + 1));
 	if (!ft_valid_opcode(lst_ps->opcode) && ((lst_ps->op_size = 2) || true))
 		return (ft_next_op(lst_ps, NO_CARRY, EMPTY_VAL));
 	if (lst_ps->opcode != cur_opcode)
