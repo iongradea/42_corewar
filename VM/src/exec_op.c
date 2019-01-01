@@ -46,7 +46,7 @@ static int		ft_cycle_len(int opcode)
 
 void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 {
-	if (vm->cycle % vm->cycle_to_die == 0)
+	if (vm->real_cycle == vm->cycle_to_die)
 	{
 		DEBUG ? ft_printf("KILL_RESET - check : %d - cycle_to_die : %d\n", \
 									vm->check, vm->cycle_to_die) : DEBUG;
@@ -104,16 +104,19 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 	while (lst_ps)
 	{
 		tmp = lst_ps;
-		if (lst_ps->fl == true)
+		if (lst_ps->live <= PS_DEAD)
 		{
-			lst_ps->opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
-			lst_ps->ocp = *(vm->mem + ft_mem_cir_pos(lst_ps->pc + 1));
-			lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode) - 1;
-			lst_ps->fl = false;
+			if (lst_ps->fl == true)
+			{
+				lst_ps->opcode = *(vm->mem + ft_mem_cir_pos(lst_ps->pc));
+				lst_ps->ocp = *(vm->mem + ft_mem_cir_pos(lst_ps->pc + 1));
+				lst_ps->cyc_len = ft_cycle_len(lst_ps->opcode) - 1;
+				lst_ps->fl = false;
+			}
+			if (lst_ps->cyc_len == 0)
+				exec_op_2(lst_ps, vm, tmp);
+			lst_ps->cyc_len--;
 		}
-		if (lst_ps->cyc_len == 0)
-			exec_op_2(lst_ps, vm, tmp);
-		lst_ps->cyc_len--;
 		lst_ps = lst_ps->prev;
 	}
 	return (EXIT_SUCCESS);
