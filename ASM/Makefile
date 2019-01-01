@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2018/12/29 16:59:02 by bbichero         ###   ########.fr        #
+#    Updated: 2019/01/01 20:19:42 by bbichero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ clean:
 	$(MAKE) -C $(LBFT_DIR) clean
 	$(RM) -rfv $(NAME)
 	$(RM) -rfv $(OBJ_DIR) 2> /dev/null || true
-	$(RM) $(CHAMPS_COR)
+	$(RM) $(CHAMPS_COR) 2> /dev/null || true
 
 fclean: clean
 	$(MAKE) -C $(LBFT_DIR) fclean
