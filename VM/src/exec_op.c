@@ -104,7 +104,7 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 	while (lst_ps)
 	{
 		tmp = lst_ps;
-		if (lst_ps->live <= PS_DEAD)
+		if (lst_ps->live > PS_DEAD)
 		{
 			if (lst_ps->fl == true)
 			{
