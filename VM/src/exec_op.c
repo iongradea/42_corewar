@@ -70,7 +70,6 @@ void			cpu_checks(t_vm_mem *vm, t_ps *ps)
 /*
 **	If opcode after cycles not match with current opcode
 **	need to jump to next op
-**  ocp isn't check anymore
 */
 
 int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
@@ -93,10 +92,6 @@ int				exec_op_2(t_ps *lst_ps, t_vm_mem *vm, t_ps *tmp)
 	g_op_tab[OP_TAB_INDEX(tmp->opcode)].fun(vm, tmp, tmp->opcode);
 	return (EXIT_SUCCESS);
 }
-
-/*
-**  ocp isn't check anymore
-*/
 
 int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 {

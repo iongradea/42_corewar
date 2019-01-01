@@ -299,7 +299,7 @@ void						prt_op(void);
 void						prt_ps(t_ps *ps);
 void						prt_vm(t_vm_mem *vm);
 void						prt_mem_uid(t_vm_mem *vm);
-int							ft_main_debug(t_vm_mem *vm, t_ps *ps);
+int		protect_define(void);
 
 /*
 ** Ncurse functions
