@@ -10,6 +10,28 @@ DEST_ZAZ="dst_zaz"
 FILE_DST="res_tst"
 DIFF="-diff"
 
+# Test for path existance
+if [ ! -f ${EXEC_PATH_ZAZ}/${ASM} ]; then
+	echo "zaz asm binary doesn't exist"
+	exit 1
+elif [ -f ${EXEC_PATH_ZAZ}/${ASM} ] && [ ! -x ${EXEC_PATH_ZAZ}/${ASM} ]; then
+	echo "zaz asm file is not an executable"
+	exit 1
+fi
+
+if [ ! -f ${EXEC_PATH}/${ASM} ]; then
+	echo "asm binary doesn't exist"
+	exit 1
+elif [ -f ${EXEC_PATH}/${ASM} ] && [ ! -x ${EXEC_PATH}/${ASM} ]; then
+	echo "asm file is not an executable"
+	exit 1
+fi
+
+if [ ! -d ${SRC} ]; then
+	echo "src champions dir doesn't exist"
+	exit 1
+fi
+
 # Colors settings
 ION='\033[1;36m'
 ZAZ='\033[1;32m'
@@ -44,15 +66,15 @@ chmod 744 $DEST_ION/*
 chmod 744 $DEST_ZAZ/*
 
 for f in $DEST_ION/*.s ; do
-   file="$(echo "$f" | rev | cut -d '/' -f 1 | rev)"
-   if [[ $1 = $DIFF ]]; then
-       echo -e "${ION}ION${NC} |$f| :" `$DEST_ION/$ASM $DEST_ION/$file`
-       echo -e "${ZAZ}ZAZ${NC} |$f| :" `$DEST_ZAZ/$ASM $DEST_ZAZ/$file`
-       echo ""
-   else
-       echo -e "${ION}ION${NC} |$f| :" `$DEST_ION/$ASM $DEST_ION/$file` > /dev/null
-       echo -e "${ZAZ}ZAZ${NC} |$f| :" `$DEST_ZAZ/$ASM $DEST_ZAZ/$file` > /dev/null
-   fi
+	file="$(echo "$f" | rev | cut -d '/' -f 1 | rev)"
+	if [[ $1 = $DIFF ]]; then
+		echo -e "${ION}ION${NC} |$f| :" `$DEST_ION/$ASM $DEST_ION/$file`
+		echo -e "${ZAZ}ZAZ${NC} |$f| :" `$DEST_ZAZ/$ASM $DEST_ZAZ/$file`
+		echo ""
+	else
+		echo -e "${ION}ION${NC} |$f| :" `$DEST_ION/$ASM $DEST_ION/$file` > /dev/null
+		echo -e "${ZAZ}ZAZ${NC} |$f| :" `$DEST_ZAZ/$ASM $DEST_ZAZ/$file` > /dev/null
+	fi
 done
 
 for f in $DEST_ION/*.cor ; do
@@ -71,10 +93,10 @@ done
 
 for f in $DEST_ION/*.hex ; do
 	spl="$(echo "$f" | rev | cut -d '/' -f 1 | rev)"
-    diff=`diff "$f" $DEST_ZAZ/$spl`
-    if [ `echo -n $diff | wc -m` -eq 0 ]; then
-        printf "\n`echo $spl : [${OK}OK${NC}] $diff`\n\n"
-    else
-        printf "\n`echo $spl : [${KO}KO${NC}] $diff`\n\n"
-    fi
+	diff=`diff "$f" $DEST_ZAZ/$spl`
+	if [ `echo -n $diff | wc -m` -eq 0 ]; then
+		printf "`echo $spl : [${OK}OK${NC}] $diff`\n"
+	else
+		printf "`echo $spl : [${KO}KO${NC}] $diff`\n"
+	fi
 done
