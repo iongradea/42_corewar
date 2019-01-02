@@ -41,6 +41,7 @@ static int			get_inst_sub(char *line, t_inst *inst)
 	ft_ch_err_lab(tab[0]) ? exit(error_msg("syntax error\n")) : true;
 	if (ft_ch_rm_lab_c(&tab[0]) && (index = 1))
 		inst->label = ft_strtrim(tab[0]);
+	(index != 1 && !ft_ch_opcode(tab[index])) ? exit(error_msg("err\n")) : true;
 	if (ft_arrlen(tab) > 1)
 	{
 		!ft_ch_opcode(tab[index]) ? exit(error_msg("syntax error\n")) : true;
