@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:36 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/27 10:54:17 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/03 11:53:25 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ static int		ft_check_arg(char **av, int i, int ac, t_vm_mem *vm)
 		vm->display = ft_atoi(av[++i]);
 		if (vm->display == 0)
 			return (0);
-		vm->opt += GRAPHIC;
-		vm->opt & GRAPHIC ? exit(ft_usage()) : (void)(vm->opt += GRAPHIC);
+		vm->ncurse == 1 ? exit(ft_usage()) : (void)(vm->opt += GRAPHIC);
 	}
 	else if (!ft_strcmp(av[i], "-v") && i + 1 < ac)
 	{
@@ -42,15 +41,15 @@ static int		ft_check_arg(char **av, int i, int ac, t_vm_mem *vm)
 		g_verbose = ft_atoi(av[i]);
 		if (vm->verbose == 0)
 			return (0);
-		vm->opt += VERBOSE;
-		vm->opt & VERBOSE ? exit(ft_usage()) : (void)(vm->opt += VERBOSE);
+		vm->ncurse == 1 ? exit(ft_usage()) : (void)(vm->opt += VERBOSE);
 	}
 	else if (!ft_strcmp(av[i], "-N"))
 	{
 		vm->ncurse = 1;
-		vm->opt += NCURSE;
-		vm->opt & NCURSE ? exit(ft_usage()) : (void)(vm->opt += NCURSE);
+		vm->opt != 0 ? exit(ft_usage()) : (void)(vm->opt += NCURSE);
 	}
+	else
+		exit(ft_printf("Unknown option: %s\n", av[i]));
 	return (i);
 }
 
@@ -70,7 +69,7 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 				if (vm->dump == 0)
 					exit(ft_usage());
 				vm->opt += DUMP;
-				vm->opt & DUMP ? exit(ft_usage()) : (void)(vm->opt += DUMP);
+				vm->ncurse == 1 ? exit(ft_usage()) : (void)(vm->opt += DUMP);
 			}
 			if ((i = ft_check_arg(av, i, ac, vm)) == 0)
 				exit(ft_usage());
@@ -82,7 +81,7 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 void			ft_jmp_opt(int ac, char **av, int *i)
 {
 	if (*i < ac && (!ft_strcmp(av[*i], "-dump") || !ft_strcmp(av[*i], \
-									"-g") || !ft_strcmp(av[*i], "-v")))
+					"-g") || !ft_strcmp(av[*i], "-v")))
 		(*i) += 2;
 	else if (*i < ac && av[*i][0] == '-')
 		(*i)++;

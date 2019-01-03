@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2019/01/01 20:10:36 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/03 15:03:01 by romontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ int							ft_usage(void);
 void						ft_jmp_opt(int ac, char **av, int *i);
 int							ft_check_ps_uid(t_ps *ps, int uid);
 void						cpu_checks(t_vm_mem *vm, t_ps *ps);
+int							ft_getopt(int ac, char **av, char *opts);
 
 /*
 ** CPU architecture
