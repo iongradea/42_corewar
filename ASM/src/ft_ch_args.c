@@ -25,10 +25,10 @@ static int			ft_is_valid_reg(char *arg)
 	if (*arg == REGISTER_CHAR)
 	{
 		while (++i < len)
-			if (arg[i] < '0' && arg[i] > '9')
+			if (arg[i] < '0' || arg[i] > '9')
 				return (false);
 		n = ft_atoi(arg + 1);
-		if (n < 1 && n > REG_NUMBER)
+		if (n < 1 || n > REG_NUMBER)
 			return (false);
 		return (true);
 	}

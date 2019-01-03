@@ -34,6 +34,7 @@ static int		ft_check_arg(char **av, int i, int ac, t_vm_mem *vm)
 		if (vm->display == 0)
 			return (0);
 		vm->opt += GRAPHIC;
+		vm->opt & GRAPHIC ? exit(ft_usage()) : (void)(vm->opt += GRAPHIC);
 	}
 	else if (!ft_strcmp(av[i], "-v") && i + 1 < ac)
 	{
@@ -42,11 +43,13 @@ static int		ft_check_arg(char **av, int i, int ac, t_vm_mem *vm)
 		if (vm->verbose == 0)
 			return (0);
 		vm->opt += VERBOSE;
+		vm->opt & VERBOSE ? exit(ft_usage()) : (void)(vm->opt += VERBOSE);
 	}
 	else if (!ft_strcmp(av[i], "-N"))
 	{
 		vm->ncurse = 1;
 		vm->opt += NCURSE;
+		vm->opt & NCURSE ? exit(ft_usage()) : (void)(vm->opt += NCURSE);
 	}
 	return (i);
 }
@@ -67,6 +70,7 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 				if (vm->dump == 0)
 					exit(ft_usage());
 				vm->opt += DUMP;
+				vm->opt & DUMP ? exit(ft_usage()) : (void)(vm->opt += DUMP);
 			}
 			if ((i = ft_check_arg(av, i, ac, vm)) == 0)
 				exit(ft_usage());
