@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2018/12/08 15:58:23 by bbichero         ###   ########.fr        #
+#    Updated: 2019/01/03 15:03:41 by romontei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC = main.c op.c debug.c get_playr.c ft_annex.c vm_mem.c \
 			ft_aff_sti_ldi_lldi.c \
 			ft_aff_sti_ldi_lldi_2.c \
 			ft_live_zjmp_fork_lfork.c \
-			ft_ncurse.c ft_ncurse_2.c ft_free.c ft_annex_2.c
+			ft_ncurse.c ft_ncurse_2.c ft_free.c ft_annex_2.c ft_get_opt.c
 
 
 SRCS = $(addprefix ./$(SRC_DIR)/, $(SRC))
