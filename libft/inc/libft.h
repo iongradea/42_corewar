@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 16:21:07 by igradea           #+#    #+#             */
-/*   Updated: 2018/12/15 18:09:10 by igradea          ###   ########.fr       */
+/*   Updated: 2019/01/07 15:52:52 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
+int					ft_isnumber(char *number);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
