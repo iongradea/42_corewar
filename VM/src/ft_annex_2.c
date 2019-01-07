@@ -60,7 +60,7 @@ int			ft_op_size_2(t_vm_mem *vm, t_ps *ps)
 ** DEBUG ? ft_printf("launching ft_cpy_playr ...\n") : DEBUG;
 */
 
-t_ps		*ft_cpy_playr(t_ps *ps)
+t_ps		*ft_cpy_playr(t_vm_mem *vm, t_ps *ps)
 {
 	t_ps			*new;
 
@@ -82,6 +82,6 @@ t_ps		*ft_cpy_playr(t_ps *ps)
 	ft_new_ps_sub(new);
 	new->color = ps->color;
 	new->carry = ps->carry;
-	ft_add_ps(ps, new);
+	ft_add_ps(vm, new);
 	return (new);
 }

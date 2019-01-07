@@ -16,16 +16,16 @@
 **  add process at the end of process listi
 */
 
-void			ft_add_ps(t_ps *ps, t_ps *new)
+void			ft_add_ps(t_vm_mem *vm, t_ps *new)
 {
 	static int	color = 1;
 
 	DEBUG ? ft_printf("launching ft_add_ps ...\n") : DEBUG;
+	vm->nb_live_ps++;
 	new->color = color;
-	while (ps->next)
-		ps = ps->next;
-	new->prev = ps;
-	ps->next = new;
+	new->prev = vm->ps_end;
+	vm->ps_end->next = new;
+	vm->ps_end = new;
 	color++;
 }
 

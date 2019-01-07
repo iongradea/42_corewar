@@ -99,8 +99,7 @@ int				exec_op(t_vm_mem *vm, t_ps *lst_ps)
 	t_ps		*tmp;
 
 	i = 0;
-	while (lst_ps->next)
-		lst_ps = lst_ps->next;
+	lst_ps = vm->ps_end;
 	while (lst_ps)
 	{
 		tmp = lst_ps;

@@ -136,6 +136,8 @@ int					get_playr(t_vm_mem *vm, t_ps **ps, int ac, char **av)
 	i < ac ? uid = ft_get_playr_index(vm, ac, av + i, &i) : exit(ft_usage());
 	i < ac ? ft_get_ps_data(ps, uid, *(av + i)) : exit(ft_usage());
 	(*ps)->color = 0;
+	vm->ps_end = *ps;
+	vm->nb_live_ps = 1;
 	while (++i < ac)
 	{
 		while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
@@ -145,7 +147,7 @@ int					get_playr(t_vm_mem *vm, t_ps **ps, int ac, char **av)
 		i < ac ? ft_get_ps_data(&new, uid, *(av + i)) : exit(ft_usage());
 		if (!ft_check_ps_uid(*ps, uid))
 			exit(ft_printf("UID %d already exist for another process\n", uid));
-		ft_add_ps(*ps, new);
+		ft_add_ps(vm, new);
 	}
 	return (EXIT_SUCCESS);
 }

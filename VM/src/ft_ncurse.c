@@ -75,9 +75,11 @@ void			ft_print_lives(t_vm_mem *vm, int i)
 void			ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
 {
 	int			i;
-	t_ps		*lst;
+	int 		j;
+	t_ps 		*lst;
 
 	i = -1;
+	j = 0;
 	lst = ps;
 	while (++i < MAX_PLAYERS)
 		if (vm->playr_uid[i])
@@ -86,10 +88,11 @@ void			ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
 	while (lst)
 	{
 		lst->live != PS_DEAD ? i++ : true;
+		j++;
 		lst = lst->next;
 	}
 	attron(COLOR_PAIR(9));
-	printw("\n\nNb of processes : %d\n\n", i);
+	printw("\n\nNb of processes : %d - nb_live_ps : %d - size lst : %d\n\n", i, vm->nb_live_ps, j);
 	printw("\n\nCycle: %-10d Total Number of lives: %d/%-10d \
 			Checks: %d/%d > Decrease cycle to die with: %d \
 			Cycles to die: %d/%d\n\n", vm->cycle, vm->lives, NBR_LIVE, \

@@ -20,14 +20,7 @@
 
 static void			display_opt(t_vm_mem *vm, t_ps *ps)
 {
-	int				i;
-	t_ps			*lst;
-
-	i = 0;
-	lst = ps;
 	DEBUG ? ft_printf("launching display_opt ...\n") : DEBUG;
-	while (lst && ((i++) || true))
-		lst = lst->next;
 	if (vm->opt & NCURSE)
 		ft_ncurse(vm, ps);
 	if (vm->opt & DUMP && vm->cycle == vm->dump)
@@ -36,11 +29,7 @@ static void			display_opt(t_vm_mem *vm, t_ps *ps)
 		exit(0);
 	}
 	if (vm->opt & GRAPHIC && !(vm->cycle % vm->display))
-	{
 		ft_prt_mem(vm, ps);
-		DEBUG ? ft_printf("cycles : %d - cycle_to_die : %d - \
-	nb_process : %d\n\n", vm->cycle, vm->cycle_to_die, i) : DEBUG;
-	}
 }
 
 int					cpu(t_vm_mem *vm, t_ps *ps)
@@ -49,15 +38,16 @@ int					cpu(t_vm_mem *vm, t_ps *ps)
 
 	flag = false;
 	DEBUG ? ft_printf("launching cpu ...\n") : DEBUG;
-	while ((flag == false ? true : ft_one_live_ps(ps)) \
+	(void)ps;
+	while ((flag == false ? true : ft_one_live_ps(*(vm->ps_st))) \
 						&& vm->cycle_to_die > 0)
 	{
-		display_opt(vm, ps);
+		display_opt(vm, *(vm->ps_st));
 		flag = vm->cycle >= vm->cycle_to_die ? true : false;
 		exec_op(vm, *(vm->ps_st));
 		g_verbose == 3 ? ft_printf("It's now cycle %d\n", vm->cycle) \
 								: g_verbose;
-		cpu_checks(vm, ps);
+		cpu_checks(vm, *(vm->ps_st));
 		vm->cycle++;
 		vm->real_cycle++;
 	}

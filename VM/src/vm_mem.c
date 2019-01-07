@@ -75,7 +75,6 @@ t_vm_mem		*ft_new_mem(void)
 	vm->cycle = 1;
 	vm->real_cycle = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
-	vm->ch_decr = 0;
 	vm->check = 0;
 	vm->opt = 0x00;
 	vm->dump = 0;
@@ -86,10 +85,12 @@ t_vm_mem		*ft_new_mem(void)
 	vm->mem_color_ind = 0;
 	ft_bzero(vm->playr_uid, sizeof(vm->playr_uid));
 	vm->nb_players = 0;
+	vm->nb_live_ps = 0;
 	vm->lives = 0;
 	vm->last_live = NO_PLAYR;
 	ft_bzero(vm->playr_live, sizeof(vm->playr_live));
 	vm->ps_st = NULL;
+	vm->ps_end = NULL;
 	return (vm);
 }
 
