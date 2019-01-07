@@ -29,7 +29,7 @@ int				main(int ac, char **av)
 	if (ac < 2)
 		exit(ft_usage());
 	if (!protect_define())
-		exit(error_msg("Invalid define, please check 'inc/vm.h'"));
+		exit(error_msg("Invalid define, please check 'inc/vm.h'\n"));
 	vm = ft_new_mem();
 	vm->ps_st = &ps;
 	ft_parse_opt(ac, av, vm);

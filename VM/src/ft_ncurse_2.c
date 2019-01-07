@@ -68,6 +68,7 @@ void			ft_ncurse(t_vm_mem *vm, t_ps *ps)
 	t_ps		*tmp;
 
 	tmp = ps;
+	//usleep(10000);
 	ft_init_ncurses();
 	ft_print_arena(vm, tmp);
 }
