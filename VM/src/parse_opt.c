@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:36 by bbichero          #+#    #+#             */
-/*   Updated: 2019/01/08 17:07:50 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 19:56:35 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,16 @@ void			ft_jmp_opt(int ac, char **av, int *i)
 int				ft_usage(void)
 {
 	DEBUG ? ft_printf("launching ft_usage ...\n") : DEBUG;
-	ft_printf("usage: ./corewar [options] [[-n nbr] champion.cor] ...\n\
--v <nbr>		: Verbosity level\n\
-	- 1		: show essentials\n\
-	- 2		: show lives\n\
-	- 3		: show cyles\n\
-	- 4		: show operations\n\
-	- 5		: show deaths\n\
--N 			: advanced graphical mode using ncurse library\n\
+	ft_printf("usage: ./corewar [-N] [-g nbr] [-dump nbr] [-v nbr] [[-n nbr] champion.cor] ...\n\
+-n <nbr>	: set \"nbr\" as number for the player\n\
+-v <nbr>	: Verbosity level\n\
+	- 1	: show essentials\n\
+	- 2	: show lives\n\
+	- 3	: show cyles\n\
+	- 4	: show operations\n\
+	- 5	: show deaths\n\
+-N 		: advanced graphical mode using ncurse library\n\
 -g <nbr-cycles>	: graphic mode, displays memory on console\n\
--dump <nbr>		: dumps the memory after N cycles\n\
--n <nbr>		: set \"nbr\" as number for the player\n");
+-dump <nbr>	: dumps the memory after N cycles\n");
 	return (EXIT_SUCCESS);
 }
