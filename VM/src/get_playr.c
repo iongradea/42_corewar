@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:40 by bbichero          #+#    #+#             */
-/*   Updated: 2019/01/07 16:10:37 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 15:53:54 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ static void			get_set_uid(t_vm_mem *vm, int ac, char **av)
 				exit(ft_usage());
 			if (ft_str_not_nb(*(av + i + 1)) || !ft_valid_int(*(av + i + 1)))
 				exit(error_msg("Error : Invalid player uid send."));
-			res = ft_isnumber(*(av + i + 1));
+			res = ft_atoi(*(av + i + 1));
 			if (res == UNDEFINED || res == 0)
 				exit(error_msg("Error : player number can't be -1 or 0"));
-			if (res > 1024 || res < -1024)
+			if (res >= 1024 || res <= -1024)
 				exit(error_msg("Error : uid player must be : -1024 < uid < 1024"));
 			j > MAX_PLAYERS ? exit(ft_usage()) : true;
 			vm->set_uid[++j] = res;
