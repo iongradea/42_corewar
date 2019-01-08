@@ -12,10 +12,26 @@
 
 #include "../inc/asm.h"
 
+static int 		ft_ch_sp_c(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+		i++;
+	i--;
+	while (ft_isspace(line[i]))
+		i--;
+	if (line[i] == SEPARATOR_CHAR)
+		exit(error_msg("Syntax error: comma at end of line\n"));
+	return (true);
+}
+
 static void			init_get_inst_sub(char ***tab, char **line, t_inst *inst)
 {
 	DEBUG ? ft_printf("launching init_get_inst_sub ...\n") : DEBUG;
 	ft_clean_comment(line);
+	ft_ch_sp_c(*line);
 	ft_clean_sp(line);
 	ft_strcpy(inst->line, *line);
 	*tab = ft_strsplit(*line);

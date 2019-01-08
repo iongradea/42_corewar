@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2019/01/01 20:14:15 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:07:30 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,6 @@ typedef struct				s_vm_mem
 	int				cycle;
 	int				real_cycle;
 	int				cycle_to_die;
-	int				ch_decr;
 	int				check;
 	int				opt;
 	int				dump;
@@ -164,11 +163,13 @@ typedef struct				s_vm_mem
 	int				mem_color_ind;
 	int				playr_uid[MAX_PLAYERS + 1];
 	int				nb_players;
+	int				nb_live_ps;
 	int				lives;
 	int				last_live;
 	t_arena			a[MEM_SIZE];
 	int				playr_live[MAX_PLAYERS + 1];
 	t_ps			**ps_st;
+	t_ps			*ps_end;
 }							t_vm_mem;
 
 /*
@@ -198,6 +199,7 @@ int							get_playr(t_vm_mem *vm, t_ps **ps, int ac, \
 void						add_data_vm(t_vm_mem *vm, t_ps *ps);
 t_vm_mem					*ft_new_mem(void);
 int							ft_parse_opt(int ac, char **av, t_vm_mem *vm);
+void						ft_n_check(char **av, int i);
 int							ft_usage(void);
 void						ft_jmp_opt(int ac, char **av, int *i);
 int							ft_check_ps_uid(t_ps *ps, int uid);
@@ -259,7 +261,7 @@ int							ft_get_val(t_ps *ps, t_vm_mem *vm, int arg, \
 																int arg_i);
 unsigned char				ft_get_ocp(t_vm_mem *vm, t_ps *ps, int arg_i);
 int							check_ocp_fmt(t_vm_mem *vm, t_ps *ps, int nb_arg);
-t_ps						*ft_cpy_playr(t_ps *ps);
+t_ps						*ft_cpy_playr(t_vm_mem *vm, t_ps *ps);
 void						ft_chg_mem_uid(t_vm_mem *vm, t_ps *ps, int pos, \
 											int size);
 int							ft_get_ind(t_ps *ps, t_vm_mem *vm, int arg, \
@@ -281,7 +283,7 @@ int							ft_is_pc(t_ps *ps, int index);
 ** Annex functions
 */
 
-void						ft_add_ps(t_ps *ps, t_ps *tmp);
+void						ft_add_ps(t_vm_mem *vm, t_ps *tmp);
 int							ft_next_op(t_ps *ps, int carry_mod, int val);
 int							ft_get_code_size(int fd);
 int							ft_prt_winner(t_vm_mem *vm, t_ps *ps);

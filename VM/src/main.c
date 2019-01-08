@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/12/17 14:38:39 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 16:26:00 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ int				main(int ac, char **av)
 	if (ac < 2)
 		exit(ft_usage());
 	if (!protect_define())
-		exit(error_msg("Invalid define, please check 'inc/vm.h'"));
+		exit(error_msg("Invalid define, please check 'inc/vm.h'\n"));
 	vm = ft_new_mem();
+	vm->ps_end = NULL;
 	vm->ps_st = &ps;
 	ft_parse_opt(ac, av, vm);
 	get_playr(vm, &ps, ac, av);

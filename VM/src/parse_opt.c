@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:36 by bbichero          #+#    #+#             */
-/*   Updated: 2019/01/02 15:13:08 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:07:50 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,36 @@ static int		ft_check_arg(char **av, int i, int ac, t_vm_mem *vm)
 		vm->display = ft_atoi(av[++i]);
 		if (vm->display == 0)
 			return (0);
-		vm->opt += GRAPHIC;
 		vm->opt & GRAPHIC ? exit(ft_usage()) : (void)(vm->opt += GRAPHIC);
 	}
 	else if (!ft_strcmp(av[i], "-v") && i + 1 < ac)
 	{
 		vm->verbose = ft_atoi(av[++i]);
+		if (ft_str_not_nb(av[i]) || vm->verbose > 5 || vm->verbose < 1)
+			exit(error_msg("Invalid verbosity level."));
 		g_verbose = ft_atoi(av[i]);
 		if (vm->verbose == 0)
 			return (0);
-		vm->opt += VERBOSE;
 		vm->opt & VERBOSE ? exit(ft_usage()) : (void)(vm->opt += VERBOSE);
 	}
 	else if (!ft_strcmp(av[i], "-N"))
 	{
 		vm->ncurse = 1;
-		vm->opt += NCURSE;
 		vm->opt & NCURSE ? exit(ft_usage()) : (void)(vm->opt += NCURSE);
 	}
+	else
+		exit(error_msg("Invalid option."));
 	return (i);
 }
+
+/*
+** DEBUG ? ft_printf("launching ft_parse_opt ...\n") : DEBUG;
+*/
 
 int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 {
 	int			i;
 
-	DEBUG ? ft_printf("launching ft_parse_opt ...\n") : DEBUG;
 	i = 0;
 	while (av[++i])
 	{
@@ -69,12 +73,13 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 				vm->dump = ft_atoi(av[++i]);
 				if (vm->dump == 0)
 					exit(ft_usage());
-				vm->opt += DUMP;
 				vm->opt & DUMP ? exit(ft_usage()) : (void)(vm->opt += DUMP);
 			}
 			if ((i = ft_check_arg(av, i, ac, vm)) == 0)
 				exit(ft_usage());
 		}
+		else if (ft_strcmp(av[i], "-n") == 0)
+			ft_n_check(av, i);
 	}
 	return (EXIT_SUCCESS);
 }

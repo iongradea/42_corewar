@@ -96,7 +96,7 @@ int					ft_fork(t_vm_mem *vm, t_ps *lst_ps, int opcode)
 	while (++i < DIR_SIZE_P(OP_TAB_INDEX(FORK)) && ((arg0 = arg0 << 8) || true))
 		arg0 += *(vm->mem + ft_mem_cir_pos(ps->pc + OPCODE_SIZE + i));
 	arg0 = (short)arg0;
-	new = ft_cpy_playr(ps);
+	new = ft_cpy_playr(vm, ps);
 	if (opcode == FORK)
 		new->pc = ft_mem_cir_pos(ps->pc + (arg0 % IDX_MOD));
 	else if (opcode == LFORK)

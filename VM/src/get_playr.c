@@ -6,13 +6,13 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:40 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/17 14:37:39 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:02:54 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vm.h"
 
-static int			ft_get_playr_index(t_vm_mem *vm, int ac, char **av, \
+static int			ft_get_playr_id(t_vm_mem *vm, int ac, char **av, \
 										int *index)
 {
 	static int		i = 0;
@@ -109,13 +109,14 @@ static void			get_set_uid(t_vm_mem *vm, int ac, char **av)
 		{
 			if (i + 1 >= ac)
 				exit(ft_usage());
-			if (ft_str_not_nb(*(av + i + 1)))
-				exit(error_msg("player uid is not a number"));
-			if (!ft_valid_int(*(av + i + 1)))
-				exit(error_msg("invalid int for player number"));
+			if (ft_str_not_nb(*(av + i + 1)) || !ft_valid_int(*(av + i + 1)))
+				exit(error_msg("Error : Invalid player uid send."));
 			res = ft_atoi(*(av + i + 1));
 			if (res == UNDEFINED || res == 0)
 				exit(error_msg("Error : player number can't be -1 or 0"));
+			if (res > 1024 || res < -1024)
+				exit(error_msg("Error : uid player must be : -1024 < uid < \
+																1024"));
 			j > MAX_PLAYERS ? exit(ft_usage()) : true;
 			vm->set_uid[++j] = res;
 		}
@@ -133,19 +134,20 @@ int					get_playr(t_vm_mem *vm, t_ps **ps, int ac, char **av)
 	get_set_uid(vm, ac, av);
 	while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 		ft_jmp_opt(ac, av, &i);
-	i < ac ? uid = ft_get_playr_index(vm, ac, av + i, &i) : exit(ft_usage());
+	i < ac ? uid = ft_get_playr_id(vm, ac, av + i, &i) : exit(ft_usage());
 	i < ac ? ft_get_ps_data(ps, uid, *(av + i)) : exit(ft_usage());
 	(*ps)->color = 0;
+	vm->ps_end = *ps;
+	vm->nb_live_ps = 1;
 	while (++i < ac)
 	{
 		while (i < ac && av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 			ft_jmp_opt(ac, av, &i);
-		i < ac ? uid = ft_get_playr_index(vm, ac, av + i, &i) \
-				: exit(ft_usage());
+		i < ac ? uid = ft_get_playr_id(vm, ac, av + i, &i) : exit(ft_usage());
 		i < ac ? ft_get_ps_data(&new, uid, *(av + i)) : exit(ft_usage());
 		if (!ft_check_ps_uid(*ps, uid))
 			exit(ft_printf("UID %d already exist for another process\n", uid));
-		ft_add_ps(*ps, new);
+		ft_add_ps(vm, new);
 	}
 	return (EXIT_SUCCESS);
 }

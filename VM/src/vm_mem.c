@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/12/15 18:45:52 by igradea          ###   ########.fr       */
+/*   Updated: 2019/01/08 16:26:06 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ t_vm_mem		*ft_new_mem(void)
 	vm->cycle = 1;
 	vm->real_cycle = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
-	vm->ch_decr = 0;
 	vm->check = 0;
 	vm->opt = 0x00;
 	vm->dump = 0;
@@ -86,6 +85,7 @@ t_vm_mem		*ft_new_mem(void)
 	vm->mem_color_ind = 0;
 	ft_bzero(vm->playr_uid, sizeof(vm->playr_uid));
 	vm->nb_players = 0;
+	vm->nb_live_ps = 0;
 	vm->lives = 0;
 	vm->last_live = NO_PLAYR;
 	ft_bzero(vm->playr_live, sizeof(vm->playr_live));

@@ -49,10 +49,10 @@ void		prt_ps(t_ps *ps)
 void		prt_vm(t_vm_mem *vm)
 {
 	print_memory(vm->mem, MEM_SIZE);
-	ft_printf("cycle : %d\ncycle_to_die : %d\nch_decr : %d\n\
+	ft_printf("cycle : %d\ncycle_to_die : %d\n\
 			check : %d\nopt : %d\ndump : %d\ndisplay : %d\n", vm->cycle, \
 														vm->cycle_to_die,
-			vm->ch_decr, vm->check, vm->opt, vm->dump, vm->display);
+			vm->check, vm->opt, vm->dump, vm->display);
 	ft_printf("last_live : %d\n", vm->last_live);
 }
 
