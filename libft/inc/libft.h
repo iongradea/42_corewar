@@ -6,7 +6,7 @@
 /*   By: igradea <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 16:21:07 by igradea           #+#    #+#             */
-/*   Updated: 2019/01/07 15:52:52 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:59:13 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
-int					ft_isnumber(char *number);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
@@ -102,7 +101,7 @@ void				ft_putnbr_fd(int nb, int fd);
 char				*ft_realloc(char *ptr, size_t size);
 char				*ft_itoa_base(int value, int base);
 int					ft_arrlen(char **array);
-void				ft_free_tab(char **tab);
+int					ft_free_tab(char **tab);
 void				ft_free_tab_int(int **tab);
 
 /*

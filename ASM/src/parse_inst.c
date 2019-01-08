@@ -6,13 +6,13 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/11/27 17:13:23 by igradea          ###   ########.fr       */
+/*   Updated: 2019/01/08 17:57:14 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/asm.h"
 
-static int 		ft_ch_sp_c(char *line)
+static int			ft_ch_sp_c(char *line)
 {
 	int i;
 
@@ -50,14 +50,14 @@ static int			get_inst_sub(char *line, t_inst *inst)
 
 	index = 0;
 	i = -1;
-	DEBUG ? ft_printf("launching get_inst_sub ...\n") : DEBUG;
 	init_get_inst_sub(&tab, &line, inst);
 	if (!ft_arrlen(tab))
 		return (EXIT_SUCCESS);
 	ft_ch_err_lab(tab[0]) ? exit(error_msg("syntax error\n")) : true;
 	if (ft_ch_rm_lab_c(&tab[0]) && (index = 1))
 		inst->label = ft_strtrim(tab[0]);
-	(index != 1 && !ft_ch_opcode(tab[index])) ? exit(error_msg("err\n")) : true;
+	(index != 1 && (!ft_ch_opcode(tab[index]) || (ft_ch_opcode(tab[index]) \
+	&& ft_arrlen(tab) == 1))) ? exit(error_msg("syntax error\n")) : true;
 	if (ft_arrlen(tab) > 1)
 	{
 		!ft_ch_opcode(tab[index]) ? exit(error_msg("syntax error\n")) : true;
@@ -68,8 +68,7 @@ static int			get_inst_sub(char *line, t_inst *inst)
 		while (((++i + index) < ft_arrlen(tab)) && tab[i + index])
 			inst->args[i] = ft_strtrim(tab[i + index]);
 	}
-	ft_free_tab(tab);
-	return (EXIT_SUCCESS);
+	return (ft_free_tab(tab));
 }
 
 static void			get_inst_annex(t_inst *new, t_inst *tmp, t_inst **inst)
