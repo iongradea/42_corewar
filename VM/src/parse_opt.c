@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:36 by bbichero          #+#    #+#             */
-/*   Updated: 2019/01/08 20:33:01 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 21:22:05 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 	i = 0;
 	while (av[++i])
 	{
-		if (av[i][0] == '-' && ft_strcmp(av[i], "-n"))
+		if (av[i][0] == '-' && ft_strcmp(av[i], "-n") && ft_str_not_nb(av[i]))
 		{
 			if (!ft_strcmp(av[i], "-dump") && i + 1 < ac)
 			{
@@ -96,8 +96,8 @@ void			ft_jmp_opt(int ac, char **av, int *i)
 int				ft_usage(void)
 {
 	DEBUG ? ft_printf("launching ft_usage ...\n") : DEBUG;
-	ft_printf("usage: ./corewar [-N] [-g nbr] [-dump nbr] [-v nbr] [[-n nbr]\
- champion.cor] ...\n\
+	ft_printf("usage: ./corewar [-N] [-g nbr] [-dump nbr] [-v nbr] [[-n nbr] \
+champion.cor] ...\n\
 -n <nbr>	: set \"nbr\" as number for the player\n\
 -v <nbr>	: Verbosity level\n\
 	- 1	: show essentials\n\
