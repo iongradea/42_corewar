@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:36 by bbichero          #+#    #+#             */
-/*   Updated: 2019/01/08 20:18:31 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 20:33:01 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,8 @@ void			ft_jmp_opt(int ac, char **av, int *i)
 int				ft_usage(void)
 {
 	DEBUG ? ft_printf("launching ft_usage ...\n") : DEBUG;
-<<<<<<< HEAD
-	ft_printf("usage: ./corewar [-N] [-g nbr] [-dump nbr] [-v nbr] [[-n nbr] \
-=======
 	ft_printf("usage: ./corewar [-N] [-g nbr] [-dump nbr] [-v nbr] [[-n nbr]\
->>>>>>> master
-champion.cor] ...\n\
+ champion.cor] ...\n\
 -n <nbr>	: set \"nbr\" as number for the player\n\
 -v <nbr>	: Verbosity level\n\
 	- 1	: show essentials\n\
