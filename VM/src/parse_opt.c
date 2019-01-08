@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:36 by bbichero          #+#    #+#             */
-/*   Updated: 2019/01/08 16:04:02 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 16:09:26 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 		}
 		else if (ft_strcmp(av[i], "-n") == 0)
 		{
-			if (av[i + 1])
+			if (av[++i])
 			{
-				if (ft_str_not_nb(av[i + 1]))
+				if (ft_str_not_nb(av[i]))
 					exit(ft_usage());
 			}
 			else
