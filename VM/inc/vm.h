@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:13 by bbichero          #+#    #+#             */
-/*   Updated: 2019/01/08 16:34:43 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:05:30 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,13 +163,13 @@ typedef struct				s_vm_mem
 	int				mem_color_ind;
 	int				playr_uid[MAX_PLAYERS + 1];
 	int				nb_players;
-	int 			nb_live_ps;
+	int				nb_live_ps;
 	int				lives;
 	int				last_live;
 	t_arena			a[MEM_SIZE];
 	int				playr_live[MAX_PLAYERS + 1];
 	t_ps			**ps_st;
-	t_ps 			*ps_end;
+	t_ps			*ps_end;
 }							t_vm_mem;
 
 /*
