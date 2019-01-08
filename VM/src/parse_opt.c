@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 16:22:36 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/27 10:54:17 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 16:04:02 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static int		ft_check_arg(char **av, int i, int ac, t_vm_mem *vm)
 	else if (!ft_strcmp(av[i], "-v") && i + 1 < ac)
 	{
 		vm->verbose = ft_atoi(av[++i]);
+		if (ft_str_not_nb(av[i]) || vm->verbose > 5 || vm->verbose < 1)
+			exit(error_msg("Invalid verbosity level."));
 		g_verbose = ft_atoi(av[i]);
 		if (vm->verbose == 0)
 			return (0);
@@ -48,14 +50,19 @@ static int		ft_check_arg(char **av, int i, int ac, t_vm_mem *vm)
 		vm->ncurse = 1;
 		vm->opt & NCURSE ? exit(ft_usage()) : (void)(vm->opt += NCURSE);
 	}
+	else
+		exit(error_msg("Invalid option."));
 	return (i);
 }
+
+/*
+** DEBUG ? ft_printf("launching ft_parse_opt ...\n") : DEBUG;
+*/
 
 int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 {
 	int			i;
 
-	DEBUG ? ft_printf("launching ft_parse_opt ...\n") : DEBUG;
 	i = 0;
 	while (av[++i])
 	{
@@ -69,6 +76,16 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 				vm->opt & DUMP ? exit(ft_usage()) : (void)(vm->opt += DUMP);
 			}
 			if ((i = ft_check_arg(av, i, ac, vm)) == 0)
+				exit(ft_usage());
+		}
+		else if (ft_strcmp(av[i], "-n") == 0)
+		{
+			if (av[i + 1])
+			{
+				if (ft_str_not_nb(av[i + 1]))
+					exit(ft_usage());
+			}
+			else
 				exit(ft_usage());
 		}
 	}
