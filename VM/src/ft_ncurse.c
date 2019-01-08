@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/01 17:53:12 by romontei          #+#    #+#             */
-/*   Updated: 2019/01/08 16:23:34 by bbichero         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:01:59 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,14 @@ void			ft_print_lives(t_vm_mem *vm, int i)
 void			ft_print_game_stats(t_vm_mem *vm, t_ps *ps)
 {
 	int			i;
-	int			j;
-	t_ps		*lst;
 
 	i = -1;
-	j = 0;
-	lst = ps;
+	(void)ps;
 	while (++i < MAX_PLAYERS)
 		if (vm->playr_uid[i])
 			ft_print_lives(vm, i);
-	i = 0;
-	while (lst)
-	{
-		lst->live != PS_DEAD ? i++ : true;
-		j++;
-		lst = lst->next;
-	}
 	attron(COLOR_PAIR(9));
-	printw("\n\nNb of processes : %d\n\n", i);
+	printw("\n\nNb of processes : %d\n\n", vm->nb_live_ps);
 	printw("\n\nCycle: %-10d Total Number of lives: %d/%-10d \
 			Checks: %d/%d > Decrease cycle to die with: %d \
 			Cycles to die: %d/%d\n\n", vm->cycle, vm->lives, NBR_LIVE, \
