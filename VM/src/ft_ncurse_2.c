@@ -6,7 +6,7 @@
 /*   By: bbichero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 15:56:06 by bbichero          #+#    #+#             */
-/*   Updated: 2018/12/16 15:24:47 by igradea          ###   ########.fr       */
+/*   Updated: 2019/01/08 16:19:36 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void			ft_ncurse(t_vm_mem *vm, t_ps *ps)
 	t_ps		*tmp;
 
 	tmp = ps;
-	//usleep(10000);
 	ft_init_ncurses();
 	ft_print_arena(vm, tmp);
 }

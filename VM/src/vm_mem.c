@@ -6,7 +6,7 @@
 /*   By: romontei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by igradea           #+#    #+#             */
-/*   Updated: 2018/12/15 18:45:52 by igradea          ###   ########.fr       */
+/*   Updated: 2019/01/08 16:26:06 by bbichero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ t_vm_mem		*ft_new_mem(void)
 	vm->last_live = NO_PLAYR;
 	ft_bzero(vm->playr_live, sizeof(vm->playr_live));
 	vm->ps_st = NULL;
-	vm->ps_end = NULL;
 	return (vm);
 }
 
