@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2019/01/01 20:50:13 by igradea          ###   ########.fr        #
+#    Updated: 2019/01/09 15:53:17 by igradea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,6 @@ $(NAME): $(OBJS)
 
 clean:
 	$(MAKE) -C $(LBFT_DIR) clean
-	$(RM) -rfv $(NAME)
 	$(RM) -rfv $(OBJ_DIR) 2> /dev/null || true
 
 fclean: clean

@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2019/01/08 16:38:05 by bbichero         ###   ########.fr        #
+#    Updated: 2019/01/09 15:51:55 by igradea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,6 @@ $(NAME): $(OBJS)
 clean:
 	@echo "$(R)[CLEANING VM FILES]$(E)"
 	@$(MAKE) -C $(LBFT_DIR) clean
-	@$(RM) -rfv $(NAME)
 	@$(RM) -rfv $(OBJ_DIR) 2> /dev/null || true
 	@echo "$(R)[CLEANING DONE]$(E)"
 
