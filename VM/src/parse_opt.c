@@ -71,23 +71,26 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 			if (!ft_strcmp(av[i], "-dump") && i + 1 < ac)
 			{
 				vm->dump = ft_atoi(av[++i]);
-				if (vm->dump == 0)
-					exit(ft_usage());
+				if (vm->dump <= 0 || ft_str_not_nb(av[i]))
+					exit(error_msg("invalid dump number"));
 				vm->opt & DUMP ? exit(ft_usage()) : (void)(vm->opt += DUMP);
 			}
-			if ((i = ft_check_arg(av, i, ac, vm)) == 0)
+			else if ((i = ft_check_arg(av, i, ac, vm)) == 0)
 				exit(ft_usage());
 		}
 		else if (ft_strcmp(av[i], "-n") == 0)
 			ft_n_check(av, &i);
 	}
+	if ((vm->opt & NCURSE) && ((vm->opt & VERBOSE) || (vm->opt & GRAPHIC)
+		|| (vm->opt & DUMP)))
+		exit(error_msg("-N option can't be used with -g, -v, -dump option"));
 	return (EXIT_SUCCESS);
 }
 
 void			ft_jmp_opt(int ac, char **av, int *i)
 {
-	if (*i < ac && (!ft_strcmp(av[*i], "-dump") || !ft_strcmp(av[*i], \
-									"-g") || !ft_strcmp(av[*i], "-v")))
+	if (*i < ac && (!ft_strcmp(av[*i], "-dump") || !ft_strcmp(av[*i], "-g") \
+					|| !ft_strcmp(av[*i], "-v")))
 		(*i) += 2;
 	else if (*i < ac && av[*i][0] == '-')
 		(*i)++;

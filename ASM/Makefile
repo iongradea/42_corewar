@@ -6,7 +6,7 @@
 #    By: igradea <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/11 19:01:51 by igradea           #+#    #+#              #
-#    Updated: 2019/01/01 20:50:13 by igradea          ###   ########.fr        #
+#    Updated: 2019/01/09 15:51:05 by igradea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ CC = gcc
 SRC = main.c parse_inst.c parse_inst_2.c op.c ft_debug.c ft_ch_args.c \
 			ft_annex.c ft_ch_calc_args.c ft_inst_size.c calc_args.c \
 			create_out_file.c ft_free.c ft_annex_2.c get_progname.c \
-			get_progcomment.c 
+			get_progcomment.c
 
 SRCS = $(addprefix ./$(SRC_DIR)/, $(SRC))
 
@@ -74,7 +74,6 @@ $(NAME): $(OBJS)
 
 clean:
 	$(MAKE) -C $(LBFT_DIR) clean
-	$(RM) -rfv $(NAME)
 	$(RM) -rfv $(OBJ_DIR) 2> /dev/null || true
 
 fclean: clean

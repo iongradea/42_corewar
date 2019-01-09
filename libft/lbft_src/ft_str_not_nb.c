@@ -28,7 +28,11 @@ int				ft_str_not_nb(const char *str)
 
 	i = 0;
 	ft_start(str, &i);
-	if (str[i] != '\0' && !ft_isdigit(str[i]))
-		return (1);
+	while (str[i])
+	{
+		if (str[i] != '\0' && !ft_isdigit(str[i]))
+			return (1);
+		i++;
+	}
 	return (0);
 }
