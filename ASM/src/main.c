@@ -12,7 +12,7 @@
 
 #include "../inc/asm.h"
 
-static void		parse_input(char *str, t_inst **inst, t_header *head)
+static int		parse_input(char *str, t_inst **inst, t_header *head)
 {
 	int			fd;
 	char		*line;
@@ -34,6 +34,7 @@ static void		parse_input(char *str, t_inst **inst, t_header *head)
 	if (!(flag & FL_NAME) || !(flag & FL_COMMENT))
 		exit(error_msg("error missing .name or .comment line\n"));
 	close(fd);
+	return (flag);
 }
 
 static void		create_file(char *av, t_inst *inst, t_header *head, int size)
@@ -67,6 +68,7 @@ int				main(int ac, char **av)
 	t_inst		*inst;
 	t_header	head;
 	int			size;
+	int 		flag;
 
 	i = 0;
 	inst = NULL;
@@ -74,7 +76,9 @@ int				main(int ac, char **av)
 	while (++i < ac)
 	{
 		ft_init_head(&head);
-		parse_input(av[i], &inst, &head);
+		flag = parse_input(av[i], &inst, &head);
+		if (!(flag & FL_END_NAME_LINE) || !(flag & FL_END_COMMENT_LINE))
+			exit(error_msg("no end '\"' in .name or .comment\n"));
 		ch_all_inst(inst);
 		size = calc_all_size(inst);
 		calc_all_arg(inst);

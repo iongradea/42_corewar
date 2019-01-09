@@ -23,6 +23,7 @@ static void		sub_progcom_lines(char *line, int *flag, t_header *head,
 	{
 		ft_strncpy(head->comment + len, line, end - line - 1);
 		*flag -= FL_COMMENT_LINES;
+		*flag += FL_END_COMMENT_LINE;
 	}
 	else
 	{
@@ -41,6 +42,7 @@ static void		progcom_oneln(char *st, char *end, int *flag, t_header *head)
 	else
 		ft_strncpy(head->comment, st + 1, end - st - 1);
 	*flag += FL_COMMENT;
+	*flag += FL_END_COMMENT_LINE;
 }
 
 static void		progcom_multiln(char *st, int *flag, t_header *head)
@@ -58,7 +60,6 @@ int				get_prog_comment(char *line, int *flag, t_header *head)
 	char *end;
 	char *com_st;
 
-	DEBUG ? ft_printf("launching get_prog_comment ...\n") : DEBUG;
 	st = ft_strchr(line, '"');
 	end = ft_strrchr(line, '"');
 	com_st = ft_strstr(line, COMMENT_CMD_STRING);
@@ -72,7 +73,8 @@ int				get_prog_comment(char *line, int *flag, t_header *head)
 		sub_progcom_lines(line, flag, head, end);
 	}
 	else if (is_comment_line(line) && st != end)
-		progcom_oneln(st, end, flag, head);
+		ft_strchr(st + 1, '"') != end ? exit(error_msg("Error .comm line\n")) \
+										: progcom_oneln(st, end, flag, head);
 	else if (is_comment_line(line) && st == end)
 		progcom_multiln(st, flag, head);
 	if (ft_strlen(head->comment) > COMMENT_LENGTH)
