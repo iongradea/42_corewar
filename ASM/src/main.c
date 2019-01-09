@@ -6,7 +6,7 @@
 /*   By: iongradea <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by iongradea         #+#    #+#             */
-/*   Updated: 2018/12/13 10:41:42 by igradea          ###   ########.fr       */
+/*   Updated: 2019/01/09 15:47:29 by igradea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int				main(int ac, char **av)
 	t_inst		*inst;
 	t_header	head;
 	int			size;
-	int 		flag;
+	int			flag;
 
 	i = 0;
 	inst = NULL;
