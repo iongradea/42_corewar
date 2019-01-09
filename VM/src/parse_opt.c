@@ -66,7 +66,7 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 	i = 0;
 	while (av[++i])
 	{
-		if (av[i][0] == '-' && ft_strcmp(av[i], "-n") && ft_str_not_nb(av[i]))
+		if (av[i][0] == '-' && ft_strcmp(av[i], "-n"))
 		{
 			if (!ft_strcmp(av[i], "-dump") && i + 1 < ac)
 			{
@@ -79,7 +79,7 @@ int				ft_parse_opt(int ac, char **av, t_vm_mem *vm)
 				exit(ft_usage());
 		}
 		else if (ft_strcmp(av[i], "-n") == 0)
-			ft_n_check(av, i);
+			ft_n_check(av, &i);
 	}
 	return (EXIT_SUCCESS);
 }

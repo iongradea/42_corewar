@@ -199,7 +199,7 @@ int							get_playr(t_vm_mem *vm, t_ps **ps, int ac, \
 void						add_data_vm(t_vm_mem *vm, t_ps *ps);
 t_vm_mem					*ft_new_mem(void);
 int							ft_parse_opt(int ac, char **av, t_vm_mem *vm);
-void						ft_n_check(char **av, int i);
+void						ft_n_check(char **av, int *i);
 int							ft_usage(void);
 void						ft_jmp_opt(int ac, char **av, int *i);
 int							ft_check_ps_uid(t_ps *ps, int uid);

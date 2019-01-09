@@ -48,6 +48,8 @@
 # define FL_COMMENT 0b100
 # define FL_COMMENT_LINES 0b1000
 # define DEL_CHAR '"'
+# define FL_END_NAME_LINE 0b10000
+# define FL_END_COMMENT_LINE 0b100000
 
 /*
 ** Operation codes

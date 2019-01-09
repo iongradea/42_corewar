@@ -12,11 +12,11 @@
 
 #include "../inc/vm.h"
 
-void		ft_n_check(char **av, int i)
+void		ft_n_check(char **av, int *i)
 {
-	if (av[++i])
+	if (av[++(*i)])
 	{
-		if (ft_str_not_nb(av[i]))
+		if (ft_str_not_nb(av[*i]))
 			exit(ft_usage());
 	}
 	else

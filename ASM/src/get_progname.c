@@ -40,6 +40,7 @@ static void		sub_progname_lines(char *line, int *flag, t_header *head,
 	{
 		ft_strncpy(head->prog_name + len, line, end - line - 1);
 		*flag -= FL_NAME_LINES;
+		*flag += FL_END_NAME_LINE;
 	}
 	else
 	{
@@ -58,6 +59,7 @@ static void		progname_oneln(char *st, char *end, int *flag, t_header *head)
 	else
 		ft_strncpy(head->prog_name, st + 1, end - st - 1);
 	*flag += FL_NAME;
+	*flag += FL_END_NAME_LINE;
 }
 
 static void		progname_multiln(char *st, int *flag, t_header *head)
@@ -75,7 +77,6 @@ int				get_prog_name(char *line, int *flag, t_header *head)
 	char *end;
 	char *name_st;
 
-	DEBUG ? ft_printf("launching get_prog_name ...\n") : DEBUG;
 	st = ft_strchr(line, '"');
 	end = ft_strrchr(line, '"');
 	name_st = ft_strstr(line, NAME_CMD_STRING);
@@ -89,7 +90,8 @@ int				get_prog_name(char *line, int *flag, t_header *head)
 		sub_progname_lines(line, flag, head, end);
 	}
 	else if (is_name_line(line) && st != end)
-		progname_oneln(st, end, flag, head);
+		ft_strchr(st + 1, '"') != end ? exit(error_msg("Error .name line\n")) \
+									: progname_oneln(st, end, flag, head);
 	else if (is_name_line(line) && st == end)
 		progname_multiln(st, flag, head);
 	if (ft_strlen(head->prog_name) > PROG_NAME_LENGTH)
